@@ -1,0 +1,22 @@
+\section*{Chapter 7 - Operators on Inner Product Spaces}
+
+\subsection*{Section 7A - Self-Adjoint and Normal Operators}
+
+\subsubsection*{Exercise 1}
+
+Suppose $n$ is a positive integer.
+Define $T \in \mathcal{L}(\mathbb{F}^n)$ by $T(x_1, x_2, ..., x_n) = (0, x_1, ..., x_{n-1})$.
+Find a formula for $T^*(x_1, x_2, ..., x_n)$.
+
+\subsubsection*{Solution}
+
+Take $T^*(y_1, y_2, ..., y_n) = (y_2, y_3, ..., y_n, 0)$, then
+\begin{equation*}
+    \begin{split}
+        \langle T(x_1, x_2, ..., x_n), (y_1, y_2, ..., y_n) \rangle
+            &= \langle (0, x_1, x_2, ..., x_{n-1}), (y_1, y_2, ..., y_n) \rangle \\
+            &= x_1 y_2 + x_2 y_3 + ... + x_{n-1} y_n \\
+            &= \langle (x_1, x_2, ..., x_n), (y_2, y_3, ..., y_{n-1}, 0) \rangle \\
+            &= \langle (x_1, x_2, ..., x_n), T^*(y_1, y_2, ..., y_n) \rangle.
+    \end{split}
+\end{equation*}
