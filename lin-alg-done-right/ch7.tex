@@ -20,3 +20,26 @@ Take $T^*(y_1, y_2, ..., y_n) = (y_2, y_3, ..., y_n, 0)$, then
             &= \langle (x_1, x_2, ..., x_n), T^*(y_1, y_2, ..., y_n) \rangle.
     \end{split}
 \end{equation*}
+
+
+\subsubsection*{Exercise 2}
+
+Suppose $T \in \mathcal{L}(V, W)$.
+Prove that the following are equivalent
+\begin{enumerate}
+\item $T = 0$,
+\item $T^* = 0$,
+\item $T^* T = 0$,
+\item $T T^* = 0$.
+\end{enumerate}
+
+\subsubsection*{Solution}
+
+Note that $\langle Tv, w\rangle = \langle v, T^*w \rangle$, for all $v, w$.
+In particular $\langle Tv, Tv \rangle = \langle v, T^*Tv \rangle = \langle T^*T v, v \rangle$ and $\langle T^*w, T^*w\rangle = \langle T T^* w, w \rangle$ for all $v \in V$ and $w \in W$.
+If $T = 0$, then $T^*T = 0$ and $TT^* = 0$.
+Conversely if $T^*T = 0$ or $TT^* = 0$, then, using the first equation, $\langle Tv, Tv \rangle = 0$, hence $Tv = 0$ for all $v \in V$.
+Therefore, $T = 0$.
+If $T^* = 0$, then $T^*T = 0$ and $TT^* = 0$.
+Conversely if $T^*T = 0$ or $TT^* = 0$, then, using the second equation, $\langle T^*v, T^*v \rangle = 0$, hence $T^*v = 0$ for all $v \in V$.
+Therefore, $T^* = 0$.
