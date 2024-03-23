@@ -55,3 +55,19 @@ Prove that $\lambda$ is an eigenvalue of $T$ if and only if $\overline{\lambda}$
 
 Note that from the previous exercise $T - \lambda I = 0$ if and only if $T^* - \overline{\lambda} I = (T - \lambda I)^* = 0$.
 Which gives the result.
+
+
+\subsubsection*{Exercise 4}
+
+Suppose $T \in \mathcal{L}(V)$ and $U$ a subspace of $V$.
+Show that $U$ is invariant under $T$ if and only if $U^{\perp}$ is invariant under $T^*$.
+
+\subsubsection*{Solution}
+
+\begin{itemize}
+    \item[$\rightarrow)$] Let $v \in U^{\perp}$, so for all $u \in U$ we have $\langle u, v \rangle = 0$.
+        We have, for all $v$, $\langle u, T^*v\rangle = \langle Tu, v\rangle = 0$, because $Tu \in U$, so $T^*u \in U^{\perp}$.
+    \item[$\leftarrow)$] Let $u \in U$.
+        For all $v \in U^{\perp}$, we have $\langle Tu, v \rangle = \langle u, T^*v \rangle = 0$, because $T^*v \in U^{\perp}$.
+        Therefore $Tu \in (U^{\perp})^{\perp} = U$.
+\end{itemize}
