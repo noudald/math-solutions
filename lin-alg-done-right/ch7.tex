@@ -71,3 +71,38 @@ Show that $U$ is invariant under $T$ if and only if $U^{\perp}$ is invariant und
         For all $v \in U^{\perp}$, we have $\langle Tu, v \rangle = \langle u, T^*v \rangle = 0$, because $T^*v \in U^{\perp}$.
         Therefore $Tu \in (U^{\perp})^{\perp} = U$.
 \end{itemize}
+
+
+\subsubsection*{Exercise 5}
+
+Suppose $T \in \mathcal{L}(V, W)$.
+Suppose $e_1, e_2, ..., e_n$ is an orthonormal basis of $V$ and $f_1, f_2, ..., f_m$ is an orthonormal basis of $W$.
+Prove that
+\begin{equation*}
+    ||Te_1||^2 + ... + ||Te_n||^2 = ||T^*f_1||^2 + ... + ||T^*f_m||^2.
+\end{equation*}
+
+\subsubsection*{Solution}
+
+Because $\{e_i\}$ and $\{f_j\}$ are orthonormal basis we can write
+\begin{equation*}
+    Te_i = \langle Te_i, f_1 \rangle f_1 + ... + \langle Te_i, f_m \rangle f_m = \sum_{j=1}^m \langle Te_i, f_j \rangle f_j,
+\end{equation*}
+and
+\begin{equation*}
+    T^*f_j = \langle T^*f_j, e_1 \rangle e_1 + ... + \langle T^*f_j, e_n \rangle = \sum_{i=1}^n \langle T^*f_j, e_i \rangle e_i.
+\end{equation*}
+We have
+\begin{equation*}
+    \begin{split}
+        ||Te_1||^2 + ... + ||Te_n||^2
+            &= \sum_{i=1}^n \langle Te_i, Te_i \rangle \\
+            &= \sum_{i=1}^n \langle \sum_{j=1}^m \langle Te_i, f_j \rangle f_j, Te_i \rangle \\
+            &= \sum_{i=1}^n \sum_{j=1}^m \langle Te_i, f_j \rangle \langle f_j, Te_i \rangle \\
+            &= \sum_{j=1}^m \sum_{i=1}^n \langle e_i, T^*f_j \rangle \langle T^*f_j, e_i \rangle \\
+            &= \sum_{j=1}^m \sum_{i=1}^n \langle T^*f_j, e_i \rangle \langle e_i, T^*f_j \rangle \\
+            &= \sum_{j=1}^m \langle \sum_{i=1}^n \langle T^*f_j, e_i \rangle e_i, T^*f_j \rangle \\
+            &= \sum_{j=1}^m \langle T^*f_j, T^*f_j \rangle
+            = ||T^*f_1||^2 + ... + ||T^*f_m||^2.
+    \end{split}
+\end{equation*}
