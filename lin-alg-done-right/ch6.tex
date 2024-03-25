@@ -1,0 +1,46 @@
+\section*{Chapter 6 - Inner Product Spaces}
+
+\subsection*{Section 6C - Orthogonal Complements and Minimization Problems}
+
+\subsubsection*{Exercise 6C.10}
+
+Suppose $V$ is finite dimensional and $P \in \mathcal{L}(V)$ is such that $P^2 = P$ and $||Pv|| \leq ||v||$ for every $v \in V$.
+Prove that there exists a subspace $U$ of $V$ such that $P = P_U$.
+
+\subsubsection*{Solution}
+
+The exercise statement is confusing, because the condition $||Pv|| \leq ||v||$ is not required.
+I think the author ment to show that $P$ is an orthogonal projection, i.e., there exists a subspace $U$ of $V$ such that $P = P_U$ and for each $v \in V$ we can write $v = u + w$, where $u \in U$ and $w \in U^{\perp}$.
+
+Take $U = \mathrm{range}(P)$.
+As $P^2 = P$ we have that $P(I-P)v = Pv - P^2v = Pv - Pv = 0$, so $(I - P)v \in \mathrm{null}(P)$.
+Therefore, we can write every $v \in V$ as $v = Pv + (v - Pv) = Pv + (I - P)v \in \mathrm{range}(P) + \mathrm{null}(P)$.
+Let $v \in \mathrm{range}(P) \cap \mathrm{null}(P)$.
+There exists a $w \in V$ such that $Pw = v$.
+For $w$ we have $w = P^2 w = Pv = 0$, so $v = Pw = P0 = 0$.
+We have shown that $V = \mathrm{range}(P) \oplus \mathrm{null}(P)$.
+Now, each $v \in V$ can be writen as $v = u + Pw$, where $u \in \mathrm{null}(P)$ and $w \in V$.
+Therefore, we have $Pv = Pu + P^2w = Pw = P_{U}v$.
+
+What's left to show is that $U^{\perp} = \mathrm{range}(P)^{\perp} = \mathrm{null}(P)$.
+Suppose the opposite, i.e., $\mathrm{range}(P)^{\perp} \neq \mathrm{null}(P)$.
+% Taking the orthogonal complement on both sides we have $\mathrm{range}(P) \neq \mathrm{null}(P)^{\perp}$.
+Hence, there exists $u \in \mathrm{null}(P)$ and $v \in \mathrm{range}(P)$ such that $\langle u, v \rangle \neq 0$.
+Define $w = v - \frac{\langle u, v \rangle}{\langle u, u \rangle} u$.
+Because $v \in \mathrm{range}(P)$, there is a $y \in V$ such that $v = Py$ and $Pv = P^2y = Py = v$.
+We have
+\begin{equation*}
+    \begin{split}
+        ||w||^2 &= \left\langle
+                v - \frac{\langle u, v \rangle}{\langle u, u \rangle},
+                v - \frac{\langle u, v \rangle}{\langle u, u \rangle}
+            \right\rangle \\
+            &= \langle v, v \rangle
+                - \left\langle v, \frac{\langle u, v \rangle}{\langle u, u \rangle} u \right\rangle
+                - \left\langle \frac{\langle u, v \rangle}{\langle u, u \rangle} u, v \right\rangle
+                + \frac{\langle u, v \rangle \overline{\langle u, v \rangle}}{\langle u, u \rangle^2} \langle u, u \rangle \\
+            &= ||v||^2 - \frac{|\langle u, v \rangle|^2}{\langle u, u \rangle} < ||v||^2 = ||Pv||^2 = ||Pw||^2 \leq ||w||^2.
+    \end{split}
+\end{equation*}
+So $||w|| < ||w||$, which is a contradiction.
+Therefore, we have $\mathrm{range}(P)^{\perp} = \mathrm{null}(P)$.
