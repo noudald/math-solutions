@@ -122,3 +122,35 @@ Prove that
 Follows from 7.6.
 $T$ is injective if and only if $\nnull(T) = \{0\} = \range(T^*)^{\perp}$ if and only if $\range(T^*) = V$.
 $T$ is surjective if and only if $\range(T) = V = \nnull(T^*)^{\perp}$ if and only if $\nnull(T^*) = \{0\}$.
+
+
+\subsubsection*{Exercise 7}
+
+Prove that if $T \in \mathcal{L}(V, W)$, then
+\begin{itemize}
+\item[(a)] $\dim(\nnull(T^*)) = \dim(\nnull(T)) + \dim(W) - \dim(V)$.
+\item[(b)] $\dim(\range(T^*)) = \dim(\range(T))$.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+By 7.6 we have $\nnull(T^*) = \range(T)^{\perp}$, so, using 6.51, $\dim(\nnull(T^*)) = \dim(\range(T)^{\perp}) = \dim(W) - \dim(\range(T))$.
+The fundamental theorem of linear maps, 3.21, gives $\dim(\range(T)) = \dim(V) - \dim(\nnull(T))$.
+We get (a) by combining the previous results
+\begin{equation*}
+    \begin{split}
+        \dim(\nnull(T^*)) &= \dim(\range(T)^{\perp}) \\
+            &= \dim(W) - \dim(\range(T))
+            = \dim(\nnull(T)) + \dim(W) - \dim(V).
+    \end{split}
+\end{equation*}
+For (b) we have something similar.
+We have
+\begin{equation*}
+    \begin{split}
+        \dim(\range(T^*)) &= \dim(\nnull(T)^{\perp}) \\
+            &= \dim(V) - \dim(\nnull(T)) \\
+            &= \dim(V) - \dim(V) + \dim(\range(T))
+            = \dim(\range(T)).
+    \end{split}
+\end{equation*}
