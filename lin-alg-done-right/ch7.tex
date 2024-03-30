@@ -154,3 +154,22 @@ We have
             = \dim(\range(T)).
     \end{split}
 \end{equation*}
+
+
+\subsubsection*{Exercise 8}
+
+Suppose $A$ is an $m$-by-$n$ matrix with entries in $\mathbb{F}$.
+Use Exercise 7A.b to prove that the row rank of $A$ equals the column rank of $A$.
+
+\subsubsection*{Solution}
+
+Let $T \in \mathcal{L}(V, W)$ such that $\mathcal{M}(T) = A$.
+We have
+\begin{equation*}
+    \text{column rank } A
+        = \dim(\range(T))
+        = \dim(\range(T^*))
+        = \text{column rank } A^*
+        = \text{row rank } A.
+\end{equation*}
+Exercise 7A.b is used in the second equality, theorem 7.9 is used in the last equality.
