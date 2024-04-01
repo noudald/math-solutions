@@ -183,3 +183,17 @@ Prove that the product of two self-adjoint operators on $V$ is self-adjoint if a
 
 Suppose $(ST)^* = ST$, then $TS = (TS)^{**} = (S^*T^*)^* = (ST)^* = ST$.
 Conversely, if $ST = TS$, then $(ST)^* = T^*S^* = TS = ST$.
+
+
+\subsubsection*{Exercise 10}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $T \in \mathcal{L}(V)$.
+Prove that $T$ is self-adjoint if and only if $\langle Tv, v \rangle = \langle T^*v, v \rangle$, for all $v \in V$.
+
+\subsubsection*{Solution}
+
+If $T$ is self-adjoint, then $\langle Tv, v \rangle = \langle T^*v, v \rangle$, for all $v \in V$.
+Conversely, suppose $\langle Tv, v \rangle = \langle T^*v, v \rangle$, for all $v \in V$.
+Take $S = T^* - T$.
+Note that $\langle Sv, v \rangle = \langle Tv, v \rangle - \langle T^*v, v\rangle = 0$.
+So, by 7.13, $S = 0$, hence $T = T^*$.
