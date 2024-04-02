@@ -197,3 +197,21 @@ Conversely, suppose $\langle Tv, v \rangle = \langle T^*v, v \rangle$, for all $
 Take $S = T^* - T$.
 Note that $\langle Sv, v \rangle = \langle Tv, v \rangle - \langle T^*v, v\rangle = 0$.
 So, by 7.13, $S = 0$, hence $T = T^*$.
+
+
+\subsubsection*{Exercise 11}
+
+Define an operator $S: \mathbb{F}^2 \to \mathbb{F}^2: (x, y) \mapsto (-y, x)$.
+\begin{itemize}
+\item[(a)] Find a formula for $S^*$.
+\item[(b)] Show that $S$ is normal but not self-adjoint.
+\item[(c)] Find all eigenvalues of $S$.
+\end{itemize}
+
+\subsubsection*{Solution}
+The formula for $S^*$ is $S^*(x, y) = (y, -x)$.
+Note that $SS^*(x, y) = (x, y)$ and $S^*S(x, y) = (x, y)$, so $S^*S = I = SS^*$, hence $S$ is normal but not self-adjoint.
+To find all the eigenvalues of $S$ solve the equation $S(x, y) = (-y, x) = \lambda(x, y)$.
+Hence $\lambda x = -y$ and $\lambda y = x$.
+So $x = \lambda y = -\lambda^2 x$, hence $\lambda^2 = 1$ or $\lambda = \pm i$ if $\mathbb{F} = \mathbb{C}$.
+For $\mathbb{F} = \mathbb{R}$ there are no eigenvalues of $S$.
