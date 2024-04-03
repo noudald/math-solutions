@@ -215,3 +215,43 @@ To find all the eigenvalues of $S$ solve the equation $S(x, y) = (-y, x) = \lamb
 Hence $\lambda x = -y$ and $\lambda y = x$.
 So $x = \lambda y = -\lambda^2 x$, hence $\lambda^2 = 1$ or $\lambda = \pm i$ if $\mathbb{F} = \mathbb{C}$.
 For $\mathbb{F} = \mathbb{R}$ there are no eigenvalues of $S$.
+
+
+\subsubsection*{Exercise 12}
+
+An operator $B \in \mathcal{L}(V)$ is called skew if $B^* = -B$.
+Suppose that $T \in \mathcal{L}(V)$.
+Prove that $T$ is normal if and only if there exists commuting operators $A$ and $B$ such that $A$ is self-adjoint, $B$ is a skew operator, and $T = A + B$.
+
+\subsubsection*{Solution}
+
+If $T = A + B$, then
+\begin{equation*}
+    TT^* = (A + B)(A^* - B)
+        = AA^* - AB + BA^* - B^2
+        = A^2 - B^2,
+\end{equation*}
+and
+\begin{equation*}
+    T^*T = (A^* - B)(A + B)
+        = A^*A + A^*B - BA - B^2
+        = A^2 - B^2.
+\end{equation*}
+We see that $T$ is normal.
+Conversely, suppose $T$ is normal.
+Take $A = \frac{1}{2}(T + T^*)$ and $B = \frac{1}{2}(T - T^*)$.
+Clearly, we have $A$ is self-adjoint, $B$ is skew, and $T = A + B$.
+We check that $A$ and $B$ commute.
+\begin{equation*}
+    AB = \frac{1}{4}(T + T^*)*(T - T^*)
+        = \frac{1}{4}(T^2 + T^*T - TT^* - (T^*)^2)
+        = \frac{1}{4}(T^2 - (T^*)^2),
+\end{equation*}
+and
+\begin{equation*}
+    BA = \frac{1}{4}(T - T^*)(T + T^*)
+        = \frac{1}{4}(T^2 + TT^* - T^*T - (T^*)^2)
+        = \frac{1}{4}(T^2 - (T^*)^2).
+\end{equation*}
+So $AB = BA$.
+Which yield the result we have to show.
