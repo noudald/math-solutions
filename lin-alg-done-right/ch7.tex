@@ -255,3 +255,23 @@ and
 \end{equation*}
 So $AB = BA$.
 Which yield the result we have to show.
+
+
+\subsubsection*{Exercise 13}
+
+Suppose $\mathbb{F} = \mathbb{R}$.
+Define $\mathcal{A} \in \mathcal{L}(\mathcal{L}(V))$ by $\mathcal{A}T = T^*$ for all $T \in \mathcal{L}(V)$.
+\begin{itemize}
+    \item[(a)] Find all eigenvalues of $\mathcal{A}$.
+    \item[(b)] Find the minimal polynomial of $\mathcal{A}$.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+\begin{itemize}
+    \item[(a)] We must have $\mathcal{A}(T) = T^* = \lambda T$.
+        Taking the adjoint on both sides, $T = (T^*)^* = \overline{\lambda} T^* = |\lambda|^2 T$.
+        As $\mathbb{F} = \mathbb{R}$, we must have $\lambda = \pm 1$ as eigenvalues.
+    \item[(b)] Note $\mathcal{A}^2(T) = \mathcal{A}(T^*) = (T^*)^* = T$, so the minimal polynomial is a multiple of $p(x) = x^2 - 1$.
+        From (a) we know that $\mathcal{A}$ has two eigenvalues, so $p(x)$ must be the minimal polynomial of $\mathcal{A}$.
+\end{itemize}
