@@ -275,3 +275,43 @@ Define $\mathcal{A} \in \mathcal{L}(\mathcal{L}(V))$ by $\mathcal{A}T = T^*$ for
     \item[(b)] Note $\mathcal{A}^2(T) = \mathcal{A}(T^*) = (T^*)^* = T$, so the minimal polynomial is a multiple of $p(x) = x^2 - 1$.
         From (a) we know that $\mathcal{A}$ has two eigenvalues, so $p(x)$ must be the minimal polynomial of $\mathcal{A}$.
 \end{itemize}
+
+
+\subsubsection*{Exercise 14}
+
+Define an inner product on $\mathcal{P}_2(\mathbb{R})$ by $\langle p, q \rangle = \int_0^1 p(x) q(x) dx$.
+Define an operator $T \in \mathcal{L}(\mathcal{P}_2(\mathbb{R}))$ by $T(ax^2 + bx + c) = bx$.
+\begin{itemize}
+    \item[(a)] Show that with this inner product, the operator $T$ is not self-adjoint.
+    \item[(b)] The matrix of $T$ with respoect to the basis $1, x, x^2$ is
+        \begin{equation*}
+            \begin{pmatrix}
+                0 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 0
+            \end{pmatrix}
+        \end{equation*}
+        This matrix equals its conjugate transpose, even though $T$ is not self-adjoint.
+        Explain why this is not a contradiction.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+\begin{itemize}
+    \item[(a)] Take $p(x) = a_1 x^2 + b_1 x + c_1$ and $q(x) = a_2 x^2 + b_2 x + c_2$.
+        If $T$ is self-adjoint, we should have $\langle Tp, q \rangle = \langle p, T^*q \rangle = \langle p, Tq \rangle$.
+        We calculate
+        \begin{equation*}
+            \begin{split}
+                \langle Tp, q \rangle
+                    &= \int_0^1 Tp(x) q(x) dx
+                    = \frac{1}{4} b_1 a_2 + \frac{1}{3} b_1 b_2 + \frac{1}{2} b_1 c_2, \\
+                \langle p, Tq \rangle
+                    &= \int_0^1 p(x) Tq(x) dx
+                    = \frac{1}{4} a_1 b_2 + \frac{1}{3} b_1 b_2 + \frac{1}{2} c_1 b_2.
+            \end{split}
+        \end{equation*}
+        So, in general, $\langle Tp, q \rangle \neq \langle p, Tq \rangle$.
+    \item[(b)] For Theorem 7.9 to hold the basis in which the matrix is expressed needs to be orthonormal.
+        The basis $\{1, x, x^2\}$ is not orthonormal.
+\end{itemize}
