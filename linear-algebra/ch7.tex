@@ -315,3 +315,18 @@ Define an operator $T \in \mathcal{L}(\mathcal{P}_2(\mathbb{R}))$ by $T(ax^2 + b
     \item[(b)] For Theorem 7.9 to hold the basis in which the matrix is expressed needs to be orthonormal.
         The basis $\{1, x, x^2\}$ is not orthonormal.
 \end{itemize}
+
+
+\subsubsection*{Exercise 15}
+
+Suppose $T \in \mathcal{L}(V)$ is invertible. Prove that
+\begin{itemize}
+\item[(a)] $T$ is self adjoint if and only if $T^{-1}$ is self-adjoint.
+\item[(b)] $T$ is normal if and only if $T^{-1}$ is normal.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+We have $T = T^*$ if and only if $T^{-1} = (T^*)^{-1} = (T^{-1})^*$, by 7.5.f, which gives (a) immediately.
+For (b) note that, it $T^{-1}$ is normal, $TT^* = ((T^*)^{-1}T^{-1})^{-1} = (T^{-1}(T^*)^{-1})^{-1} = T^*T$.
+Conversely, substitute $T \leftarrow T^{-1}$ to get that if $T$ is normal than $T^{-1}$ is normal.
