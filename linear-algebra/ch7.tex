@@ -330,3 +330,21 @@ Suppose $T \in \mathcal{L}(V)$ is invertible. Prove that
 We have $T = T^*$ if and only if $T^{-1} = (T^*)^{-1} = (T^{-1})^*$, by 7.5.f, which gives (a) immediately.
 For (b) note that, it $T^{-1}$ is normal, $TT^* = ((T^*)^{-1}T^{-1})^{-1} = (T^{-1}(T^*)^{-1})^{-1} = T^*T$.
 Conversely, substitute $T \leftarrow T^{-1}$ to get that if $T$ is normal than $T^{-1}$ is normal.
+
+
+\subsubsection*{Exercise 16}
+
+Suppose $\mathbb{F} = \mathbb{R}$.
+\begin{itemize}
+\item[(a)] Show that the set of self-adjoint operators on $V$ is a subspace of $\mathcal{L}(V)$.
+\item[(b)] What is the dimension of the subspace of $\mathcal{L}(V)$ in (a)?
+\end{itemize}
+
+\subsubsection*{Solution}
+
+Let $U = \{ T \in \mathcal{L}(V) : T^* = T \}$.
+Let $S, T \in U$ and $\mu, \lambda \in \mathcal{F}$.
+We have $(\mu S + \lambda T)^* = \mu S^* + \lambda T^* = \mu S + \lambda T$, so $\mu S + \lambda T \in U$.
+Clearly $0 \in U$, so $U$ is a subspace of $\mathcal{L}(V)$.
+A basis for $U$ is given by $\{e_{ij} + e_{ji}\}_{i \geq j}$.
+Therefore, the dimension of $U$ is $\frac{1}{2}n(n+1)$.
