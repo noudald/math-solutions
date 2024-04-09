@@ -58,6 +58,30 @@ uint32_t bi_is_valid(BigInt * bi) {
 }
 
 
+BigIntResult bi_alloc_digits(BigInt * bi, uint32_t num_of_digits) {
+    if (!bi_is_valid(bi)) {
+        return (BigIntResult) {
+            .result = 1,
+            .msg = "Cannot convert allocate digits to BigInt because BigInt is not valid.",
+        };
+    }
+
+    bi->digits = realloc(bi->digits, num_of_digits * sizeof(uint32_t));
+    if (bi->digits == NULL) {
+        bi->valid = 1;
+        return (BigIntResult) {
+            .result = 3,
+            .msg = "Could not allocate enough memory to assign BigInt.",
+        };
+    }
+
+    return (BigIntResult) {
+        .result = 0,
+        .msg = "Successfully allocated digits for BigInt.",
+    };
+}
+
+
 BigIntResult bi_from_str(BigInt *bi, char *str) {
     uint32_t num_of_digits = strlen(str);
 
@@ -77,7 +101,50 @@ BigIntResult bi_from_str(BigInt *bi, char *str) {
         bi->sign = 0;
     }
 
-    bi->digits = realloc(bi->digits, num_of_digits * sizeof(uint32_t));
+    BigIntResult bi_result = bi_alloc_digits(bi, num_of_digits);
+    if (bi_result.result) {
+        return bi_result;
+    }
+
+    for (uint32_t i = 0; i < num_of_digits; i++) {
+        bi->digits[i] = (uint32_t) (str[num_of_digits + offset - i - 1] - '0');
+    }
+    bi->ndigits = num_of_digits;
+
+    return (BigIntResult){
+        .result = 0,
+        .msg = "Successfully converted string to BigInt.",
+    };
+}
+
+
+uint32_t num_of_digits(uint32_t n) {
+    uint32_t comp = 10, i = 1;
+    while (comp < n) {
+        i++;
+        comp *= 10;
+    }
+    return i;
+}
+
+
+BigIntResult bi_from_int32(BigInt *bi, int32_t n) {
+    if (!bi_is_valid(bi)) {
+        return (BigIntResult) {
+            .result = 1,
+            .msg = "Cannot convert int32 to BigInt because BigInt is not valid.",
+        };
+    }
+
+    if (n > 0) {
+        bi->sign = 0;
+    } else {
+        bi->sign = 1;
+        n = -n;
+    }
+    bi->ndigits = num_of_digits((uint32_t)n);
+
+    bi->digits = realloc(bi->digits, bi->ndigits * sizeof(uint32_t));
     if (bi->digits == NULL) {
         bi->valid = 1;
         return (BigIntResult) {
