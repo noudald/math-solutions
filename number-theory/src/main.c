@@ -49,6 +49,15 @@ BigIntResult bi_init(BigInt * bi) {
 }
 
 
+uint32_t bi_is_valid(BigInt * bi) {
+    if (bi->valid) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+
 BigIntResult bi_from_str(BigInt *bi, char *str) {
     uint32_t num_of_digits = strlen(str);
 
