@@ -153,14 +153,52 @@ BigIntResult bi_from_int32(BigInt *bi, int32_t n) {
         };
     }
 
-    for (uint32_t i = 0; i < num_of_digits; i++) {
-        bi->digits[i] = (uint32_t) (str[num_of_digits + offset - i - 1] - '0');
+    uint32_t i = 0;
+    while (n > 0) {
+        bi->digits[i] = (uint32_t)(n % 10);
+        n /= 10;
+        i++;
     }
-    bi->ndigits = num_of_digits;
 
     return (BigIntResult){
         .result = 0,
-        .msg = "Successfully converted string to BigInt.",
+        .msg = "Successfully converted int32_t to BigInt.",
+    };
+
+}
+
+
+// bi1 + bi2 = bi3
+BigIntResult bi_addition(BigInt * bi1, BigInt * bi2, BigInt * bi3) {
+    // Step 1: Test if BigInt's are valid.
+
+    // Step 2: Check if signs are equal. Otherwise do substraction.
+
+    // Step 3: Calculate how much space to allocate.
+    uint32_t s1 = bi1->ndigits;
+    uint32_t s2 = bi2->ndigits;
+    uint32_t s3 = s1 > s2 ? s1 + 1 : s2 + 1;
+
+    BigIntResult bi3_result = bi_alloc_digits(bi3, s3);
+
+    // Step 4: Actual addition.
+    uint32_t num_of_digits = 0;
+    uint32_t remainder = 0;
+    for (uint32_t i = 0; i < s3; i++) {
+        if (i < s1 && i < s2) {
+            bi3->digits[i] = bi1->digits[i] + bi2->digits[i] + remainder;
+        }
+
+        if (bi3->digits[i] > 9) {
+            remainder = bi3->digits[i] / 10;
+            bi3->digits[i] = bi3->digits[i] % 10;
+        }
+    }
+
+
+    return (BigIntResult) {
+        .result = 0,
+        .msg = "Successfully added two BigInt's together.",
     };
 }
 
@@ -218,7 +256,7 @@ int main(void) {
     BigInt bi2;
 
     bi_init(&bi2);
-    bi_from_str(&bi2, "1234567890");
+    bi_from_int32(&bi2, 1234567890);
     bi_print(&bi2);
 
     bi_free(&bi1);
