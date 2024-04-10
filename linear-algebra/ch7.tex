@@ -368,3 +368,23 @@ Show that the set of normal operators on $V$ is not a subspace of $\mathcal{L}(V
 \subsubsection*{Solution}
 
 TODO
+
+
+\subsubsection*{Exercise 19}
+
+Suppose $T \in \mathcal{L}(V)$ and $||T^*v|| \leq ||Tv||$ for every $v \in V$.
+Prove that $T$ is normal.
+
+\subsubsection*{Solution}
+
+If $v \in \nnull(T)$ then $||T^*v|| \leq ||Tv|| = 0$, so $||T^*v|| = 0$, hence $\nnull(T^*) \subseteq \nnull(T)$.
+Since $V$ is finite dimensional, using 6.49, $V = \range(T) \oplus (\range(T))^{\perp}$.
+We have
+\begin{equation*}
+    V = \range(T) \oplus \range(T)^{\perp}
+        = \range(T) \oplus \nnull(T^*)
+        \subseteq \range(T) \oplus \nnull(T)
+        \subseteq V
+\end{equation*}
+Hence, $\nnull(T^*) = \nnull(T)$.
+From 7.21 it follows that $T$ is normal.
