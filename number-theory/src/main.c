@@ -170,9 +170,18 @@ BigIntResult bi_from_int32(BigInt *bi, int32_t n) {
 
 // bi1 + bi2 = bi3
 BigIntResult bi_addition(BigInt * bi1, BigInt * bi2, BigInt * bi3) {
-    // Step 1: Test if BigInt's are valid.
+    // Step 1: Test if BigInts are valid.
+    if (!bi_is_valid(bi1) || !bi_is_valid(bi2) || !bi_is_valid(bi3)) {
+        return (BigIntResult) {
+            .result = 1,
+            .msg = "One or more BigInts are invalid.",
+        };
+    }
 
     // Step 2: Check if signs are equal. Otherwise do substraction.
+    if (bi1->sign != bi2->sign) {
+        // TODO: Do substraction.
+    }
 
     // Step 3: Calculate how much space to allocate.
     uint32_t s1 = bi1->ndigits;
@@ -187,14 +196,28 @@ BigIntResult bi_addition(BigInt * bi1, BigInt * bi2, BigInt * bi3) {
     for (uint32_t i = 0; i < s3; i++) {
         if (i < s1 && i < s2) {
             bi3->digits[i] = bi1->digits[i] + bi2->digits[i] + remainder;
+        } else if (i < s1) {
+            bi3->digits[i] = bi1->digits[i] + remainder;
+        } else if (i < s2) {
+            bi3->digits[i] = bi2->digits[i] + remainder;
+        } else if (0 < remainder) {
+            bi3->digits[i] = remainder;
+        } else {
+            break;
         }
 
         if (bi3->digits[i] > 9) {
             remainder = bi3->digits[i] / 10;
             bi3->digits[i] = bi3->digits[i] % 10;
+        } else {
+            remainder = 0;
         }
+
+        num_of_digits++;
     }
 
+    bi3->sign = bi1->sign;
+    bi3->ndigits = num_of_digits;
 
     return (BigIntResult) {
         .result = 0,
@@ -246,6 +269,30 @@ BigIntResult bi_free(BigInt *bi) {
 }
 
 
+uint32_t test_addition() {
+    BigInt bi1, bi2, bi3;
+
+    bi_init(&bi1);
+    bi_init(&bi2);
+    bi_init(&bi3);
+
+    //bi_from_int32(&bi1, 12);
+    //bi_from_int32(&bi2, 234);
+    //bi_from_int32(&bi1, 8);
+    //bi_from_int32(&bi2, 3);
+    //bi_from_int32(&bi1, -8);
+    //bi_from_int32(&bi2, -3);
+    bi_from_int32(&bi1, 8);
+    bi_from_int32(&bi2, 33);
+    bi_addition(&bi1, &bi2, &bi3);
+    bi_print(&bi3);
+
+    bi_free(&bi1);
+    bi_free(&bi2);
+    bi_free(&bi3);
+}
+
+
 int main(void) {
     BigInt bi1;
 
@@ -261,6 +308,8 @@ int main(void) {
 
     bi_free(&bi1);
     bi_free(&bi2);
+
+    test_addition();
 
     return 0;
 }
