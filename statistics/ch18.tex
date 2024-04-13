@@ -1,0 +1,103 @@
+\section*{Chapter 18 - Undirected Graphs}
+
+\subsection*{Solution 18.1}
+
+\begin{itemize}
+    \item[(a)]
+        Relation $X_1 \bot X_3 | X_2$ is translated to
+        \begin{figure}[!h]
+            \centering
+            \tikz \graph {
+                "$X_1$" -- "$X_2$" -- "$X_3$"
+            };
+        \end{figure}
+    \item[(b)]
+        Relations $X_1 \bot X_2 | X_3$ and $X_1 \bot X_3 | X_2$ translate to
+        \begin{figure}[!h]
+            \centering
+            \tikz \graph {
+                "$X_1$" -!- "$X_2$" -- "$X_3$"
+            };
+        \end{figure}
+    \item[(c)]
+        Relations $X_1 \bot X_2 | X_3$, $X_1 \bot X_3 | X_2$ and $X_2 \bot X_3 | X_1$ translate to
+        \begin{figure}[!h]
+            \centering
+            \tikz \graph {
+                "$X_1$" -!- "$X_2$" -!- "$X_3$"
+            };
+        \end{figure}
+\end{itemize}
+
+
+\subsection*{Solution 18.2}
+
+\begin{itemize}
+    \item[(a)]
+        Relations $X_1 \bot X_3 | X_2, X_4$, $X_1 \bot X_4 | X_2, X_3$, and $X_2 \bot X_4 | X_1, X_3$ translate to
+        \begin{figure}[h!]
+            \centering
+            \tikz \graph {
+                "$X_1$" -- "$X_2$" -- "$X_3$" -- "$X_4$"
+            };
+        \end{figure}
+    \item[(b)]
+        Relations $X_1 \bot X_2 | X_3, X_4$, $X_1 \bot X_3 | X_2, X_4$, and $X_2 \bot X_3 | X_1, X_4$ translate to
+        \begin{figure}[h!]
+            \centering
+            \tikz \graph {
+                {"$X_1$", "$X_2$", "$X_3$"} -- "$X_4$"
+            };
+        \end{figure}
+    \item[(c)]
+        Relations $X_1 \bot X_3 | X_2, X_4$ and $X_2 \bot X_4 | X_1, X_3$ translate to
+        % Figure doesn't work for this one... don't really like figures.
+        \tikz \graph {
+            "$X_1$" -- {"$X_2$", "$X_4$"} -- "$X_3$"
+        };
+\end{itemize}
+
+
+\subsection*{Solution 18.3}
+
+\begin{itemize}
+    \item[(a)] $\{X_2\}$.
+    \item[(b)] $\{X_2, X_3\}$.
+    \item[(c)] $\{X_1, X_2, X_3, X_4\}$.
+    \item[(d)] $\{X_2, X_3, X_5\}$
+\end{itemize}
+
+
+\subsection*{Solution 18.4}
+
+Let $X_1, X_2$ and $X_3$ be discrete random variables.
+We want to test null-hypothesis $H_0: X_1 \bot X_2 | X_3$ against $H_1: X_1 \propto X_2 | X_3$.
+Note that if we fix $X_3 = k$, we can test $H_0^{k}: X_1 \bot X_2 | X_3 = k$ against $H_1^{k}: X_1 \propto X_2 | X_3 = k$ using the log likelihood ratio test,
+\begin{equation*}
+    T_k = 2 \sum_{i, j} X_{ijk} \log\left(\frac{X_{ijk} X_{\_\_k}}{X_{i\_k} X_{j\_k}}\right).
+\end{equation*}
+For each $k$ we get a p-value $p_k = P(\chi^2_{(I-1)(J-1) + 1} = T_k)$ for which we can reject $H_0^{k}$.
+Now use Bonferroni method to reject $H_0$ if and only if there is a $k$ such that $p_k \leq \frac{\alpha}{2}$.
+
+
+\subsection*{Solution 18.5}
+
+\begin{itemize}
+    \item[(a)] The sum of all events is $471$.
+        Therefore, the maximum likelihood estimator is each $X_{ijk}$ divided by $471$.
+        Results are roughtly,
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{l||c|c|c|c}
+                $X_1$ & (M, D) & (M, S) & (B, D) & (B, S) \\ \hline \hline
+                B     & 0.07   & 0.12   & 0.10   & 0.24   \\ \hline
+                D     & 0.09   & 0.16   & 0.05   & 0.16   \\ \hline
+            \end{tabular}
+        \end{table}
+    \item[(b)] We have $P(X_3 = D | X_1 = G, X_2 = B) = P(G, B, D) / P(G, B) \approx 0.24$ and $V(\hat{p}) = \frac{1}{n} \hat{p}(1 - \hat{p}) = \frac{1}{26 + 76} 0.24 (1 - 0.24) \approx 0.0018$, so $\hat{\mathrm{se}}(\hat{p}) \approx 0.04$.
+    \item[(c)] We use solution 18.4 to test $H_0: X_i \bot X_j | X_k$ against $H_1: X_i \propto X_j | X_k$.
+        See code.
+        We can reject $X_1 \bot X_2 | X_3$ with a p-value of $0.0195$, $X_1 \bot X_3 | X_2$ with a p-value of $0.7699$, and $X_2 \bot X_3 | X_1$ with a p-value of $0.2095$.
+        Using Bonferroni correction we reject $H_0$ if the p-value is below $0.05 / 3 \approx 0.017$.
+        We conclude that $X_1, X_2$ and $X_3$ cannot be shown to be dependent.
+\end{itemize}

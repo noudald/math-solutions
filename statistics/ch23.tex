@@ -1,0 +1,250 @@
+\section*{Chapter 23 - Probability Redux: Stochastic Processes}
+
+\subsection*{Solution 23.1}
+
+$P(X_0 = 0, X_1 = 1, X_2 = 2) = 0.3 \cdot 0.2 \cdot 0.0 = 0.0$ and $P(X_0 = 0, X_1 = 1, X_2 = 1) = 0.3 \cdot 0.2 \cdot 0.1 = 0.006$.
+
+
+\subsection*{Solution 23.2}
+
+Sequence $X_0, X_1, ...$ is a Markov chain because
+\begin{equation*}
+    P(X_n | X_{n - 1}, ..., X_1) = P(\max(Y_n, X_{n - 1}) | X_{n - 1}, ..., X_1)
+        = P(\max(Y_n, X_{n - 1}) | X_{n - 1})
+        = P(X_n | X_{n - 1}).
+\end{equation*}
+The transition matrix is
+\begin{equation*}
+    P = \begin{pmatrix}
+        0.1 & 0.3 & 0.2 & 0.4 \\
+        0.0 & 0.4 & 0.2 & 0.4 \\
+        0.0 & 0.0 & 0.6 & 0.4 \\
+        0.0 & 0.0 & 0.0 & 1.0
+    \end{pmatrix}.
+\end{equation*}
+
+
+\subsection*{Solution 23.3}
+
+If we take $\pi = \frac{1}{a + b}(b, a)$, then $\pi P = \pi$.
+So the limiting distribution is
+\begin{equation*}
+    \lim_{n \to \infty} P^n = \begin{pmatrix} \pi \\ \pi \end{pmatrix}
+        = \frac{1}{a + b} \begin{pmatrix}
+            b & a \\
+            b & a
+        \end{pmatrix}.
+\end{equation*}
+
+
+\subsection*{Solution 23.4}
+
+See code.
+
+
+\subsection*{Solution 23.5}
+
+\begin{itemize}
+    \item[(a)] We have
+        \begin{equation*}
+            M(n + 1) = E(X_{n + 1})
+                = E\left(\sum_{i = 1}^{X_n} Y_i^{(n)}\right)
+                = E\left(\sum_{i = 1}^{X_n} Y\right)
+                = E(X_n Y)
+                = \mu E(X_n)
+                = \mu M(n).
+        \end{equation*}
+        Variance is more tricky,
+        \begin{equation*}
+            \begin{split}
+                V(n + 1)
+                    &= V(X_{n + 1}) \\
+                    &= E(X_{n + 1}^2) - E(X_{n + 1})^2 \\
+                    &= E\left(\sum_{i = 1}^{X_n} \sum_{j = 1}^{X_n} Y_i^{(n)} Y_j^{(n)}\right) - \mu^2 E M(n)^2 \\
+                    &= E\left(\sum_{i = 1}^{X_n} Y^2 +  \sum_{i \neq j} Y_i^{(n)} Y_j^{(n)}\right) - \mu^2 E M(n)^2 \\
+                    &= E(X_n) E(Y^2) + E(X_n (X_n - 1)) E(Y)^2 - \mu^2 M(n)^2 \\
+                    &= M(n) E(Y^2) + (E(X_n^2) - E(X_n)) E(Y)^2 - \mu^2 M(n)^2 \\
+                    &= M(n) E(Y^2) + (V(X_n) + E(X_n)^2 - E(X_n)) E(Y)^2 - \mu^2 M(n)^2 \\
+                    &= M(n) (V(Y) + E(Y)^2) + (V(n) + M(n)^2 - M(n)) \mu^2 \\
+                    &= \sigma^2 M(n) + \mu^2 V(n).
+            \end{split}
+        \end{equation*}
+    \item[(b)] Follows from induction on $n$.
+        We have $M(0) = 1$ and $V(0) = 0$.
+        Then, $M(n) = \mu M(n - 1) = \mu^n$, and $V(n) = \sigma^2 M(n - 1) + \mu^2 V(n - 1) = \sigma^2 \mu^{n - 1} \frac{1 - \mu^n}{1 - \mu}$.
+    \item[(c)] We have 3 cases.
+        If $\mu > 1$, then $V(n) \to \infty$ as $n \to \infty$.
+        If $\mu = 1$, then $V(n) = n \sigma^2 \to \infty$ as $n \to \infty$.
+        If $\mu < 1$, then $V(n) \to 0$ as $n \to \infty$.
+    \item[(d)] Let $N = \max{n | X_n = 0}$ be the extinction time.
+        Let $F(n) = P(N \leq n)$.
+        We introduce some notation.
+        If $X_1 = k$, i.e., we have $k$ arch animals, let $Z_i^{(n, k)}$ all offspring from arch animal $i$ at time $n$.
+        Note that
+        \begin{equation*}
+            X_n = Z_1^{(n, k)} + Z_2^{(n, k)} + ... + Z_k^{(n, k)},
+        \end{equation*}
+        and $P(Z_i^{(n, k)} = 0) = F(n - 1)$.
+        We have
+        \begin{equation*}
+            \begin{split}
+                F(n) &= P(N \leq n) \\
+                    &= \sum_{k = 0}^{\infty} P(X_n = 0 | X_1 = k) P(X_1 = k) \\
+                    &= \sum_{k = 0}^{\infty} P(X_1 = k) \prod_{i = 1}^k P(Z_i^{(n, k)} = 0)
+                    = \sum_{k = 0}^{\infty} p_k F(n - 1)^k.
+            \end{split}
+        \end{equation*}
+    \item[(e)] We have $F(n) = \frac{1}{4} + \frac{1}{2} F(n - 1) + \frac{1}{4} F(n - 1)^2 = \frac{1}{4}(1 + F(n - 1))^2$.
+        I have no idea how to find a closed expression for this recurrence relation.
+\end{itemize}
+
+
+\subsection*{Solution 23.6}
+
+Calculated with the computer, $\pi \approx (0.11, 0.90, 0.43)$.
+
+
+\subsection*{Solution 23.7}
+
+Let $p_{ij}(m) = P(X_{m + 1} = j | X_m = i)$ and $p_{ji}(n) = P(X_{n + 1} = i | X_n = j)$.
+We have
+\begin{equation*}
+    \sum_{n} p_{jj}(n) \geq \sum_n p_{ji}(n) p_{ii}(n + 1) p_{ij}(n + 2)
+        \geq p_{ji}(a) \left( \sum_n p_{ii}(n + 1) \right) p_{ij}(b)
+        \to \infty,
+\end{equation*}
+for some $a, b$, when $n \to \infty$.
+So $j$ is recurrent.
+
+
+\subsection*{Solution 23.8}
+
+Recurrent: 3, 5, 6.
+Transient: 1, 2, 4.
+
+
+\subsection*{Solution 23.9}
+
+We have $\pi = (\frac{1}{2}, \frac{1}{2})$ as stationary distribution.
+The book isn't clear what they mean exactly with convergence.
+Probably, this exercise wants to show that this chain doesn't converge (it's flipping between position 1 and 2), but does have a stationary distribution.
+
+
+\subsection*{Solution 23.10}
+
+Let $\pi = (a, b, c, d, e)$.
+Solving $\pi P = \pi$ we find $\pi = a (1, p, p^2, p^3, p^4)$.
+We need $\sum \pi_i = 1$, so $a = \frac{1 - p}{1 - p^5}$.
+We get
+\begin{equation*}
+    \pi = \left(
+        \frac{1 - p}{1 - p^5},
+        p \frac{1 - p}{1 - p^5},
+        p^2 \frac{1 - p}{1 - p^5},
+        p^3 \frac{1 - p}{1 - p^5},
+        p^4 \frac{1 - p}{1 - p^5}
+    \right)
+\end{equation*}
+
+
+\subsection*{Solution 23.11}
+
+Note that in particular $X(t) \sim \mathrm{Poisson}(\Lambda(t))$.
+So
+\begin{equation*}
+    Y(s) = X(\Lambda^{-1}(s)) \sim \mathrm{Poisson}(\Lambda(\Lambda^{-1}(s))) = \mathrm{Poisson}(s).
+\end{equation*}
+
+
+\subsection*{Solution 23.12}
+
+We have
+\begin{equation*}
+    \begin{split}
+        P(X(t) = m | X(t + s) = n)
+            &= \frac{P(X(t) = m, X(t + s) - X(t) = n - m)}{P(X(t + s) = n)} \\
+            &\propto P(X(t) = m)P(X(t + s) - X(t) = n - m) \\
+            &\propto \frac{n!}{m!(n - m)!} t^m s^{n - m} \frac{1}{(s + t)^n} \\
+            &= \binom{n}{m} \left(\frac{t}{s + t}\right)^m \left(\frac{s}{s + t}\right)^{n - m}
+            \sim \mathrm{Binomial}\left(n, \frac{t}{s + t}\right).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 23.13}
+
+Note that $X(t) \sim \mathrm{Poisson}(\lambda t)$, so
+\begin{equation*}
+    \begin{split}
+        P(X(t) = 1, 3, 5, ...)
+            &= \sum_{x = 1, 3, 5, ...} P(X(t) = x) \\
+            &= \sum_{n = 0}^{\infty} \frac{1}{(2n + 1)!} e^{-\lambda t} (\lambda t)^{2n + 1} \\
+            &= e^{-\lambda t} \sum_{n = 0}^{\infty} \frac{(\lambda t)^{2n + 1}}{(2n + 1)!} \\
+            &= e^{-\lambda t} \sinh(\lambda t)
+            = \frac{1}{2}(1 - e^{-2 \lambda t}).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 23.14}
+
+We take initial condition $X(0) = 0$.
+The time that person $P_i$ spends longer than $s$ time on the server is $P(P_i > s) = 1 - G(s)$.
+If we want to find out how many persons are only at time $t$, we have to count all persons that stayed longer than $t - t_0^{(i)}$, where $t_0^{(i)}$ is the time person $P_i$ logged in.
+Mathematically, with $N_i = X_{i} - X_{i-1}$.
+\begin{equation*}
+    \begin{split}
+        Y(t) &= \sum_{i = 1}^{t} \sum_{j = 1}^{N_i} I(P_{i, j} > t - i),
+    \end{split}
+\end{equation*}
+where
+\begin{equation*}
+    \begin{split}
+        I(P_{i,j} > t - i) &\sim \mathrm{Bernoulli}(1 - G(t - i)), \\
+        \sum_{j = 1}^{N_i} I(P_{i,j} > t - i) &\sim \mathrm{Binomial}(N_i, 1 - G(t - i)), \\
+        N_i &\sim \mathrm{Poisson}(\lambda).
+    \end{split}
+\end{equation*}
+Putting everything together, we find
+\begin{equation*}
+    Y(t) = \sum_{i = 1}^{t} \sum_{j = 1}^{N_i} I(P_{i, j} > t - i)
+        \sim \mathrm{Poisson}\left(\lambda \sum_{i = 1}^{t}(1 - G(t - i))\right).
+\end{equation*}
+
+
+\subsection*{Solution 23.15}
+
+It seems like you need extra restrictions on $f$, but I have no idea how to solve this exercise.
+
+
+\subsection*{Solution 23.16}
+
+For the cumulative distribution function we have
+\begin{equation*}
+    F(t) = 1 - P(X > t)
+        = 1 - \frac{1}{0!} (\lambda \pi t^2)^0 e^{-\lambda \pi t^2}
+        = 1 - e^{-\lambda \pi t^2}.
+\end{equation*}
+Therefore, the probability density function is $f(t) = F'(t) = 2 \lambda \pi t e^{-\lambda \pi t^2}$.
+The expected value is
+\begin{equation*}
+    E(X) = \int_0^{\infty} t f(t) dt
+        = \int_0^{\infty} 2 \lambda \pi t e^{-\lambda \pi t^2} dt
+        = \frac{1}{2 \sqrt{\lambda}}.
+\end{equation*}
+
+The last integral needs some explaination.
+Note that
+\begin{equation*}
+    \int_0^{\infty} x^2 e^{-x^2} dx
+        = \frac{1}{2} \int_0^{\infty} x \cdot 2 x e^{-x^2} dx
+        = \left. -\frac{1}{2} x e^{-x^2} \right|_0^{\infty} + \frac{1}{2} \int_0^{\infty} e^{-x^2} dx
+        = \left. \frac{1}{4} \sqrt{\pi} \mathrm{erf}(x) \right|_0^{\infty}
+        = \frac{1}{4} \sqrt{\pi}.
+\end{equation*}
+And more generally for $A \neq 0$,
+\begin{equation*}
+    \int_0^{\infty} 2 A x^2 e^{-A x^2} dx
+        = \frac{2}{\sqrt{A}} \int_0^{\infty} y^2 e^{-y^2} dy
+        = \frac{1}{2} \sqrt{\frac{\pi}{A}}.
+\end{equation*}

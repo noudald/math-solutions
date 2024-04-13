@@ -1,0 +1,188 @@
+\section*{Chapter 20 - Non-Parametric Curve Estimation}
+
+\subsection*{Solution 20.1}
+
+\begin{itemize}
+    \item[(a)]
+        We have
+        \begin{equation*}
+            E_{X_i}(\hat{f}(x))
+                = \frac{1}{n} \sum_{i = 1}^n \frac{1}{h} \int K\left(\frac{x - y}{h}\right) f(y) dy
+                = \frac{1}{n} \sum_{i = 1}^n \frac{1}{h} \int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy
+                = \frac{1}{h} \int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy.
+        \end{equation*}
+        For calculating the variance note that $E(K(x^2)) = E(K(x))$, so
+        \begin{equation*}
+            \begin{split}
+                V_{X_i}(\hat{f}(x))
+                    &= V_{X_i}\left(\frac{1}{hn} \sum_{i = 1}^n K\left(\frac{x - X_i}{h}\right)\right) \\
+                    &= \frac{1}{h^2 n^2} \sum_{i = 1}^n V\left(K\left(\frac{x - X_i}{h}\right)\right) \\
+                    &= \frac{1}{h^2 n^2} \sum_{i = 1}^n \left[
+                        \int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy
+                        - \left(\int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy \right)^2
+                    \right] \\
+                    &= \frac{1}{h^2 n} \left[
+                        \int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy
+                        - \left(\int_{x - \frac{1}{2}h}^{x + \frac{1}{2}h} f(y) dy \right)^2
+                    \right].
+            \end{split}
+        \end{equation*}
+    \item[(b)] This exercise can only be true if some extra requirements are put on $f$, which are not.
+        As a counter example take $f(x) = 1$ if $1 < x < 2$ or $x = 0$, and $f(x) = 0$ otherwise.
+        Then $\hat{f}_n(0) = 0$, but $f(0) = 1$.
+        So $P(|\hat{f}_n(0) - f(0)| < \epsilon) = 0$ for all $\epsilon < 1$, and not $\hat{f}_n(0) \xrightarrow{P} f(0)$!
+\end{itemize}
+
+
+\subsection*{Solution 20.2}
+
+See code.
+
+
+\subsection*{Solution 20.3}
+
+See code.
+
+
+\subsection*{Solution 20.4}
+
+This is a classical exercise.
+\begin{equation*}
+    \begin{split}
+        R(g, \hat{g}_n)
+            &= E(L(g, \hat{g}_n)) \\
+            &= E\left(\int (g(u) - \hat{g}_n(u))^2 du\right) \\
+            &= \int E((g(u) - \hat{g}_n(u))^2) du \\
+            &= \int E(g(u) - \hat{g}_n(u))^2 + V(g(u) - \hat{g}_n(u)) du \\
+            &= \int E(g(u) - \hat{g}_n(u))^2 du + \int V(\hat{g}_n(u)) du
+            = \int b^2(u) du + \int v(u) du.
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 20.5}
+
+As $x$ is fixed and $x \in B_i$, $\hat{f}(x) = \frac{\hat{p}_i}{h}$.
+So $E(\hat{f}(x)) = E(\hat{p}_i/h) = p_i/h$, as $\hat{p}_i$ is the maximum likelihood estimator of $p_i$.
+For the variance, note that $\hat{p}_i = \nu_i / n$.
+We can write $\nu_i = \sum_{j=1}^n X_j$ where $X_j \sim \mathrm{Bernoulli}(p_i)$.
+Hence $\nu_i \sim \mathrm{Binomial}(n, p_i)$.
+So $V(\hat{f}(x)) = \frac{1}{n^2 h^2} V(\nu_i) = \frac{p_i(1 - p_i)}{n^2 h^2}$.
+
+
+\subsection*{Solution 20.6}
+
+We split the solution into several parts.
+Note that we have
+\begin{equation*}
+    \hat{J}(h) = \int \hat{f}^2(x) dx - \frac{2}{n} \sum_{i = 1}^n \hat{f}_{(-i)}(x_i).
+\end{equation*}
+The first part can be written to
+\begin{equation*}
+    \begin{split}
+        \int \hat{f}^2(x) dx
+            &= \int \sum_{i = 1}^m \sum_{j = 1}^m \frac{\hat{p}_i \hat{p}_j}{h^2} I(x \in B_i \cap B_j) dx \\
+            &= \sum_{i = 1}^m \frac{\hat{p}_i^2}{h^2} \int I(x \in B_i) dx \\
+            &= \frac{1}{h} \sum_{i = 1}^m \hat{p}_i^2.
+    \end{split}
+\end{equation*}
+This gives the first part of the solution.
+For the second part we first calculate
+\begin{equation*}
+    \begin{split}
+        \hat{f}_{(-i)}(x)
+            &= \sum_{j = 1}^m \frac{\hat{p}_{j,(-i)}}{h} I(x \in B_j) \\
+            &= \sum_{j = 1}^m \sum_{k \neq i} \frac{1}{h} \frac{1}{n - 1} I(x_k \in B_j) I(x \in B_j)
+            = \sum_{j = 1}^m \frac{\nu_j - 1}{h(n - 1)} I(x \in B_j)
+    \end{split}
+\end{equation*}
+Now, we have
+\begin{equation*}
+        \sum_{i = 1}^n \hat{f}_{(-i)}(x_i)
+            = \sum_{i = 1}^n \sum_{j = 1}^m \frac{\nu_j - 1}{h(n - 1)} I(x_j \in B_j)
+            = \sum_{j = 1}^m \frac{\nu_j (\nu_j - 1)}{h (n - 1)}.
+\end{equation*}
+Combining the two parts gives
+\begin{equation*}
+    \begin{split}
+        \hat{J}(h) &= \frac{1}{h} \sum_{j = 1}^m \hat{p}_j^2 - \frac{2}{h n (n - 1)} \sum_{j = 1}^m \nu_j(\nu_j - 1) \\
+            &= \frac{1}{h} \sum_{j = 1}^m \left[\frac{\nu_j^2}{h^2} - \frac{2}{n(n-1)} \nu_j(\nu_j - 1)\right] \\
+            &= \frac{1}{h} \sum_{j = 1}^m \left[\frac{2 n \nu_j - (n + 1) \nu_j^2}{n^2 (n - 1)}\right] \\
+            &= \frac{2}{h} \sum_{j = 1}^m \frac{\nu_j}{n(n-1)} - \frac{1}{h} \frac{n + 1}{n - 1} \sum_{j = 1}^m \left(\frac{\nu_j}{n}\right)^2 \\
+            &= \frac{2}{h(n - 1)} \sum_{j = 1}^m \hat{p}_j - \frac{1}{h} \frac{n + 1}{n - 1} \sum_{j = 1}^m \hat{p}_j^2
+            = \frac{2}{h(n - 1)} - \frac{1}{h} \frac{n + 1}{n - 1} \sum_{j = 1}^m \hat{p}_j^2
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 20.7}
+
+I'm going to skip this exercise.
+You can find the proof in Silverman, 1986, paragraph 3.4.3.
+
+
+\subsection*{Solution 20.8}
+
+Let $(x_1, Y_1), (x_2, Y_2), ..., (x_n, Y_n)$ be regression data with $0 \leq x_i \leq 1$.
+We define $\hat{r}_n(x) = \overline{Y}_j$, where $\overline{Y}_j$ is the mean of all $Y_i \in B_j$ and $x \in B_j$.
+
+We want to apply Theorem 20.4.
+Let $A = \int_0^1 r(x) dx$, and define $f(x) = r(x) / A$ and $\hat{f}_n(x) = \hat{r}(x) / A$.
+Note that $f$ is a probability density function, and
+\begin{equation*}
+    \hat{f}_n(x) = \frac{\frac{1}{k} \sum_{Y_i \in B_j} Y_j}{\frac{1}{n} \sum_{i} Y_i}
+        \approx \frac{\nu_j}{nh}
+        = \frac{\hat{p}_j}{h}.
+\end{equation*}
+Now we can apply Theorem 20.4.
+We have
+\begin{equation*}
+    R(\hat{r}_n, r) = E(L(\hat{r}_n, r))
+        = E(L(A \hat{f}_n, A f))
+        = A^2 R(\hat{f}_n, f)
+        \approx \frac{h^2 A^2}{12} \int f'(u)^2 du + \frac{A^2}{nh},
+\end{equation*}
+which minimizes at
+\begin{equation*}
+    h^* = \frac{1}{n^{1/3}} \left( \frac{6 A^2}{\int r'(u)^2 du} \right)^{1/3}.
+\end{equation*}
+
+
+\subsection*{Solution 20.9}
+
+We need assumptions $r \in C^1$ and $r'$ is bounded.
+Note that $Y_i = r(X_i) + \epsilon_i$ and $Y_{i + 1} = r(X_{i + 1}) + \epsilon_{i+1} \approx r(X_i) + hr'(X_i) + \epsilon_{i + 1}$ where $X_{i + 1} = X_i + h$ and $h$ small.
+So $Y_{i + 1} - Y_i \approx hr'(X_i) + \epsilon_{i + 1} - \epsilon_i$.
+When $n \to \infty$ and $h \to 0$, we have
+\begin{equation*}
+    \begin{split}
+        \hat{\sigma}^2 &= \frac{1}{2(n - 1)} \sum_{i = 1}^n (Y_{i + 1} - Y_i)^2 \\
+            &\approx \frac{1}{2(n - 1)} \sum_{i = 1}^n (hr'(X_i) + \epsilon_{i + 1} - \epsilon_i)^2 \\
+            &\to \frac{1}{2(n - 1)} \sum_{i = 1}^n (\epsilon_{i + 1}^2 - 2 \epsilon_i \epsilon_{i + 1} + \epsilon_i^2) \\
+            &= \frac{1}{n - 1} \left(\sum_{i = 2}^n \epsilon_i^2 + \epsilon_1 + \epsilon_{n + 1} - \sum_{i = 1}^n \epsilon_i \epsilon_{i + 1}\right) \\
+            &\approx \frac{1}{n - 1} \left(\sum_{i = 2}^n \epsilon_i^2 - \sum_{i = 1}^n \epsilon_i \epsilon_{i + 1}\right)
+            = \frac{\sigma^2}{n - 1} \left(\sum_{i = 2}^n Z_i^2 - \sum_{i = 1}^n Z_i Z_{i + 1}\right),
+    \end{split}
+\end{equation*}
+where $\epsilon = \sigma Z_i$ and $Z_i \sim \mathrm{Normal}(0, 1)$.
+Note that $E(Z_i Z_{i + 1}) = E(Z_i) E(Z_{i + 1})$, and from Solution 3.12, $E(Z_i^2) = 1$.
+Therefore, $E(\hat{\sigma}^2) = \sigma$.
+
+
+\subsection*{Solution 20.10}
+
+Start with the right hand side
+\begin{equation*}
+    \begin{split}
+        \sum_{i = 1}^n \frac{(Y_i - r(x_i))^2}{(1 - w_i(x_i))^2}
+            &= \sum_{i = 1}^n \left( \frac{Y_i - \sum_{k = 1}^n w_k(x) Y_k}{1 - w_i(x_i)} \right)^2 \\
+            &= \sum_{i = 1}^n \left(Y_i \frac{(1 - w_i(x_i))}{(1 - w_i(x_i))} - \sum_{j = 1, j \neq i}^n \frac{w_j(x_i)}{1 - w_i(x_i)} Y_j\right)^2 \\
+            &= \sum_{i = 1}^n \left(Y_i - \sum_{j = 1, j \neq i}^n w_{(-i)j}(x_i) Y_j\right)^2
+            = \sum_{i = 1}^n \left(Y_i - \hat{r}_{(-i)}(x_i)\right)^2,
+    \end{split}
+\end{equation*}
+where we used that
+\begin{equation*}
+    \frac{w_j(x_i)}{1 - w_j(x_i)}
+        = \frac{K((x_i - x_j)/h)}{\sum_{k = 1}^n K((x_i - x_k)/h) - K((x_i - x_j)/h)}.
+\end{equation*}

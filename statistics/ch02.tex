@@ -1,0 +1,347 @@
+\section*{Chapter 2 - Random Variables}
+
+\subsection*{Solution 2.1}
+
+Let $x^+_1 > x^+_2 > ...$ and $x^-_1 < x^-_2 < ...$ such that $x^+_i \downarrow x$ and $x^-_i \uparrow x$.
+Let $A_i = [x^-_i, x^+_i]$ for all $i > 0$.
+Note that $A_{i+1} \subset A_i$ for all $i > 0$ and $A_i \to \{x\}$ as $i \to \infty$.
+By theorem 1.8 (Continuity of Probability)
+$$
+P(x) = \lim_{i \to \infty} P(A_i) = \lim_{i \to \infty} (F(x^+_i) - F(x^-_i)) = F(x^+) - F(x^-).
+$$
+
+\subsection*{Solution 2.1 - Alternative}
+
+By lemma 2.15.1 $P(x) = F(x) - F(x^-)$.
+By Theorem 2.8.iii $F$ is right continuous, i.e. $F(x) = F(x^+)$, so $P(x) = F(x^+) - F(x^-)$.
+
+
+\subsection*{Solution 2.2}
+
+The CDF is given by
+$$
+F(x) = \left\{ \begin{array}{ll}
+    0 & \text{if } x < 2, \\
+    \frac{1}{10} & \text{if } 2 \leq x < 3, \\
+    \frac{2}{10} & \text{if } 3 \leq x < 5, \\
+    1 & \text{if } 5 \leq x
+\end{array} \right.
+$$
+So $P(2 \leq X \leq 4.8) = F(4.8) - F(2^-) = \frac{2}{10}$.
+
+
+\subsection*{Solution 2.3}
+
+\begin{enumerate}
+\item Let $x^-_1 < x^-_2 < ...$ such that $x^-_i \to x$ and $A_i = (x^-_i, x]$.
+Then $A_i \supset A_{i+1}$ for all $i$ and $A_i \to \{x\}$.
+By the continuity of the probability function
+$$
+P(x) = \lim_{i \to \infty} P(A_i) = \lim_{i \to \infty} F(x) - F(x^-_i) = F(x) - F(x^-).
+$$
+\item $P(x < X \leq y) = P(X \leq y) - P(X \leq x) = F(y) - F(x)$.
+\item $P(X > x) = 1 - P(X \leq x) = 1 - F(x)$.
+\item Follows directly from continuity of the probability function.
+$P(x < X) = P(x \leq X)$ if $P$ is continuous.
+\end{enumerate}
+
+
+\subsection*{Solution 2.4}
+
+\begin{itemize}
+    \item[(a)]
+        \begin{equation*}
+            F_X(x) = \left\{ \begin{array}{ll}
+                0 & \text{if } x \leq 0 \\
+                x/4 & \text{if } 0 < x < 1 \\
+                1/4 & \text{if } 1 \leq x \leq 3 \\
+                1/8(3x - 7) & \text{if } 3 < x < 5 \\
+                1 & \text{if } 5 \leq x
+            \end{array} \right.
+        \end{equation*}
+    \item[(b)] For $Y = 1/X$, $F_Y(y) = P(1/X < y) = P(1/y < X) = 1 - P(X < 1/y)$, so
+        \begin{equation*}
+            F_Y(y) = \left\{ \begin{array}{ll}
+                0 & \text{if } y < 1/5 \\
+                1 - 1/8(3/y - 7) & \text{if } 1/5 \leq y < 1/3 \\
+                3/4 & \text{if } 1/3 \leq y \leq 1 \\
+                1 - 1/(4y) & \text{if } 1 < y
+            \end{array} \right.
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 2.5}
+
+Almost straight from the definition.
+As $X$ and $Y$ are discrete random variables:
+\begin{itemize}
+\item[$\rightarrow$)] $f(x, y) = P(X \in \{x\}, Y \in \{y\}) = P(X \in \{x\})P(Y \in \{y\}) = f(x)f(y)$.
+\item[$\leftarrow$)] $P(X \in A, Y \in B) = \sum_{(x, y) \in A \times B} f(x, y) = \sum_{x \in A} \sum_{y \in B} f(x) f(y) = P(X \in A) P(Y \in B)$.
+\end{itemize}
+
+
+\subsection*{Solution 2.6}
+
+$Y = I_A(X)$ takes the value $1$ if $X \in A$ and $0$ if $X \notin A$.
+So $P(Y = 0) = 1 - F_X(A)$ and $P(Y = 1) = F_X(A)$.
+This gives the CDF
+$$
+F_Y(y) = \left\{ \begin{array}{ll}
+    0 & \text{if } y < 0 \\
+    1 - F_X(A) & \text{if } 0 \leq y < 1 \\
+    1 & \text{if } 1 \leq y
+\end{array} \right.
+$$
+
+
+\subsection*{Solution 2.7}
+
+Let $Z = \mathrm{min}(X, Y)$, $X, Y \sim \mathrm{Uniform}(0, 1)$, then
+\begin{equation*}
+\begin{split}
+F_Z(z) &= P(Z < z) \\
+    &= 1 - P(Z > z) \\
+    &= 1 - P(X > z \text{ and } Y > z) \\
+    &= 1 - P(X > z)P(Y > z) \\
+    &= 1 -(1 - F_X(z))(1 - F_Y(z))
+    = 1 - (1 - z)^2.
+\end{split}
+\end{equation*}
+Taking the derivative gives the probability distribution function
+$$
+f_Z(z) = 2 (1 - z).
+$$
+
+
+\subsection*{Solution 2.8}
+
+Let $X$ be a random variable with CDF $F$.
+Define $X^+ = \mathrm{max}(0, X)$.
+Note that $P(X^+ < 0) = 0$ and $P(X^+ = 0) = P(X \leq 0) = F(0)$.
+Therefore
+\begin{equation*}
+    F_+(x) = \left\{ \begin{array}{ll}
+        0 & \text{if } x < 0 \\
+        F(x) & \text{if } x \geq 0
+    \end{array} \right.
+\end{equation*}
+
+
+\subsection*{Solution 2.9}
+
+Let $X \sim \mathrm{Exp}(\beta)$.
+We have $f(x) = \beta^{-1} \exp(-\beta^{-1}x)$.
+Then
+$$
+F_X(x) = \int_{-\infty}^x f(t)dt
+    = \int_{-\infty}^x \frac{1}{\beta} \exp\left(-\frac{t}{\beta}\right) dt
+    = 1 - \exp\left(-\frac{x}{\beta}\right).
+$$
+Solving $x$ for $q = F_X(x) = 1 - \exp(-\beta^{-1}x)$ yields $x = F_X^{-1}(q) = -\beta \log(1 - q)$.
+
+
+\subsection*{Solution 2.10}
+
+Follows almost from the definition.
+\begin{equation*}
+\begin{split}
+P(g(X) \in A, h(Y) \in B)
+    &= P(X \in g^{-1}(A), Y \in h^{-1}(B)) \\
+    &= P(X \in g^{-1}(A)) P(Y \in h^{-1}(B))
+    = P(g(X) \in A) P(h(Y) \in B).
+\end{split}
+\end{equation*}
+
+
+\subsection*{Solution 2.11}
+
+(a) $P(X = 1, Y = 0) = p$, but $P(X = 1) = p$ and $P(Y = 0) = p$, so $P(X = 1)P(Y = 1) = p^2 \neq p$ (assuming $p > 0$).
+Therefore $X$ and $Y$ are dependent.
+
+(b) Let $N \sim \mathrm{Poisson}(\lambda)$, flip $N$ coins and let $X$ be the number of heads, $Y$ the number of tails.
+We have
+\begin{equation*}
+\begin{split}
+P(X = i, Y = j)
+    &= f_{\lambda}(N) \binom{N}{i} p^i (1 - p)^{N - i} \\
+    &= f_{\lambda}(i + j) \binom{i + j}{i} p^i (1 - p)^j \\
+    &= e^{-\lambda} \frac{\lambda^{i + j}}{(i + j)!} \frac{(i + j)!}{i! j!} p^i (1 - p)^j \\
+    &= e^{-\lambda} \frac{\lambda^i p^i}{i!} \frac{\lambda^j (1 - p)^j}{j!} = g(i) h(j),
+\end{split}
+\end{equation*}
+where $g(i) = e^{-\lambda} \lambda^i p^i / i!$ and $h(j) = \lambda^j (1 - p)^j / j!$.
+By Theorem 2.33 $X$ and $Y$ are independent.
+
+Here follows a remark, as the results of this exercise is counter intuitive (for me).
+Suppose you toss a coin $50$ times.
+Let $X$ be the number of heads and $Y$ the number of tails.
+If $X = 25$, what is $Y$? Easy, $Y = 50 - X = 25$.
+If $X = 4$, $Y = 50 - 4 = 46$.
+Or $X = 48$, then $Y = 50 - 48 = 2$.
+$X$ and $Y$ are entirely correlated.
+If I know $X$, I also know $Y$.
+
+Now let me toss a coin every time I receive an email in my mailbox.
+I count the number of heads and tails during the day.
+Let $X$ be the number of heads and $Y$ the number of tails of that day.
+I receive around $50$ mails a day, and the exact number of mails per day follows a Poisson distribution with $\lambda = 50$.
+After one day I count $X = 25$ heads, how many tails do I expect to have counted?
+Intuitively I expect $Y = 25$ tails, which is correct.
+But suppose now that $X = 4$?
+Because $X$ is a low number, I expect that I have not received many mails that day, and therefore flipped few coins, so $E(E(Y | X = 4)) = 4$ would be an intuitive guess.
+Similar, if $X = 48$, I probably received many mails, flipped a lot of coins, so $E(E(Y | X = 48)) = 48$ seems reasonable.
+
+But this is not the case.
+As we saw in the exercise, $X$ and $Y$ are independent.
+Therefore
+$$
+E(Y | X = x) = \int y f(y|x) dy = \int y f(y) dy = E(Y),
+$$
+which shows that $E(E(Y | X = x)) = E(Y) = \frac{\lambda}{2} = 25$.
+In particular, $E(E(Y | X = 25)) = E(E(Y | X = 4)) = E(E(Y | X = 48)) = 25$.
+The number of heads will give you absolutely no information about the number of tails that occured during the day.
+This is an extreme case where a small change, going from $N = 50$ to $N \sim \mathrm{Poisson}(50)$, turns entirely dependent random variables into completely independent random variables.
+
+
+\subsection*{Solution 2.12}
+
+Let $f(x, y) = g(x) h(y)$ for all $x, y$.
+Note
+$$
+1 = \lim_{x, y \to \infty} F(x, y) = \int f(x, y) dx dy = \int g(x) dx \int h(y) dy = A_g A_h.
+$$
+Now
+\begin{equation*}
+    \begin{split}
+        f_X(x) &= \int f(x, y) dy = \int g(x) h(y) dy = A_h g(x), \\
+        f_Y(y) &= \int f(x, y) dx = \int g(x) h(y) dx = A_g h(y).
+    \end{split}
+\end{equation*}
+We have $f(x, y) = g(x) h(y) = A_g A_h g(x) h(y) = (A_h g(x))(A_g h(y)) = f_X(x) f_Y(y)$, which shows that $X$ and $Y$ are independent.
+
+
+\subsection*{Solution 2.13}
+
+Let $X \sim \mathrm{Normal}(0, 1)$ and $Y = \exp(X)$.
+
+(a) We first calculate $F_Y$,
+\begin{equation*}
+F_Y(y) = P(Y < y)
+    = P(X < \log(y))
+    = \Phi(\log(y))
+    = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\log(y)} \exp\left(-\frac{1}{2} t^2\right) dt
+\end{equation*}
+By the fundamental theorem of calculus
+$$
+f_Y(y) = \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2} \log(y)^2\right).
+$$
+
+(b) See code.
+
+
+\subsection*{Solution 2.14}
+
+Let $A_r = \{(x, y) : x^2 + y^2 \leq r^2\}$ be the circle with radius $r$.
+We have $F_R(r) = \mathrm{Opp}(A_r) / \mathrm{Opp}(A_1) = r^2 \pi / \pi = r^2$.
+So $f_R(r) = 2r$.
+
+
+\subsection*{Solution 2.15}
+
+Let $X \sim F$ and $F$ continuous, strictly increasing, i.e., $x_1 < x_2$, then $F(x_1) < F(x_2)$.
+Let $Y = F(X)$.
+
+(a) $F_Y(y) = P(Y \leq y) = P(F(X) \leq y) = P(X \leq F^{-1}(y)) = F(F^{-1}(y)) = y$.
+So $Y \sim \mathrm{Uniform}(0, 1)$.
+
+(b) Let $U \sim \mathrm{Uniform}(0, 1)$ and $X = F^{-1}(U)$.
+Then $F_X(x) = P(X \leq x) = P(F^{-1}(U) \leq x) = P(U \leq F(x)) = F(x)$.
+So $X \sim F$.
+
+(c) Take $F(x) = 1 - \exp(-\frac{x}{\beta}) = u$, then $F^{-1}(u) = -\beta \log(1 - u)$.
+So if $U \sim \mathrm{Uniform}(0, 1)$, then $X = F^{-1}(U) = -\beta \log(1 - U) \sim \mathrm{Exp}(\beta)$.
+See code for an implementation.
+
+
+\subsection*{Solution 2.16}
+
+$X \sim \mathrm{Poisson}(\lambda)$, $Y \sim \mathrm{Poisson}(\mu)$.
+Let $n = X + Y$.
+\begin{equation*}
+    P(X = x | X + Y = n) \propto P(X = x, X + Y = n)
+        = e^{-\lambda} \frac{\lambda^x}{x!} e^{-\mu} \frac{\mu^{n-x}}{(n - x)!}
+        \propto \frac{\lambda^x \mu^{n-x}}{x!(n-x!)}
+        \propto \binom{n}{x} \theta^x (1 - \theta)^x,
+\end{equation*}
+where
+\begin{equation*}
+    \theta = \frac{\lambda}{\lambda + \mu}.
+\end{equation*}
+So $X|X+Y \sim \mathrm{Binomial}(n, \theta)$.
+
+
+\subsection*{Solution 2.17}
+
+We have
+\begin{equation*}
+    f_Y\left(\frac{1}{2}\right) = \int_0^1 f\left(x, \frac{1}{2}\right) dx = \int_0^1 c\left(x + \frac{1}{4}\right) dx = \frac{3}{4}c.
+\end{equation*}
+Using the definition of the conditional probability density function
+\begin{equation*}
+    P\left(X < \frac{1}{2} \left| Y = \frac{1}{2} \right.\right)
+        = \int_0^{\frac{1}{2}} f(x | y = 1/2) dx
+        = \int_0^{\frac{1}{2}} \frac{f(x, 1/2)}{f(1/2)} dx
+        = \frac{\frac{1}{4}c}{\frac{3}{4}c}
+        = \frac{1}{3}.
+\end{equation*}
+
+
+\subsection*{Solution 2.18}
+
+Note that $X = 4Z - 3$, where $Z \sim \mathrm{Normal}(0, 1)$.
+\begin{itemize}
+    \item[(a)] $P(X < 7) = P(Z < 1) = \Phi(1) \approx 0.84$.
+    \item[(b)] $P(X > 2) = 1 - P(X \leq 2) = 1 - P(Z \leq -5/4) = 1 - \Phi(-5/4) \approx 0.89.$
+    \item[(c)] $0.05 = P(X > x) = 1 - P(X < x) = 1 - P(Z < (x - 3)/4) = 1 - \Phi((x - 3)/4)$ if and only if $x = 4 \Phi^{-1}(0.95) + 3 \approx 9.58$.
+    \item[(d)] $P(0 \leq X < 4) = P(-3/4 \leq Z < 1/4) = \Phi(1/4) - \Phi(-3/4) \approx 0.37$.
+    \item[(e)] $P(|X| > |x|) = 0.05$ if and only if $0.025 = P(X < -x) = P(Z < -(x - 3)/4) = \Phi(-(x + 3)/4)$, so $x = \pm (4\Phi^{-1}(0.025) + 3) \approx \pm 4.84$.
+\end{itemize}
+
+
+\subsection*{Solution 2.19}
+
+Let $r$ be strictly increasing.
+Let $s = r^{-1}$ and $Y = r(X)$.
+Note that $F_Y(y) = P(Y < y) = P(X < r^{-1}(y)) = F_X(s(y))$.
+So we have
+\begin{equation*}
+    f_Y(y) = \frac{dF_X(s(y))}{dy}
+        = \frac{dF_x(s(y))}{ds(y)} \frac{ds(y)}{dy}
+        = f_X(s(y)) \left|\frac{ds(y)}{dy}\right|.
+\end{equation*}
+If $r$ would be strictly decreasing the same calculation holds, but with a minus sign, as $F_Y(y) = 1 - F_X(s(y))$.
+
+
+\subsection*{Solution 2.20}
+
+Let $Z_1 = X - Y$, $Z_2 = X/Y$.
+This is an exercise in drawing squares.
+\begin{itemize}
+    \item[(a)] If $z \leq 0$, then $P(Z_1 < z) = \frac{1}{2}(1 - z)^2$. If $z \geq 0$, then $P(Z_1 < z) = \frac{1}{2}(1 + z)^2$. So
+        \begin{equation*}
+            f_{Z_1}(x) = \left\{ \begin{array}{cc}
+                1 - z, & \text{if } z \leq 0, \\
+                1 + z, & \text{if } z > 0.
+            \end{array} \right.
+        \end{equation*}
+    \item[(b)] Define $A_z = F_{Z_2}(z)$.
+        If $0 \leq z \leq 1$, $|A_z| = z/2$. If $1 < z$, $|A_z| = 1 - \frac{1}{2z}$.
+        \begin{equation*}
+            f_{Z_1}(x) = \left\{ \begin{array}{cc}
+                \frac{1}{2}, & \text{if } 0 \leq z \leq 1, \\
+                \\
+                \frac{1}{2z^2}, & \text{if } 1 < z.
+            \end{array} \right.
+        \end{equation*}
+\end{itemize}

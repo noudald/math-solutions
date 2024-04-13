@@ -1,0 +1,333 @@
+\section*{Chapter 5 - Convergence of Random Variables}
+
+\subsection*{Solution 5.1}
+
+Let $X_1, X_2, ..., X_n$ i.i.d. with $E(X_i) = \mu$ and $V(X_i) = \sigma^2$.
+
+\begin{itemize}
+    \item[(a)] See solution 3.8.
+    \item[(b)] We write
+        \begin{equation*}
+            \begin{split}
+                S_n^2 &= \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X}_n)^2 \\
+                    &= \frac{1}{n - 1} \sum_{i = 1}^n (X_i^2 - 2 \overline{X}_n X_i + \overline{X}_n^2) \\
+                    &= \frac{n}{n - 1} \frac{1}{n} \sum_{i = 1}^n X_i^2 - \frac{n - 2}{n - 1} \overline{X}_n^2
+                    = c_n \frac{1}{n} \sum_{i = 1}^n X_i^2 - d_n \overline{X}_n^2,
+            \end{split}
+        \end{equation*}
+        where $c_n, d_n \to 1$ as $n \to \infty$.
+        By the weak law of large numbers $\frac{1}{n} \sum_{i = 1} X_i^2 \xrightarrow{P} E(X_i^2) = \mu^2 + \sigma^2$ and $\overline{X}_n^2 \xrightarrow{P} \mu^2$.
+        Using Theorem 5.5, $S_n^2 \xrightarrow{P} \sigma^2$.
+\end{itemize}
+
+
+\subsection*{Solution 5.2}
+
+Let $X_1, X_2, ...$ be a sequence of random variables.
+\begin{itemize}
+    \item[$\rightarrow$)] Suppose $X_n \xrightarrow{qm} b$, i.e. $E((X_n - b)^2) \to 0$ as $n \to \infty$.
+        We calculate
+        \begin{equation}
+            \label{eqn:5.2.1}
+            E((X_n - b)^2) = E(X_n^2) - 2bE(X_n) + b^2
+                = V(X_n) + (E(X_n) - b)^2
+                \to 0,
+        \end{equation}
+        as $n \to \infty$.
+        Both $V(X_n)$ and $(E(X_n) - b)^2$ are non-negative, so we must have $V(X_n) \to 0$ and $(E(X_n) - b)^2 \to 0$ as $n \to \infty$.
+        Finally, if $(E(X_n) - b)^2 \to 0$, then $E(X_n) \to b$, as $n \to \infty$.
+    \item[$\leftarrow$)] Suppose $E(X_n) \to b$ and $V(X_n) \to 0$ as $n \to \infty$.
+        Using (\ref{eqn:5.2.1}), $E((X_n - b)^2) = V(X_n) + (E(X_n) - b)^2 \to 0$ as $n \to \infty$.
+\end{itemize}
+
+
+\subsection*{Solution 5.3}
+
+Let $X_1, X_2, ..., X_n$ be i.i.d. random variables.
+Let $\mu = E(X)$ and $\sigma^2 = V(X)$ be finite.
+Take the sample mean $\overline{X}_n = \frac{1}{n} \sum X_i$.
+We have
+\begin{equation*}
+    E((\overline{X}_n - \mu)^2) = V(\overline{X}_n)
+        = \frac{1}{n^2} \sum_{i = 1}^n V(X_i)
+        = \frac{\sigma^2}{n} \to 0,
+\end{equation*}
+when $n \to \infty$.
+Therefore $X_n \xrightarrow{qm} \mu$ as $n \to \infty$.
+
+
+\subsection*{Solution 5.4}
+
+Let $X_1, X_2, ...$ be i.i.d. random variables defined by $P(X_n = \frac{1}{n}) = 1 - \frac{1}{n^2}$ and $P(X_n = n) = \frac{1}{n^2}$.
+
+\begin{itemize}
+    \item[(a)] Note that $E(X_n) = \frac{1}{n}(1 - \frac{1}{n^2}) + n \frac{1}{n^2} = 2 \frac{1}{n} - \frac{1}{n^3} \to 0$ as $n \to \infty$.
+        But $V(X_n) = E(X_n^2) - E(X_n)^2 = E(X_n^2) = \frac{1}{n^2}(1 - \frac{1}{n^2}) + n^2 \frac{1}{n^2} = 1 + \frac{1}{n^2} - \frac{1}{n^4} \to 1$ as $n \to \infty$.
+        Therefore, by exercise 5.2, $X_n$ cannot converge in quadratic mean.
+    \item[(b)] Let $\epsilon > 0$, choose $n$ large enough such that $\frac{1}{n} < \epsilon$.
+        We have $P(|X_n| > \epsilon) = \frac{1}{n^2} \to 0$ when $n \to \infty$.
+        Therefore $X_n \xrightarrow{P} 0$.
+\end{itemize}
+
+
+\subsection*{Solution 5.5}
+
+Let $X_1, X_2, ... \sim \mathrm{Bernoulli}(p)$ i.i.d.
+Note
+\begin{equation*}
+    E(\frac{1}{n} \sum_{i = 1}^n X_i^2) = \frac{1}{n} \sum_{i = 1}^n E(X_i^2)
+        = \frac{1}{n} \sum_{i = 1}^n p
+        = p,
+\end{equation*}
+and
+\begin{equation*}
+    V(\frac{1}{n} \sum_{i = 1}^n X_i^2) = \frac{1}{n^2} \sum_{i = 1}^n V(X_i^2)
+        = \frac{1}{n^2} \sum_{i = 1}^n (E(X_i^2) - E(X_i)^2)
+        = \frac{1}{n^2} \sum_{i = 1}^n p(p - 1)
+        = \frac{p(p - 1)}{n}.
+\end{equation*}
+So $E(\frac{1}{n} \sum X_i^2) \to p$ and $V(\frac{1}{n} \sum X_i^2) \to 0$ as $n \to \infty$.
+By Exercise 5.2 we have $\frac{1}{n} \sum X_i^2 \xrightarrow{qm} p$.
+By Theorem 5.4 we have $\frac{1}{n} \sum X_i^2 \xrightarrow{P} p$.
+
+
+\subsection*{Solution 5.6}
+
+Let $X_1, X_2, ..., X_{100}$ be i.i.d. random samples with $E(X_i) = 68$ and $V(X_i) = 26^2$.
+By the Central Limit Theorem
+\begin{equation*}
+    Z_{100} = \sqrt{100}\, \frac{\overline{X}_{100} - 68}{26} \approx \mathrm{Normal}(0, 1).
+\end{equation*}
+Therefore
+\begin{equation*}
+    P(\overline{X}_{100} > 68) = P\left(\frac{26}{\sqrt{100}} Z_{100} + 26 > 26\right)
+        = P(Z_{100} > 0)
+        \approx 0.5.
+\end{equation*}
+
+
+\subsection*{Solution 5.7}
+
+Let $\lambda_n = \frac{1}{n}$ and $X_n \sim \mathrm{Poisson}(\lambda_n)$ for $n = 1, 2, ...$.
+\begin{itemize}
+    \item[(a)] $P(|X_n| > \epsilon) = 1 - P(|X_n| \leq \epsilon) < 1 - P(X_n = 0) = 1 - e^{-\frac{1}{n}} \to 0$ as $n \to \infty$.
+    \item[(b)] Almost the same, $P(|Y_n| > \epsilon) = P(|X_n| > \frac{\epsilon}{n}) = 1 - P(|X_n| \leq \frac{\epsilon}{n}) < 1 - P(X_n = ) \to 0 = 1 - e^{-\frac{1}{n}}$ when $n \to \infty$
+\end{itemize}
+
+
+\subsection*{Solution 5.8}
+
+Let $X_1, X_2, ..., X_{100}$ be i.i.d. random variables such that $X_i \sim \mathrm{Poisson}(1)$.
+Let $Y = \sum X_i = n \overline{X}_n$.
+By the Central Limit Theorem $\frac{\sqrt{n}}{\sigma} (\overline{X}_n - \mu) \approx Z \sim \mathrm{Normal}(0, 1)$.
+We have
+\begin{equation*}
+    P(Y < 90) = P(\overline{X}_n < 0.9)
+        \approx P(\frac{\sigma}{\sqrt{n}} Z + \mu < 0.9)
+        = P(Z < \frac{\sqrt{n}}{\sigma} (0.9 - \mu))
+        = \Phi(-1).
+\end{equation*}
+
+
+\subsection*{Solution 5.9}
+
+Let $X$ be a discrete random variable such that $P(X = 1) = P(X = -1) = \frac{1}{2}$.
+Define $X_n$ by $P(X_n = X) = 1 - \frac{1}{n}$ and $P(X_n = e^n) = \frac{1}{n}$.
+\begin{itemize}
+    \item[(a)] (Quadratic convergence)
+        $E(X_n) = (1 - \frac{1}{n}) E(X) + \frac{1}{n} E(e^n) = \frac{1}{n}e^n \to \infty$ when $n \to \infty$.
+        By exercise 5.2 $X_n$ doesn't converge quadratic to any distribution.
+    \item[(b)] (Probability convergence)
+        Let $\epsilon > 0$ and take $n$ such that $\frac{1}{n} < \epsilon$.
+        Then $P(|X_n| > \epsilon) = 1$.
+        So $P(X_n > \epsilon)$ does not converge to $0$ when $n \to \infty$.
+        Therefore $X_n$ doesn't converge in probability.
+    \item[(c)] (Distribution convergence)
+        Let
+        \begin{equation*}
+            F_n(x) = \left\{ \begin{array}{lll}
+                0 & \textrm{if} & x < -1, \\
+                \frac{1}{2} - \frac{1}{2n} & \textrm{if} & -1 \leq x < 1, \\
+                1 - \frac{1}{n} & \textrm{if} & 1 \leq x < e^n, \\
+                1 & \textrm{if} & e^n < x,
+            \end{array} \right.
+            \quad
+            F(x) = \left\{ \begin{array}{lll}
+                0 & \textrm{if} & x < -1, \\
+                \frac{1}{2} & \textrm{if} & -1 \leq x < 1, \\
+                1 & \textrm{if} & 1 \leq x.
+            \end{array} \right.
+        \end{equation*}
+        We have $X_n \sim F_n$.
+        Let $X \sim \mathrm{Uniform}(-1, 1)$, then $X \sim F$.
+        Note that $\lim_{n \to \infty} F_n(x) = F(x)$ for all $x$.
+        Therefore $X_n \xrightarrow{D} X$.
+\end{itemize}
+
+
+\subsection*{Solution 5.10}
+
+Let $Z \sim \mathrm{Normal}(0, 1)$.
+Let $t > 0$ and $k \geq 1$ (I think this is wrong in the book, we cannot have $0 \leq k < 1$).
+From Markov's inequality
+\begin{equation*}
+    P(|Z| > t) = P(|Z|^k > t^k)
+        \leq \frac{E(|Z|^k)}{t^k}.
+\end{equation*}
+From Mill's inequality we have
+\begin{equation*}
+    P(|Z| > t) \leq \sqrt{\frac{2}{\pi}} \frac{e^{-t^2/2}}{t}.
+\end{equation*}
+Note that $\frac{E(|Z|)}{t} \leq \frac{E(|Z|^k)}{t^k}$.
+So we only have to compare $E(|Z|)$ with $\sqrt{\frac{2}{\pi}} e^{-t^2/2}$.
+We have
+\begin{equation*}
+    E(|Z|) = \int_{-\infty}^{\infty} |z| \frac{1}{\sqrt{2\pi}} e^{-z^2/2} dz
+        = \frac{2}{\sqrt{2\pi}} \int_0^{\infty} z e^{-z^2/2} dz
+        \geq \frac{2}{\sqrt{2\pi}} \int_t^{\infty} z e^{-z^2/2} dz
+        = \sqrt{\frac{2}{\pi}} \left[ -e^{-z^2/2} \right]_{t}^{\infty}
+        = \sqrt{\frac{2}{\pi}} e^{\frac{t^2}{2}}.
+\end{equation*}
+So Mill's inequality is always sharper than Markov's inequality.
+
+
+\subsection*{Solution 5.11}
+
+Let $X_1, X_2, ...$ be i.i.d. random variables defined by $X_n \sim \mathrm{Normal}(0, \frac{1}{n})$.
+Let $X \sim F$ where the cumulative distribution function is defined by $F(x) = 0$ if $x < 0$ and $F(x) = 1$ if $x \geq 0$.
+In other words $X = 0$.
+Let $\epsilon > 0$, then by Mill's inequality
+\begin{equation*}
+    P(|X_n - X| > \epsilon) = P(|\sqrt{n} Z| > \epsilon)
+        = P(|Z| > \frac{\epsilon}{\sqrt{n}})
+        \leq \sqrt{\frac{2}{\pi}} \frac{1}{\epsilon} \frac{\sqrt{n}}{e^{-\frac{1}{2\epsilon} \sqrt{n}}}
+        \to 0,
+\end{equation*}
+when $n \to \infty$.
+So $X_n \xrightarrow{P} X$ as $n \to \infty$.
+By Theorem 5.4 we have $X_n \xrightarrow{D} X$ as $n \to \infty$.
+
+
+\subsection*{Solution 5.12}
+
+Let $X$ and $X_1, X_2, ...$ be positive integer values random variables.
+\begin{itemize}
+    \item[($\rightarrow$)] Suppose $X_n \xrightarrow{D} X$, then $\lim_{n \to \infty} F_n(k) = F(k)$ for all $k \in \mathbb{N}$.
+        Note that $P_n(X_n = k) = F_n(k) - F_n(k - 1)$.
+        So we have
+        \begin{equation*}
+            \lim_{n \to \infty} P(X_n = k) = \lim_{n \to \infty} (F_n(k) - F_n(k - 1))
+                = F(k) - F(k - 1)
+                = P(X = k).
+        \end{equation*}
+    \item[($\leftarrow$)] Suppose that $\lim_{n \to \infty} P(X_n = k) = P(X = k)$ for all $k$.
+        We have
+        \begin{equation*}
+            F(k) - F(k - 1) = P(X = k)
+                = \lim_{n \to \infty} P(X_n = k)
+                = \lim_{n \to \infty} (F_n(k) - F_n(k - 1))
+                = \lim_{n \to \infty} F_n(k) - \lim_{n \to \infty} F_n(k - 1).
+        \end{equation*}
+        Rewriting the equation gives us $F(k) - \lim_{n \to \infty} F_n(k) = F(k - 1) - \lim_{n \to \infty} F_n(k - 1)$.
+        Recursively applying the equation above gives
+        \begin{equation*}
+            F(k) - \lim_{n \to \infty} F_n(k) = ...
+                = F(-1) - \lim_{n \to \infty} F_n(-1)
+                = 0.
+        \end{equation*}
+        So $F(k) = \lim_{n \to \infty} F_n(k)$.
+\end{itemize}
+
+
+\subsection*{Solution 5.13}
+
+Let $Z_1, Z_2, ...$ be i.i.d. random variables with probability density function $f$.
+Suppose that $P(Z_i > 0) = 1$ and $\lambda = \lim_{x \downarrow 0} f(x) > 0$.
+Let $X_n = n \min(Z_1, Z_2, ..., Z_n$.
+Note that
+\begin{equation*}
+    F(x) = \int_{-\infty}^{x} f(t) dt
+        = 1 - \int_{x}^{\infty} f(t) dt
+        \quad \rightarrow \quad
+    F'(0) = \left( 1 - \int_{x}^{\infty} f(t) dt \right)'
+        = \lim_{x \downarrow 0} f(x)
+        = \lambda > 0.
+\end{equation*}
+By the Taylor expension of $F$ in $0$ we have
+\begin{equation*}
+    P(Z_i \geq \frac{x}{n}) = 1 - P(Z_i \leq \frac{x}{n})
+        = 1 - F(\frac{x}{n})
+        = 1 - (F(0) + \frac{x}{n} F'(0) + O(\frac{x^2}{n^2}))
+        = 1 - \frac{x}{n} \lambda + O(\frac{x^2}{n^2}).
+\end{equation*}
+Such that
+\begin{equation*}
+    \begin{split}
+        F_n(x)
+            &= P\left(X_n \leq x\right) \\
+            &= P\left(\min(Z_1, Z_2, ..., Z_n) \leq \frac{x}{n}\right) \\
+            &= 1 - \prod_{i = 1}^n P\left(Z_i \geq \frac{x}{n}\right) \\
+            &= 1 - \prod_{i = 1}^n \left(1 - \frac{x \lambda}{n} + O(\frac{x^2}{n^2})\right) \\
+            &= 1 - \left(1 - \frac{x \lambda}{n}\right)^n + O\left(\frac{x^2}{n^2}\right)
+            \to 1 - e^{-\lambda x},
+    \end{split}
+\end{equation*}
+as $n \to \infty$.
+So $X_n \xrightarrow{D} Z \sim \mathrm{Exp}(\frac{1}{\lambda})$.
+
+
+\subsection*{Solution 5.14}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, 1)$.
+Define $Y_n = (\overline{X}_n)^2$.
+From the weak law of large numbers $\overline{X}_n \xrightarrow{P} \mu = \frac{1}{2}$, hence $\overline{X}_n \xrightarrow{D} \frac{1}{2}$.
+Let $g(x) = x^2$, by Theorem 5.5.(g), $Y_n = g(\overline{X}_n) \xrightarrow{D} g(\frac{1}{2}) = \frac{1}{4}$.
+
+
+\subsection*{Solution 5.15}
+
+Let
+\begin{equation*}
+    \left( \begin{array}{cc} X_{11} \\ X_{12} \end{array} \right),
+    \left( \begin{array}{cc} X_{21} \\ X_{22} \end{array} \right),
+    ...,
+    \left( \begin{array}{cc} X_{n1} \\ X_{n2} \end{array} \right),
+\end{equation*}
+be i.i.d. random vectors with mean $\mu = (\mu_1, \mu_2)$ and variance $\Sigma$.
+Define
+\begin{equation*}
+    \overline{X}_1 = \frac{1}{n} \sum_{i = 1}^n X_{1i}, \quad
+    \overline{X}_2 = \frac{1}{n} \sum_{i = 1}^n X_{2i},
+\end{equation*}
+and $Y_n = \overline{X}_1 / \overline{X}_2$.
+
+We'll use the delta method.
+Let $g(x_1, x_2) = x_1 / x_2$ such that $\nabla g(x_1, x_2) = \left( \begin{array}{cc} 1 / x_2 \\ -x_1 / x_2^2 \end{array} \right)$.
+We have
+\begin{equation*}
+    \nabla g(\mu)^t \Sigma \nabla g(\mu)
+        = \frac{\sigma_{11}}{\mu_1^2} - \frac{\sigma_{21}}{\mu_2^2} - \frac{\sigma_{12}}{\mu_2^2} + \frac{\mu_1^2}{\mu_2^4} \sigma_{22}
+        = \frac{\sigma_{11}}{\mu_1^2} - 2 \frac{\sigma_{12}}{\mu_2^2} + \frac{\mu_1^2}{\mu_2^4} \sigma_{22}.
+\end{equation*}
+So we have
+\begin{equation*}
+    \sqrt{n}\left(Y_n - \frac{\mu_1}{\mu_2}\right)
+        \xrightarrow{D} \mathrm{Normal}\left(
+            0,
+            \frac{\sigma_{11}}{\mu_1^2} - 2 \frac{\sigma_{12}}{\mu_2^2} + \frac{\mu_1^2}{\mu_2^4} \sigma_{22}
+        \right),
+\end{equation*}
+and
+\begin{equation*}
+    Y_n \xrightarrow{D} \mathrm{Normal}\left(
+        \frac{\mu_1}{\mu_2},
+        \frac{1}{n} \left(\frac{\sigma_{11}}{\mu_1^2} - 2 \frac{\sigma_{12}}{\mu_2^2} + \frac{\mu_1^2}{\mu_2^4} \sigma_{22}\right)
+    \right).
+\end{equation*}
+
+
+\subsection*{Solution 5.16}
+
+Let $X_1, X_2, ... \sim \mathrm{Normal}(0, 1)$ and $X \sim \mathrm{Normal}(0, 1)$.
+Define $Y_n = -X_n$.
+Then $X_n \xrightarrow{D} Z$ and $Y_n \xrightarrow{D} Z$, but $X_n + Y_n = 0$ does not converge to $Z$.

@@ -1,0 +1,126 @@
+\section*{Chapter 8 - The Bootstrap}
+
+\subsection*{Solution 8.1}
+
+See code.
+
+
+\subsection*{Solution 8.2}
+
+See code.
+
+
+\subsection*{Solution 8.3}
+
+See code.
+
+
+\subsection*{Solution 8.4}
+
+Regard $X_1, X_2, ..., X_n$ as $n$ different buckets.
+A bootstrap sample $X_1*, X_2^*, ..., X_n^*$ can be seen as a non-negative integer valued vector $(y_1, y_2, ..., y_n)$ where $y_i$ represents the number of times $X_i$ is chosen.
+Or, in other words, $y_i$ is the number of times a ball is put in bucket $X_i$.
+We look for all non-negative valued vector solutions $(y_1, y_2, ..., y_n)$ such that $y_1 + y_2 + ... + y_n = n$ and $y_i \geq 0$.
+Or, equivalent, all $(\tilde{y}_1, \tilde{y}_2, ..., \tilde{y}_n)$ such that $\tilde{y}_1 + \tilde{y}_2 + ... + \tilde{y}_n = 2n$ and $\tilde{y}_i = y_1 + 1 \geq 1$.
+This is the stars and bars problem.
+Consider $2n$ stars $\star \star \ldots \star$ which we want to partition into $n$ non-empty sets.
+There are $2n - 1$ places between the stars where we can put $n$ bars to split the stars.
+Therefore, there are $\binom{2n - 1}{n}$ possible $n$ non-empty partitions of $2n$ stars.
+Equivalent, there are $\binom{2n - 1}{n}$ unique vectors $(y_1, y_2, ..., y_n)$ such that $y_1 + y_2 + ... + y_n = n$ with $y_n \geq 0$.
+Which gives the number of unique bootstrap draws of $Y_1, Y_2, ..., Y_n$ with replacement.
+
+
+\subsection*{Solution 8.5}
+
+Let $X_1, X_2, ..., X_n$ be i.i.d. random variables with $E(X_i) = \mu$ and $V(X_i) = \sigma^2$.
+Let $X_1^*, X_2^*, ..., X_n^*$ be the bootstrap sample.
+Define $\overline{X}_n^* = \frac{1}{n} \sum_{i=1}^n X_i^*$.
+Note that
+\begin{equation*}
+    E(X^*_i | X_1, X_2, ..., X_n)
+        = \sum_{i = 1}^n \frac{1}{n} X_i
+        = \overline{X}_n.
+\end{equation*}
+Therefore,
+\begin{equation*}
+    E(\overline{X}_n^* | X_1, X_2, ..., X_n)
+        = \frac{1}{n} \sum_{i = 1}^n E(X_i^* | X_1, X_2, ..., X_n)
+        = \frac{1}{n} \sum_{i = 1}^n \overline{X}_n
+        = \overline{X}_n.
+\end{equation*}
+By the rule of iterated expectations, Theorem 3.24,
+\begin{equation*}
+    E(\overline{X}_n^*)
+        = E(E(\overline{X}_n^* | X_1, X_2, ..., X_n))
+        = E(\overline{X}_n)
+        = \mu.
+\end{equation*}
+Next we have
+\begin{equation*}
+    V(\overline{X}_n^*|X_1, X_2, ..., X_n)
+        = \frac{1}{n^2} \sum_{i = 1}^n V(X_i^*|X_1, X_2, ..., X_n)
+        = \frac{1}{n^2} \sum_{i = 1}^n \sum_{j = 1}^n \frac{1}{n} (X_j - E(X_j))^2
+        = \frac{1}{n^2} \sum_{i = 1}^n (X_i - \overline{X}_n)^2.
+\end{equation*}
+By Theorem 3.27 we have
+\begin{equation*}
+    \begin{split}
+        V(\overline{X}_n^*)
+            &= E(V(\overline{X}_n^*|X_1, X_2, ..., X_n)) + V(E(\overline{X}_n^*|X_1, X_2, ..., X_n)) \\
+            &= E\left(\frac{1}{n^2} \sum_{i = 1}^n (X_i - \overline{X}_n)^2\right) + V(\overline{X}_n) \\
+            &= \frac{n - 1}{n^2} \sigma^2 + \frac{\sigma^2}{n}
+            = \frac{2n - 1}{n^2} \sigma^2,
+    \end{split}
+\end{equation*}
+where we used Theorem 3.17 to calculate
+\begin{equation*}
+    E\left(\frac{1}{n^2} \sum_{i = 1}^n (X_i - \overline{X}_n)^2\right)
+        = \frac{n - 1}{n^2} E\left( \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X}_n)^2 \right)
+        = \frac{n - 1}{n^2} \sigma^2.
+\end{equation*}
+
+
+\subsection*{Solution 8.6}
+
+See code.
+For the true distribution of $\hat{\theta} = e^{\overline{X}_n}$ note that $\overline{X}_n \sim \mathrm{Normal}(\mu, \frac{1}{n})$, and
+\begin{equation*}
+    F(t)
+        = P(\hat{\theta} < t)
+        = P\left(e^{\overline{X}_n} < t\right)
+        = P(\overline{X} < \log(t))
+        = P(Z < \sqrt{n}(\log(t) - \mu))
+        = \Phi(\sqrt{n}(\log(t) - \mu)),
+\end{equation*}
+such that
+\begin{equation*}
+    f(t)
+        = F(t)'
+        = \frac{\sqrt{n}}{t} \phi(\sqrt{n}(\log(t) - \mu)).
+\end{equation*}
+
+
+\subsection*{Solution 8.7}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, \theta)$.
+Let $\hat{theta} = \max(X_1, X_2, ..., X_n)$.
+Let $\theta = 1$.
+\begin{itemize}
+    \item[(a)] We have $P(\hat{\theta} < t) = \prod_i P(X_i < t) = t^n$.
+        So the probability density function is given by $f(t) = nt^{n-1}$.
+        See code for simulation with $\theta = 1$.
+    \item[(b)] Note that the pdf for $\hat{\theta}$ is continuous, hence $P(\hat{\theta}^* = \hat{\theta}) = 0$.
+        We have
+        \begin{equation*}
+            P(\hat{\theta}^* = \hat{\theta})
+                = 1 - \prod_{i = 1}^n P(X_i^* \neq \hat{\theta})
+                = 1 - \left(1 - \frac{1}{n}\right)^n
+                \to 1 - \frac{1}{e} \approx 0.632,
+        \end{equation*}
+        as $n \to \infty$.
+\end{itemize}
+
+
+\subsection*{Solution 8.8}
+
+I have no idea what this exercise is about or how to solve it.

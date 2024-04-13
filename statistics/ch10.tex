@@ -1,0 +1,258 @@
+\section*{10 Hypothesis Testing and p-values}
+
+\subsection*{Solution 10.1}
+
+By the definition of the power $\beta(\theta_*) = P_{\theta_*}(X \in R)$.
+The Wald statistic is defined by
+\begin{equation*}
+    W = \frac{\hat{\theta} - \theta_0}{\hat{se}},
+\end{equation*}
+and the rejection area $R$ is defined by $|W| > z_{\alpha/2}$.
+For large sample size $W \xrightarrow{D} \mathrm{Normal}(0, 1)$, or in other words $\hat{\theta} \xrightarrow{D} \theta_*$.
+Therefore, we have
+\begin{equation*}
+    \begin{split}
+        \beta(\theta_*)
+            &= P_{\theta_*}(X \in R) \\
+            &= P_{\theta_*}(|W| > z_{\frac{\alpha}{2}}) \\
+            &\approx P_{\theta_*}\left(\left|\frac{\theta_* - \theta_0}{\hat{se}}\right| > z_{\frac{\alpha}{2}}\right) \\
+            &= 1 - \Phi\left(\left|\frac{\theta_* - \theta_0}{\hat{se}}\right| + z_{\frac{\alpha}{2}}\right)
+                + \Phi\left(\left|\frac{\theta_* - \theta_0}{\hat{se}}\right| - z_{\frac{\alpha}{2}}\right).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 10.2}
+
+Some definitions are missing in the book.
+Let $T$ be the test statistic with the continuous cumulative distribution function $F$.
+We can consider the $p$-value (of a left-sided one-tailed hypothesis) as a distribution taking $P = F(T)$, such that when we observe $t_{\mathrm{obs}}$, the $p$-value is $p = F(t_{\mathrm{obs}})$.
+With this definition, we have
+\begin{equation*}
+    P_{\theta_0}(P < t)
+        = P_{\theta_0}(F(T) < t)
+        = P_{\theta_0}(T < F^{-1}(t))
+        = F(F^{-1}(t))
+        = t.
+\end{equation*}
+So $P$ has the identify function as cumulative distribution function.
+This is only possible if $P \sim \mathrm{Uniform}(0, 1)$, proving Theorem 10.14.
+
+
+\subsection*{Solution 10.3}
+
+Theorem 10.10 follows directly from the definition.
+We reject $H_0$ if and only if $|W| > z_{\frac{\alpha}{2}}$ which is equivalent to saying
+\begin{equation*}
+    \theta_0 \notin (\hat{\theta} - \hat{se} z_{\frac{\alpha}{2}}, \hat{\theta} + \hat{se} z_{\frac{\alpha}{2}}).
+\end{equation*}
+
+
+\subsection*{Solution 10.4}
+
+We reject $H_0$ if and only if $T(X^n) \geq c_{\alpha}$.
+From the definition
+\begin{equation*}
+    \begin{split}
+        p &= \inf_{\alpha}(\alpha : T(x^n) \in R_{\alpha}) \\
+            &= \inf_{\alpha}(\alpha : T(x^n) \geq c_{\alpha}) \\
+            &= \inf_{\alpha}(\sup_{\theta} \beta(\theta) : T(x^n) \geq c_{\alpha}) \\
+            &= \inf_{\alpha}(\sup_{\theta} P_{\theta}(T(X^n) \geq c_{\alpha}) : T(x^n) \geq c_{\alpha}) \\
+            &= \sup_{\theta} P_{\theta}(T(x^n) \geq T(X^n)),
+    \end{split}
+\end{equation*}
+as $P_{\theta}(T(X^n) \geq c_{\alpha})$ is smalles when $c_{\alpha}$ is as large as possible, which happens when $c_{\alpha} = T(x^n)$.
+In particular, when $\Theta_0 = \{\theta_0\}$, we have $p = P_{\theta_0}(T(X^n) \geq T(x^n))$.
+
+
+\subsection*{Solution 10.5}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, \theta)$.
+Let $Y = \max(X_1, X_2, ..., X_n)$.
+We want to test $H_0: \theta = \frac{1}{2}$ against $H_1: \theta \neq \frac{1}{2}$.
+
+\begin{itemize}
+    \item[(a)] We generalize $H_0: \theta = c$ against $H_1: \theta \neq c$.
+        The power function is given by $\beta(\theta) = P_{\theta}(Y > c) = 1 - P_{\theta}(Y \leq c) = 1 - \left(\frac{c}{\theta}\right)^n$.
+    \item[(b)] We calculate $\alpha = \sup_{\theta \in \Theta_0} \beta(\theta) = 1 - \left(\frac{c}{\theta_0}\right)^n$, which leads to $c_{\alpha} = \theta_0(1 - \alpha)^{\frac{1}{n}}$.
+        With a test size of $0.05$ under $H_0: \theta = \frac{1}{2}$ we have $c_{0.05} = \frac{1}{2} 0.95^{\frac{1}{n}}$.
+    \item[(c)] If $n = 20$ and $Y = 0.48$, we have $p = P_{\theta_0}(Y \geq 0.48) = 1 - \left(\frac{0.48}{0.5}\right)^{20} \approx 0.56$.
+        We would not reject the null hypothesis $H_0: \theta = \frac{1}{2}$.
+    \item[(d)] If $n = 20$ and $Y = 0.52$, then $Y > \frac{1}{2} = \theta$, so we would reject the null hypothesis $H_0: \theta = \frac{1}{2}$ immediately.
+\end{itemize}
+
+
+\subsection*{Solution 10.6}
+
+I'm not sure if I understand the question correctly.
+Phillips and King are interested in testing the null hypothesis $\theta \leq \frac{1}{2}$, not $\theta = \frac{1}{2}$.
+The first one is statistically significant, the latter is not as you will see in the solution.
+
+We can use the Wald test.
+The null hypothesis $H_0: \theta_0 = \frac{1}{2}$.
+Let $n = 1919$.
+We estimate $\hat{\theta} = \frac{922}{n} \approx 0.48$.
+Note that
+$$
+\mathrm{Var}(\theta_0)
+    = \mathrm{Var}(\frac{1}{n} \sum_{i=1}^n X_i)
+    = \frac{1}{n^2} \sum_{i=1}^n \mathrm{Var}(X_i)
+    = \frac{1}{n^2} n \theta_0 (1 - \theta_0)
+    = \frac{1}{4n}
+$$
+as $X_i \sim \mathrm{Bin}(n, \theta_0)$ and $\theta_0 = \frac{1}{2}$.
+Wald's test statistic is then given by
+$$
+W = \frac{\hat{\theta} - \theta_0}{\sqrt{\mathrm{Var}(\theta_0)}}
+    = 2\sqrt{n} (\hat{\theta} - \theta_0)
+    \approx -1.75.
+$$
+The p-value is $2\Phi(|W|) \approx 0.08$.
+So we do not reject the null-hypothesis.
+
+The confidence interval for which we reject the null-hypothesis is
+$$
+C = (\hat{\theta} - \hat{se} z_{0.025}, \hat{\theta} + \hat{se} z_{0.025})
+    = (0.480, 0.503),
+$$
+as $\hat{se} = \sqrt{\hat{\theta}(1 - \hat{\theta})/n}$.
+
+\subsection*{Solution 10.6 - Alternative solution}
+
+We can calculate the probability directly from the biomial distribution.
+The null hypothese $H_0: \theta_0 = \frac{1}{2}$.
+Under $H_0$, $X \sim \mathrm{Bin}(n, \theta_0)$, where $n = 1919$.
+Then the p-value is $P(X \geq 922) + P(X \leq 1919/2 - 37.5) \approx 0.087$.
+So we don't reject the null-hypothesis.
+
+We reject the null-hypothesis if
+$$
+    X \notin (z_{0.025}, z_{0.975}) = (917, 1002).
+$$
+
+
+\subsection*{Solution 10.7}
+
+See code for explicit calculations.
+
+(a) We use the Wald test on $H_0: \overline{\Delta} = \overline{X} - \overline{Y} = 0$, where $X$ are the measurements of Twain and $Y$ the measurements of Snodgrass.
+The Wald test gives us a p-value of approximately $0.00008$, so we reject the null hypothesis that the essays of Twain and Snodgrass are the same.
+The confidence interval of $\overline{\Delta}$ is aproximately $(0.011, 0.033)$.
+
+(b) Using the permutation test on $T(X_1, ..., X_8, Y_1, ..., Y_{10}) = |\overline{X} - \overline{Y}|$.
+The approximate p-value is $0.00089$.
+We reject the null hypothesis that the distributions of $X$ and $Y$ are the same.
+
+
+\subsection*{Solution 10.8}
+
+(a) We have to find $c$ such that
+$$
+\alpha = P_0\left(\frac{1}{n}\sum_{i = 1}^n X_i > c\right).
+$$
+Note that under $H_0$, $E(\frac{1}{n}\sum_{i = 1}^n X_i) = 0$ and $\mathrm{Var}(\frac{1}{n}\sum_{i = 1}^n X_i) = \frac{1}{\sqrt{n}}$.
+So
+$$
+P_0\left(\frac{1}{n} \sum_{i = 1}^n X_i > c\right) = P(Z > \sqrt{n}c) = \Phi(-\sqrt{n}c).
+$$
+Take $c = -\Phi^{-1}(\alpha)/\sqrt{n}$.
+
+(b) Under $H_1$, $E(\frac{1}{n} \sum_{i = 1}^n X_i) = 1$ and $\mathrm{Var}(\frac{1}{n} \sum_{i = 1}^n X_i) = \frac{1}{\sqrt{n}}$.
+So
+$$
+\beta(1) = P_1\left(\frac{1}{n} \sum_{i = 1}^n X_i > c\right) = P(Z > (c - 1)\sqrt{n}) = \Phi((1 - c)\sqrt{n}).
+$$
+
+(c) Note that for fixed $\alpha$,
+$$
+\beta(1) = \Phi(\sqrt{n} - c\sqrt{n}) = \Phi(\sqrt{n} + \Phi^{-1}(\alpha)).
+$$
+As $\Phi^{-1}(\alpha)$ is fixed $\beta(1) \to 1$ as $n \to \infty$.
+
+
+\subsection*{Solution 10.9}
+\begin{equation*}
+\begin{split}
+\beta(\theta_1) &= P_{\theta_1}(|Z| < z_{\frac{\alpha}{2}}) \\
+    &= 1 - P_{\theta_1}(-z_{\frac{\alpha}{2}} < Z < z_{\frac{\alpha}{2}}) \\
+    &= 1 - P_{\theta_1}\left(-z_{\frac{\alpha}{2}} < \frac{\hat{\theta} - \theta_0}{\hat{se}} < z_{\frac{\alpha}{2}}\right) \\
+    &= 1 - P_{\theta_1}\left(-z_{\frac{\alpha}{2}} < \frac{\hat{\theta} - \theta_1}{\hat{se}} + \frac{\theta_1 - \theta_0}{\hat{se}} < z_{\frac{\alpha}{2}}\right).
+\end{split}
+\end{equation*}
+As $n \to \infty$, $\frac{\hat{\theta} - \theta_1}{\hat{se}} \to 0$ and $\frac{\theta_1 - \theta_0}{\hat{se}} \to \infty$, because $\hat{se} \to 0$ and $\theta_1 > \theta_0$.
+Therefore $\beta(\theta_1) \to 1$ as $n \to \infty$.
+
+
+\subsection*{Solution 10.10}
+
+See code.
+We use three different tests: Walk test per week, binomial test per week, and the $\chi^2$-test.
+All three of them suggest that in week -1 and 1 a significant change in elderly Chinese woman took place.
+
+
+\subsection*{Solution 10.11}
+
+See code.
+The only drugs that seems to have any significant effect is Chlorpromazine.
+
+
+\subsection*{Solution 10.12}
+
+(a) Let $X_1, X_2, ..., X_n \sim \mathrm{Poison}(\lambda_0)$.
+Let $\hat{\lambda} = \overline{X}$ be the MLE of $X$.
+Note that
+$$
+\mathrm{Var}(\hat{\lambda}) = \frac{1}{n^2} \sum_{i=1}^n \mathrm{Var}(X_i) = \frac{\lambda_0}{n}.
+$$
+So the Wald estimate is
+$$
+W = \frac{\hat{\lambda} - \lambda_0}{\hat{se}} = \sqrt{n} \frac{\hat{\lambda} - \lambda_0}{\sqrt{\lambda_0}}.
+$$
+We reject $H_0: \lambda = \lambda_0$ if $|W| > z_{\frac{\alpha}{2}}$.
+
+(b) See code.
+For $n = 20$ we approximate that 5.62\% of all tests is rejected.
+This is not exactly equal to 5\% as the Poisson distribution is only approximately similar to the normal distribution.
+When $n \to \infty$ the rejection rate will go to exactly 5\%.
+
+
+\subsection*{Solution 10.13}
+
+Let $X_1, X_2, ..., X_n \sim \mathcal{N}(\mu, \sigma^2)$.
+We will construct a likelihood ratio test for null hypothesis $H_0: \mu = \mu_0$ against $H_1: \mu \neq \mu_0$.
+Let $\hat{\mu} = \overline{X}$ be the maximum likelihood estimator for $\mu$.
+Note that
+$$
+\ell(\mu) = -\frac{n}{2} - \mathrm{log}(\sigma) - \frac{1}{2\sigma^2} \sum_{i=1}^n (X_i - \mu)^2.
+$$
+So
+\begin{equation*}
+\begin{split}
+\lambda &= 2\ell(\hat{\mu}) - 2\ell(\mu_0) \\
+    &= \frac{1}{\sigma^2} \sum_{i=1}^n \left[ (X_i - \mu_0)^2 - (X_i - \hat{\mu})^2 \right] \\
+    &= \frac{1}{\sigma^2} \sum_{i=1}^n (\mu_0^2 - 2(\mu_0 - \hat{\mu}) - \hat{\mu}^2) \\
+    &= \frac{1}{\sigma^2} (n\mu_0^2 - 2n(\mu_0 - \hat{\mu})\hat{\mu} - n\hat{\mu}^2)
+    = n \left(\frac{\hat{\mu} - \mu_0}{\sigma}\right)^2.
+\end{split}
+\end{equation*}
+Observe that the likelihood ration and Wald statistics are related, because $\lambda = W^2$.
+
+
+\subsection*{Solution 10.14}
+
+Let $X_1, X_2, ..., X_n \sim \mathcal{N}(\mu, \sigma^2)$.
+We will construct a likelihood ratio test for null hypothesis $H_0: \sigma = \sigma_0$ against $H_1: \sigma \neq \sigma_0$.
+Let $\hat{\sigma} = \frac{1}{n}\sum_{i=0}^n (X_i - \mu)^2$ be the maximum likelihood estimator for $\sigma$.
+Note that
+$$
+\ell(\sigma) = -\frac{n}{2} - \mathrm{log}(\sigma) - \frac{1}{2\sigma^2} \sum_{i=1}^n (X_i - \mu)^2.
+$$
+So
+\begin{equation*}
+\begin{split}
+\lambda &= 2\ell(\hat{\sigma}) - 2\ell(\sigma_0) \\
+    &= 2\mathrm{log}(\hat{\sigma}) - 2\mathrm{log}(\sigma_0) + 2\left(\frac{1}{2\sigma_0} - \frac{1}{2\hat{\sigma}}\right) \sum_{i=1}^n (X_i - \mu)^2 \\
+    &= 2\mathrm{log}\left(\frac{\hat{\sigma}}{\sigma_0}\right) + \frac{\hat{\sigma}^2 - \sigma_0^2}{\sigma_0^2 \hat{\sigma}^2} n \hat{\sigma}^2
+    = 2\mathrm{log}\left(\frac{\hat{\sigma}}{\sigma_0}\right) + n - n\left(\frac{\sigma_0}{\hat{\sigma}}\right)^2.
+\end{split}
+\end{equation*}

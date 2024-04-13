@@ -1,0 +1,154 @@
+\section*{Chapter 15 - Inference About Independence}
+
+\subsection*{Solution 15.1}
+
+\begin{itemize}
+    \item[$1 \rightarrow 2$)] If $Y \bot Z$, then $P(Y, Z) = P(Y)P(Z)$, so
+        \begin{equation*}
+            \psi = \frac{p_{00}p_{11}}{p_{01}p_{10}}
+                = \frac{P(Y=0,Z=0)P(Y=1,Z=1)}{P(Y=0,Z=1)P(Y=1,Z=0)}
+                = 1.
+        \end{equation*}
+    \item[$2 \leftrightarrow 3$)] $\gamma = \log(\psi) = \log(1) = 0$.
+    \item[$2 \rightarrow 4$)] If $\psi = 1$, then $p_{01}p_{10} = p_{00}p_{11}$.
+        We have two cases.
+        Suppose $i \neq j$.
+        Without loss of generality, let $i = 0$ and $j = 1$.
+        We have
+        \begin{equation*}
+            \begin{split}
+                p_{i\_} p_{\_j}
+                    &= (p_{i0} + p_{i1})(p_{0j} + p_{1j}) \\
+                    &= p_{00}p_{01} + p_{00}p_{11} + p_{01}p_{01} + p_{01}p_{11} \\
+                    &= p_{00}p_{01} \frac{p_{10}p_{01}}{p_{11}}p_{11} + p_{01}p_{01} + p_{01}p_{11} \\
+                    &= p_{01}(p_{00} + p_{10} + p_{01} + p_{01}) \\
+                    &= p_{01}.
+            \end{split}
+        \end{equation*}
+        Suppose $i = j$.
+        Without loss of generality, let $i = 0$ and $j = 0$.
+        We have
+        \begin{equation*}
+            \begin{split}
+                p_{i\_} p_{\_j}
+                    &= (p_{i0} + p_{i1})(p_{0j} + p_{1j}) \\
+                    &= p_{00}p_{00} + p_{00}p_{10} + p_{01}p_{00} + p_{01}p_{10} \\
+                    &= p_{00}(p_{00} + p_{10} + p_{01} + \frac{p_{11}}{p_{10}} p_{10}) \\
+                    &= p_{00}.
+            \end{split}
+        \end{equation*}
+        Which shows that in all cases $p_{ij} = p_ip_j$.
+    \item[$1 \leftrightarrow 4$)] $Y \bot Z$ iff $p_{ij} = P(Y=i,Z=j) = P(Y=i)P(Z=j) = p_ip_j$.
+\end{itemize}
+
+
+\subsection*{Solution 15.2}
+
+Under the assumption of $H_0$, the maximum likelihood estimator for $p$ is
+\begin{equation*}
+    \hat{p}_0 = \left(\frac{E_{00}}{n}, \frac{E_{01}}{n}, \frac{E_{10}}{n}, \frac{E_{11}}{n}\right).
+\end{equation*}
+Moreover,
+\begin{equation*}
+    \hat{p}_0 = \left(\frac{X_{0\_}X_{\_0}}{n}, \frac{X_{0\_}X_{\_1}}{n}, \frac{X_{1\_}X_{\_0}}{n}, \frac{X_{1\_}X_{\_1}}{n}\right),
+\end{equation*}
+because
+\begin{equation*}
+    E_{ij} = E(Y=i, Z=j)
+        = n P(Y=i, Z=j)
+        = n P(Y=i) P(Z=j)
+        = \frac{X_{i\_}X_{\_j}}{n},
+\end{equation*}
+were we have used that $H_0: Y \bot Z$.
+We have
+\begin{equation*}
+    \mathcal{L}_n(\hat{p}_0) = \prod_{i=0}^1 \prod_{j=0}^1 \left(\frac{X_{i\_}X_{\_j}}{n^2}\right)^{X_{ij}}, \quad
+    \mathcal{L}_n(p_0) = \prod_{i=0}^1 \prod_{j=0}^1 \left(\frac{X_{ij}}{n}\right)^{X_{ij}}.
+\end{equation*}
+Using Theorem 10.22 we have that the ratio test is
+\begin{equation*}
+    T = 2\log\left(\frac{\mathcal{L}_n(\hat{p}_0)}{\mathcal{L}_n(p_0)}\right)
+        = 2 \sum_{i=0}^1 \sum_{j=0}^1 X_{ij} \log\left(\frac{X_{ij} n}{X_{i\_}X_{\_j}}\right),
+\end{equation*}
+and under $H_0: Y \bot Z$, $T \xrightarrow{D} \chi_1^2$.
+So we reject $H_0$ when $T > \chi_1^2(\alpha)$.
+
+
+\subsection*{Solution 15.3}
+
+We have $\gamma = \log(\psi) = \log(p_{00}) + \log(p_{11}) - \log(p_{01}) - \log(p_{10})$.
+Such that, for $i \neq j$,
+\begin{equation*}
+    \frac{\partial \gamma}{\partial p_{ii}} = \frac{1}{p_{ii}}, \quad
+    \frac{\partial \gamma}{\partial p_{ij}} = -\frac{1}{p_{ij}},
+\end{equation*}
+and the gradient is
+\begin{equation*}
+    \nabla \gamma = \left(\frac{1}{p_{00}}, \frac{1}{p_{01}}, \frac{1}{p_{10}}, \frac{1}{p_{11}}\right)^t.
+\end{equation*}
+Fisher's information matrix can be calculated as follows,
+\begin{equation*}
+    \mathcal{L}_n(p) = \prod_{i = 0}^1 \prod_{j = 0}^1 p_{ij}^{X_{ij}},
+\end{equation*}
+such that
+\begin{equation*}
+    \ell_n(p) = \sum_{i = 0}^1 \sum_{j = 0}^1 X_{ij} \log(p_{ij}).
+\end{equation*}
+We have
+\begin{equation*}
+    \frac{\partial \ell_n(p)}{\partial p_{ij}} = \frac{X_{ij}}{p_{ij}}, \quad
+    \frac{\partial^2 \ell_n(p)}{\partial p_{ij}^2} = -\frac{X_{ij}}{p_{ij}^2}.
+\end{equation*}
+Note that $E(X_{ij}) = np_{ij}$, which gives information matrix
+\begin{equation*}
+    I(p) = \frac{1}{n} I_n(p) = \textrm{diag}\left(\frac{1}{p_{00}}, \frac{1}{p_{01}}, \frac{1}{p_{10}}, \frac{1}{p_{11}}\right),
+\end{equation*}
+and $J(p) = I^{-1}(p) = \textrm{diag}(p_{00}, p_{01}, p_{10}, p_{11})$.
+Therefore, we have
+\begin{equation*}
+    \mathrm{se}(\gamma)^2 = \nabla g^t J_n(p) \nabla g
+        = \frac{p_{00}}{np_{00}^2} + \frac{np_{01}}{p_{01}^2} + \frac{p_{10}}{np_{10}^2} + \frac{p_{11}}{np_{11}^2}
+        = \frac{1}{np_{00}} + \frac{1}{np_{01}} + \frac{1}{np_{10}} + \frac{1}{np_{11}}.
+\end{equation*}
+Finally, putting everything together, we get the results
+\begin{equation*}
+    \hat{\mathrm{se}}(\hat{\gamma}) = \frac{1}{X_{00}} + \frac{1}{X_{01}} + \frac{1}{X_{10}} + \frac{1}{X_{11}},
+\end{equation*}
+and
+\begin{equation*}
+    \hat{\mathrm{se}}(\hat{\psi}) = \hat{\mathrm{se}}(e^{\hat{\gamma}})
+        = |e^{\hat{\gamma}}|\,\hat{\mathrm{se}}(\hat{\gamma})
+        = \hat{\psi}\,\hat{\mathrm{se}}(\hat{\gamma}).
+\end{equation*}
+
+
+\subsection*{Solution 15.4}
+
+We use the likelihood ratio test
+\begin{equation*}
+    \begin{split}
+        T &= 2 \cdot 14 \log\left(1311 \cdot \frac{14}{655 \cdot 76} \right)
+            + 2 \cdot 641 \log\left(1311 \cdot \frac{641}{655 \cdot 1235} \right) \\
+            &\quad + 2 \cdot 62 \log\left(1311 \cdot \frac{62}{656 \cdot 76} \right)
+            + 2 \cdot 594 \log\left(1311 \cdot \frac{594}{656 \cdot 1235} \right) \\
+        &\approx 34.53.
+    \end{split}
+\end{equation*}
+Under $H_0$: $T \xrightarrow{D} \chi^2_1$, so the probability that this can happen is $P(T > 34.53) = 4.2.10^{-9}$.
+So we reject the null hypothesis $H_0$ that $Y$ (color of victim) and $Z$ (death sentence) are independent.
+However, note that correlation ($Y \propto Z$) doesn't imply causality.
+
+
+\subsection*{Solution 15.5}
+
+See code.
+
+
+\subsection*{Solution 15.6}
+
+See code.
+
+
+\subsection*{Solution 15.7}
+
+See code.

@@ -1,0 +1,325 @@
+\section*{Chapter 1 - Probability of Finite Sample Spaces}
+
+\subsection*{Exercise 1.1}
+
+Fill in the details of the proof of Theorem 1.8.
+Also, prove the monotone decreasing case.
+
+\subsection*{Solution 1.1}
+
+Let $A_1 \subset A_2 \subset A_3 \subset ...$.
+Define $B_i = A_i \backslash \cup_{j < i} A_j$.
+
+(a) Let $a \in A_n$.
+Let $i \leq n$ the smallest $i$ such that $a \in A_n$.
+Then $a \in A_i \backslash \cup_{j < i} A_j = B_i$.
+Let $b \in B_i$ for some $i$.
+Then $b \in A_i \subset A_n$.
+Therefore $A_n = \cup_{i = 1}^n B_i$.
+
+(b) Take $a \in \cup_{i = 1}^{\infty} A_i$.
+There is an $n$ such $a \in A_n = \cup_{i = 1}^n B_i$.
+So $a \in \cup_{i = 1}^{\infty} B_i$.
+Let $b \in \cup_{i = 1}^{\infty} B_i$, then $b \in B_n$ for some $n$.
+Therfore $b \in A_n$, hence $b \in \cup_{i=1}^{\infty} A_n$.
+So $\cup_{i=1}^{\infty} A_i = \cup_{i=1}^n B_i$.
+
+For the monotone decreasing case.
+Suppose $A_n$ is monotone decreasing so that $A_1 \supset A_2 \supset ...$, then $A_n^c$ is monotone increasing so that $A_1^c \subset A_2^c \subset ...$.
+From Theorem 1.8, we have $1 - P(A_n) = P(A_n^c) \to P(A^c) = 1 - P(A)$.
+Therefore, $P(A_n) \to P(A)$.
+
+
+\subsection*{Exercise 1.2}
+
+Prove
+\begin{itemize}
+    \item[(i)] $P(\emptyset) = 0$,
+    \item[(ii)] $A \subset B$, then $P(A) \leq P(B)$.
+    \item[(iii)] $0 \leq P(A) \leq 1$.
+    \item[(iv)] $P(A^c) = 1 - P(A)$.
+    \item[(v)] $A \cap B = \emptyset$, then $P(A \cup B) = P(A) + P(B)$.
+\end{itemize}
+
+\subsection*{Solution 1.2}
+
+\begin{itemize}
+    \item[(i)] Let $A_1 = \emptyset$, $A_2 = \Omega$, then $A_1 \cap A_2 = \emptyset$ and $1 = P(\Omega) = P(A_1 \cup A_2) = P(A_1) + P(A_2) = P(\emptyset) + P(\Omega) = P(\emptyset) + 1$.
+        Hence $P(\emptyset) = 1 - 1 = 0$.
+    \item[(ii)] $A \subset B$, let $A_1 = A$, $A_2 = B \backslash A$. Then $A_1 \cap A_2 = \emptyset$ and $P(A) + P(B \backslash A) = P(A_1) + P(A_2) = P(A_1 \cup A_2) = P(B)$.
+        Because $P(X) \geq 0$ for all $X$, $P(A) = P(B) - P(B \backslash A) \leq P(B)$.
+    \item[(iii)] $A \subset \Omega$, so from (ii) $0 \leq P(A) \leq P(\Omega) = 1$.
+    \item[(iv)] $1 = P(\Omega) = P(A \cup \Omega \backslash A) = P(A) + P(\Omega \backslash A) = P(A) + P(A^c)$.
+        So $P(A^c) = 1 - P(A)$.
+    \item[(v)] Take $A_1 = A$, $A_2 = B$, $A_i = \emptyset$ for $i > 2$.
+\end{itemize}
+
+
+\subsection*{Exercise 1.3}
+
+Let $\Omega$ be a sample space and let $A_1, A_2, ...$ be events.
+Define $B_n = \cup_{i = n}^{\infty} A_i$ and $C_n = \cap_{i = n}^{\infty} A_i$.
+\begin{itemize}
+    \item[(a)] Show that $B_1 \supset B_2 \supset ...$ and $C_1 \subset C_2 \subset ...$.
+    \item[(b)] Show that $\omega \in \cap_{n = 1}^{\infty} B_n$ if and only if $\omega$ belongs to an infinite number of events in $A_1, A_2, ...$.
+    \item[(c)] Show that $\omega \in \cup_{n = 1}^{\infty} C_n$ if and only if $\omega$ belongs to all the events $A_1, A_2, ...$ except possibly a finite number of those events.
+\end{itemize}
+
+\subsection*{Solution 1.3}
+
+\begin{itemize}
+    \item[(a)] Let $b \in B_{n+1}$, then $b \in A_m$ for all $m \geq n + 1 > n$, so $b \in B_n$.
+        Hence $B_1 \supset B_2 \supset ...$.
+        Let $c \in C_n$, then $c \in A_m$ for all $m \geq n$.
+        So $c \in A_p$ for all $p \geq n + 1 > n$, so $c \in C_{n+1}$.
+        Hence $C_1 \subset C_2 \subset ...$.
+    \item[(b)] $\rightarrow$, let $\omega \in \cap B_n$, then $\omega \in B_n$ for all $n$, hence there is an $m$ such that for all $i \geq m$, $\omega \in A_i$.
+        $\leftarrow$, let $\omega$ be in infinite $A_i$, but $\omega \notin \cap B_n$.
+        Then there is a $B_m$ such that $\omega \notin B_m = \cup_{i \geq m} A_m$.
+        But then $\omega \notin A_i$ for all $i \geq m$, which contradicts that there are infinite $A_i$ containing $\omega$.
+    \item[(c)] $\rightarrow$, let $\omega \in \cup C_i$, then there is an $m$ such that $\omega \in C_m = \cap_{i \geq m} A_i$.
+        So $\omega$ is contained in $A_m, A_{m+1}, ...$.
+        $\leftarrow$, let $m > 0$ such that $\omega$ in $A_m, A_{m+1}, ...$.
+        We can do this because there are only a finite number of $A_i$ not containing $\omega$.
+        Then $\omega \in \cap_{i \geq m} A_i = C_m$, so $\omega \in \cup C_i$.
+
+\end{itemize}
+
+
+\subsection*{Exercise 1.4}
+
+Let $\{A_i : i \in I\}$ be a collection of events where $I$ is an arbitrary index set.
+Show that
+\begin{itemize}
+    \item[(a)] $\left( \bigcup_{i \in I} A_i \right)^c = \bigcap_{i \in I} A_i^c$.
+    \item[(b)] $\left( \bigcap_{i \in I} A_i \right)^c = \bigcup_{i \in I} A_i^c$.
+\end{itemize}
+
+\subsection*{Solution 1.4}
+
+\begin{itemize}
+    \item[(a)] $x \in (\cup A_i)^c$, iff $x \notin \cup A_i$, iff $x \notin A_i$ for all $i$, iff $x \in A_i^c$ for all $i$, iff $x \in \cap A_i^c$.
+    \item[(b)] $x \in (\cap A_i)^c$, iff $x \notin \cap A_i$, iff $x \notin A_i$ for some $i$, iff $x \in A_i^c$ for some $i$, iff $x \in \sum A_i^c$.
+\end{itemize}
+
+
+\subsection*{Exercise 1.5}
+
+Suppose we toss a fair coin until we get exactly two heads.
+Describe the sample space $S$.
+What is the probability that exactly $k$ tosses are required to get two heads?
+
+\subsection*{Solution 1.5}
+
+The sample space is $S = \{ x_1 x_2 ... x_k : \exists i > n, x_i = H, x_n = H, \forall j \neq i, j \neq n, x_j = T\}$.
+The probability that $k$ tosses are required is
+\begin{equation*}
+    \sum_{j < k - 1} (1 - p)^j p (1 - p)^{k - j} p
+        = (k - 1) p^2 (1 - p)^{k - 2}
+        = \frac{k - 1}{2^k},
+\end{equation*}
+where $p = \frac{1}{2}$.
+
+
+\subsection*{Exercise 1.6}
+
+Let $\Omega = \{0, 1, ...\}$.
+Prove that there does not exist a uniform distribution on $\Omega$, i.e., $P(A) = P(B)$ whenever $|A| = |B|$, then $P$ cannot satisfy the axioms of probability.
+
+\subsection*{Solution 1.6}
+
+Assume there exists a uniform probability $P$ on the discrete infinite sample space $\Omega$.
+Because $\sum_{x \in \Omega} P(x) = 1$, there is a $y \in \Omega$ such that $P(y) = c > 0$.
+As $|\{y\}| = 1 = |\{x\}|$ for all $x \in \Omega$, $1 = \sum_{x \in \Omega} P(x) = \sum_{x \in \Omega} P(y) = \sum_{x \in \Omega} c = c |\Omega|$.
+So $\Omega$ is a finite set.
+But this contradicts with the assumption that $\Omega$ is an infinite set.
+So there doesn't exist a uniform probability $P$ on a discrete infinite sample space.
+
+
+\subsection*{Exercise 1.7}
+
+Let $A_1, A_2, ...$ be events.
+Show that
+\begin{equation*}
+    P\left( \bigcup_{n=1}^{\infty} A_n \right) \leq \sum_{n = 1}^{\infty} P(A_n).
+\end{equation*}
+
+\subsection*{Solution 1.7}
+
+Define $B_n = A_n \backslash \cup_{i = 1}^n A_i$.
+Then $B_i \cap B_j = \emptyset$ when $i \neq j$, and $\cup B_n = \cup A_n$.
+So $P(\cup A_n) = P(\cup B_n) = \sum P(B_n)$.
+As $B_n \subset A_n$, $P(B_n) \leq P(A_n)$.
+Therefore we have $P(\cup A_n) = \sum P(B_n) \leq \sum P(A_n)$.
+
+
+\subsection*{Solution 1.8}
+
+Proving $P(\cap A_i) = 1$ is equivalent to proving $P((\cap A_i)^c) = P(\cup A_i^c) = 0$.
+Take disjoint sets $B_n = A_n^c \backslash \cup_{i < n} A_i^c$.
+Note that $B_n^c \subset A_n^c$, so $P(B_n^c) \leq P(A_n^c) = 1 - P(A_n) = 0$.
+So
+\begin{equation*}
+    P(\cup_{i = 1}^n A_i^c)
+        = P(\cup_{i = 1}^n B_i)
+        = \sum_{i = 1}^n P(B_i)
+        = 0.
+\end{equation*}
+
+
+\subsection*{Solution 1.9}
+
+\begin{itemize}
+    \item[1.] $P(X, B) \geq 0$ and $P(B) \geq 0$, so $P(X|B) = P(X, B) / P(B) \geq 0$.
+    \item[2.] $P(\Omega|B) = P(\Omega \cap B) / P(B) = P(B) / P(B) = 1$.
+    \item[3.] Let $A_1, A_2, ...$ be disjoint, then $A_1 \cap B, A_2 \cap B, ...$ are disjoint, and
+        \begin{equation*}
+            P(\cup_{i = 1}^{\infty} A_i | B)
+                = \frac{P(\cup_{i = 1}^{\infty} A_i \cap B)}{P(B)}
+                = \sum_{i = 1}^{\infty} \frac{P(A_i \cap B)}{P(B)}
+                = \sum_{i = 1}^{\infty} P(A_i | B).
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 1.10}
+
+When we always pick door 1, the sample space is $\Omega = \{(1, 2), (1, 3), (2, 3), (3, 2)\}$, with probabilities $P(1, 2) = 1/6$, $P(1, 3) = 1/6$, $P(2, 3) = 1/3$, and $P(3, 2) = 1/3$.
+We have
+\begin{equation*}
+    \begin{split}
+        P(\omega_1 = 1 | \omega_2 = 2) &= \frac{P(\omega_1 = 1, \omega_2 = 2)}{P(\omega_2 = 2)} = \frac{1}{3}, \\
+        P(\omega_1 = 3 | \omega_2 = 2) &= \frac{P(\omega_1 = 2, \omega_2 = 2)}{P(\omega_2 = 2)} = \frac{2}{3}, \\
+        P(\omega_1 = 1 | \omega_2 = 3) &= \frac{P(\omega_1 = 1, \omega_2 = 2)}{P(\omega_2 = 3)} = \frac{1}{3}, \\
+        P(\omega_2 = 3 | \omega_2 = 3) &= \frac{P(\omega_1 = 3, \omega_2 = 2)}{P(\omega_2 = 3)} = \frac{2}{3}. \\
+    \end{split}
+\end{equation*}
+We conclude that it's better to switch to doors.
+
+
+\subsection*{Solution 1.11}
+
+Suppose $A \bot B$, i.e. $P(AB) = P(A)P(B)$, then
+\begin{equation*}
+    P(A^c B^c) = P((A \cup B)^c)
+        = 1 - P(A \cup B)
+        = 1 - P(A) - P(B) + P(A)P(B)
+        = (1 - P(A))(1 - P(B))
+        = P(A^c) P(B^c).
+\end{equation*}
+
+
+\subsection*{Solution 1.12}
+
+I think this question is not well-defined and similar to the boy-girl paradox.
+We could intrepid the questions in multiple ways and get both right answers $\frac{1}{2}$ and $\frac{1}{3}$.
+
+
+\subsection*{Solution 1.13}
+
+\begin{itemize}
+    \item[(a)] $\Omega = \{ HH^kT, TT^kH: k \geq 0 \}$.
+    \item[(b)] $P(HHT, TTH) = 2 \frac{1}{2^3} = \frac{1}{4}$.
+\end{itemize}
+
+
+\subsection*{Solution 1.14}
+
+Let $A \subset \Omega$ such that $P(A) = 0$ or $P(A) = 1$.
+\begin{itemize}
+    \item[(a)] If $P(A) = 0$, $0 \leq P(AB) \leq P(A) = 0$, so $P(AB) = 0 = P(A)P(B)$.
+        If $P(A) = 1$, then $P(A^c) = 0$, hence $P(A^c B^c) = P(A^c) P(B^c)$.
+        So $A^c \bot B^c$, and by exercise 2.11, $A \bot B$.
+    \item[(b)] Let $A \bot A$, then $P(A) = P(A \cap A) = P(A)^2$.
+        But this is only possible if $P(A) = 0$ or $P(A) = 1$.
+\end{itemize}
+
+
+\subsection*{Solution 1.15}
+
+We have the same problem as exercise 2.12.
+This question is not well-defined and similar to the boy-girl paradox.
+Depending on how you intrepid the question you can get different answers.
+
+
+\subsection*{Solution 1.16}
+
+Follows almost from the definition.
+If $A \bot B$, then $P(AB) = P(A)P(B)$, and
+\begin{equation*}
+    P(A|B) = \frac{P(AB)}{P(B)} = \frac{P(A)P(B)}{P(B)} = P(A).
+\end{equation*}
+
+
+\subsection*{Solution 1.17}
+
+$P(ABC) = P(A|BC) P(BC) = P(A|BC) P(B|C) P(C)$.
+
+
+\subsection*{Solution 1.18}
+
+Let $A_1, A_2, ..., A_k$ disjoint subsets such that $\cup A_i = \Omega$.
+Let $P(B) > 0$ such that $P(A_1|B) < P(A_1)$.
+We show that there is an $A_i$ such that $P(A_i|B) > P(A_i)$.
+Suppose the oppostite, i.e. for all $i$, $P(A_i|B) \leq P(A_i)$.
+Then
+\begin{equation*}
+    1 = P(\cup_{i = 1}^k A_i|B)
+        = \sum_{i = 1}^k P(A_i | B)
+        = P(A_1 | B) + \sum_{i = 2}^k P(A_i | B)
+        < P(A_1) + \sum_{i = 2}^k P(A_i)
+        = P(\cup_{i = 1}^k A_i)
+        = 1,
+\end{equation*}
+which is a contradiction.
+Therefore, there exists an $A_i$ such that $P(A_i|B) > P(A_i)$.
+
+
+\subsection*{Solution 1.19}
+
+\begin{equation*}
+    P(W|I) = \frac{P(I|W)P(W)}{P(I)}
+        = \frac{P(I|W)P(W)}{P(I|W)P(W) + P(I|M)P(M) + P(I|L)P(L)}
+        \approx 0.58.
+\end{equation*}
+
+
+\subsection*{Solution 1.20}
+
+\begin{itemize}
+    \item[(a)] \begin{equation*}
+            P(C_i | H) = \frac{P(H|C_i)P(C_i)}{\sum_i P(H|C_i)P(C_i)}
+                = \frac{p_i}{\sum_i p_i}.
+        \end{equation*}
+    \item[(b)] \begin{equation*}
+            P(H_2 | H_1)
+                = \frac{P(H_1 H_2)}{P(H_1)}
+                = \frac{\sum_i P(H_1 H_2 | C_i)}{\sum_j P(H_1 | C_j)}
+                = \frac{\sum_i p_i^2}{\sum_j p_j}.
+        \end{equation*}
+    \item[(c)] \begin{equation*}
+            P(C_i | B_4)
+                = \frac{P(B_4 | C_i)P(C_i)}{P(B_4)}
+                = \frac{P(B_4 | C_i)P(C_i)}{\sum_j P(B_4 | C_j) P(C_j)}
+                = \frac{(1 - p_i)^3 p_i}{\sum_j (1 - p_j)^3 p_j}.
+        \end{equation*}
+\end{itemize}
+TODO: fill in values for $p_1, p_2, p_3$, and $p_4$.
+
+
+\subsection*{Solution 1.21}
+
+See code.
+
+
+\subsection*{Solution 1.22}
+
+See code.
+
+
+\subsection*{Solution 1.23}
+
+Take $\Omega = \{1, 2\}$ with $P(\{1\}) = \frac{1}{2} = P(\{2\})$.
+For the dependent events, take $A = \{1\}$, $B = \{1\}$.
+Then $AB = \{1\}$ and $P(AB) = \frac{1}{2} \neq \frac{1}{4} = P(A)P(B)$.
+See code for simulations.

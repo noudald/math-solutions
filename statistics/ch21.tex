@@ -1,0 +1,135 @@
+\section*{Chapter 21 - Smoothing Using Orthogonal Functions}
+
+\subsection*{Solution 21.1}
+
+From Lemma 20.1 we know that
+\begin{equation*}
+    R(J) = R(f, \hat{f}_J)
+        = \int b^2(x) dx + \int V(x) dx.
+\end{equation*}
+As $b(x) = E(\hat{f}(x)) - f(x) = - \sum_{j = J + 1}^{\infty} \beta_j \phi_j(x)$, we have
+\begin{equation*}
+    \int b^2(x) dx = \int \sum_{i, j = J}^{\infty} \beta_i \beta_j \phi_i(x) \phi_j(x) dx
+        = \sum_{j = J + 1}^{\infty} \beta_j^2.
+\end{equation*}
+For the second part
+\begin{equation*}
+    \begin{split}
+        \int V(x) dx &= \int E((\hat{f}_J(x) - E(\hat{f}_J(x)))^2) dx \\
+            &= \int E(\hat{f}(x)^2) - 2E(\hat{f}(x)E(\hat{f}(x))) + E(\hat{f}(x))^2 dx \\
+            &= \sum_{j = 1}^J E(\hat{b}_j^2) - 2\sum_{j = 1}^J \beta_j^2 + \sum_{j = 1}^J \beta_j^2 \\
+            &= \sum_{j = 1}^J \frac{\sigma_j^2}{n},
+    \end{split}
+\end{equation*}
+as $E(\hat{\beta}_j^2) = V(\hat{\beta}_j) + E(\hat{\beta}_j)^2 = \frac{\sigma_j^2}{n} + \beta_j^2$.
+Combining all above yields the result.
+
+
+\subsection*{Solution 21.2}
+
+Note that
+\begin{equation*}
+    E(\hat{\beta}_j^2) = V(\hat{\beta}_j) + E(\hat{\beta}_j)^2 = \frac{\sigma^2}{n} + \beta_j^2.
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \begin{split}
+        R(r, \hat{r}) &= E\left(\int (r(x) - \hat{r}(x))^2 dx\right) \\
+            &= E\left(\int r^2(x) - 2r(x)\hat{r}(x) + \hat{r}^2(x) dx\right) \\
+            &= E\left(\int \sum_{i, j = 1}^{\infty} \beta_i \beta_j \phi_i(x) \phi_j(x) - 2 \sum_{i = 1}^{\infty} \sum_{j = 1}^J \beta_i \hat{\beta}_j \phi_i(x) \phi_j(x) + \sum_{i, j = 1}^J \hat{\beta}_i \hat{\beta}_j \phi_i(x) \phi_j(x) dx\right) \\
+            &= \sum_{j = 1}^{\infty} \beta_j^2 - 2\sum_{j = 1}^J \beta_j^2 + \sum_{j = 1}^J E(\hat{beta}^2) \\
+            &= \sum_{j = 1}^{\infty} \beta_j^2 - 2\sum_{j = 1}^J \beta_j^2 + \sum_{j = 1}^J (\frac{\sigma^2}{n} + \beta_j^2) \\
+            &= \sum_{j = J + 1}^{\infty} \beta_j^2 + J \frac{\sigma^2}{n}.
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 21.3}
+
+Straightforward calculation.
+
+
+\subsection*{Solution 21.4}
+
+Parseval's lemma.
+We have
+\begin{equation*}
+    ||f||^2 = \int f^2(x) dx
+        = \int \sum_{i, j = 1}^{\infty} \beta_i \beta_j \phi_i(x) \phi_j(x) dx
+        = \sum_{j = 1}^{\infty} \beta_j^2
+        = ||\beta||^2.
+\end{equation*}
+
+
+\subsection*{Solution 21.5}
+
+See code.
+
+
+\subsection*{Solution 21.6}
+
+A tedious exercise.
+I only give the solutions.
+\begin{enumerate}
+    \item[(a)] $f(x) = \sqrt{2} \cos(3 \pi x)$.
+    \item[(b)] $a_j = (\pi (1 - j^2))^{-1}$ if $j$ is even, zero otherwise.
+\end{enumerate}
+The rest of the exercise is in the code.
+
+
+\subsection*{Solution 21.7}
+
+See code.
+
+
+\subsection*{Solution 21.8}
+
+Let $D_{jk} = \{x : \psi_{jk}(x) \neq 0\}$, then $D_{jk} = \left[\frac{k}{2^j}, \frac{k + 1}{2^j}\right]$.
+Suppose $(j_1, k_j) \neq (j_2, k_2)$, w.l.o.g., $j_1 \leq j_2$.
+If $j_1 = j_2$, then $D_{j_1 k_1} \cap D_{j_2 k_2} = \empty$, so assume $j_1 < j_2$.
+Suppose $D_{j_1 k_1} \cap D_{j_2 k_2} \neq \empty$.
+Split $D_{j_1 k_1} = D_{j_1 k_1}^- \cup D_{j_1 k_1}^+$, where $D_{j_1 k_1}^- = \left[\frac{k}{2^k}, \frac{k + 1/2}{2^k}\right]$ and $D_{j_1 k_1}^+ = \left[\frac{k + 1/2}{2^k}, \frac{k + 1}{2^k}\right]$.
+Suppose $D_{j_2 k_2} \subset D_{j_1 k_1}$, and $D_{j_2 k_2} \cap D_{j_1 k_1}^+ \neq \empty$ and $D_{j_2 k_2} \cap D_{j_1 k_1}^- \neq \empty$.
+Then
+\begin{equation*}
+    \frac{k_2}{2^{j_2}} < \frac{k_1 + \frac{1}{2}}{2^{j_1}} < \frac{k_2 + 1}{2^{j_2}}.
+\end{equation*}
+Rearanging the symbols gives $0 < 2^{j_2 - j_1} k_1 + 2^{j_2 - j_1 - 1} - 2^{j_2}k_2 < 1$.
+But, because $j_1 < j_2$, the value in the middle is an whole integer, which is a contradiction.
+So we have $D_{j_2 k_2} \subset D_{j_1 k_1}^-$ or $D_{j_2 k_2} \subset D_{j_1 k_1}^+$.
+In both cases we see that
+\begin{equation*}
+    \langle \psi_{j_1, k_1}, \psi_{j_2, k_2} \rangle = 0.
+\end{equation*}
+Lastly, note that $\langle \psi, \psi \rangle = 1$, $\langle \phi, \phi \rangle = 1$, and $\langle \psi, \phi \rangle = 0$.
+
+
+\subsection*{Solution 21.9}
+
+See code.
+
+
+\subsection*{Solution 21.10}
+
+\begin{enumerate}
+    \item[(a)] We have
+        \begin{equation*}
+            E(\hat{\beta}_{jk}) = \frac{1}{n} \sum_{i = 1}^n E(\psi_{jk}(X_i))
+                = \frac{1}{n} \sum_{i = 1}^n \int_{D_{jk}} \psi_{jk}(x) f(x) dx
+                = \frac{1}{n} \sum_{i = 1}^n \beta_{jk}
+                = \beta_{jk}
+        \end{equation*}
+    \item[(b)] Okay.
+    \item[(c)] Apply Theorem 21.5.
+    \item[(d)] See code.
+\end{enumerate}
+
+
+\subsection*{Solution 21.11}
+
+I'm pretty sure this exercise is wrong, the numbers don't seem to be correct.
+
+
+\subsection*{Solution 21.12}
+
+See code.

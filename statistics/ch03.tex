@@ -1,0 +1,617 @@
+\section*{Chapter 3 - Expectation}
+
+\subsection*{Solution 3.1}
+
+Let $X_n$ a random variable representing the amount of money after $n$ turns.
+We set $X_0 = c$.
+We have $E(X_n | X_{n-1}) = \frac{1}{2}(2 X_{n-1} + \frac{1}{2} X_{n-1}) = \frac{5}{4} X_{n-1}$.
+Using the tower property of conditional expectation we have
+\begin{equation*}
+    E(X_n) = E(E(X_n | X_{n-1}))
+        = \frac{5}{4} E(E(X_{n-1} | X_{n-2}))
+        = ...
+        = \left(\frac{5}{4}\right)^n E(X_0)
+        = \left(\frac{5}{4}\right)^n c.
+\end{equation*}
+
+
+\subsection*{Solution 3.2}
+
+\begin{itemize}
+    \item[$\rightarrow$)] TODO: This is a hand-wave proof. I should look for a better proof if I have some time.
+        Suppose $V(X) = 0$, then
+        \begin{equation*}
+            \int_{-\infty}^{\infty} (x - \mu_X)^2 dF(x) = 0.
+        \end{equation*}
+        But $(x - \mu_X)^2 \geq 0$ and continuous and $F$ is right continuous, so for each $x$ we must have $f(x) = 0$ or $(x - \mu_X)^2 = 0$.
+        $f(x)$ cannot be zero everywhere, so there must be an $x$ such that $(x - \mu_X)^2 = 0$, which is only once at $x = \mu_X$.
+        In other words $P(X = \mu_X) = f(\mu_X) = 1$ and for all $x \neq \mu_X$ we must have $f(x) = 0$.
+        Take $c = \mu_X$.
+    \item[$\leftarrow$)] If $P(X = c) = 1$, then $E(X) = c$ and $E(X^2) = c^2$, and $V(X) = E(X^2) - E(X)^2 = c^2 - c^2 = 0$.
+\end{itemize}
+
+
+\subsection*{Solution 3.3}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, 1)$.
+Define $Y_n = \mathrm{max}(X_1, X_2, ..., X_n)$.
+\begin{equation*}
+    P(Y_n < y) = \prod_{i=1}^n P(X_i < y)
+        = y^n.
+\end{equation*}
+So $f(y) = ny^{n-1}$ and
+\begin{equation*}
+    E(Y_n) = \int_0^1 ny^{n} dy
+        = \frac{n}{n + 1}.
+\end{equation*}
+
+
+\subsection*{Solution 3.4}
+
+Let $X_0 = 0$.
+Note that for $n > 0$, $X_n = \sum_{i = 1}^n (1 - 2B_i)$, where $B_i \sim \mathrm{Bernoulli}(p)$.
+We have $E(X_n) = n - 2\sum_i E(B_i) = n(1 - 2p)$ and $V(X_n) = 4\sum_i V(B_i) = 4np(1-p)$.
+
+
+\subsection*{Solution 3.5}
+
+The probability density function is $f(X = i) = p^{i - 1} (1 - p) = p^i$, as $p = \frac{1}{2}$.
+We have
+\begin{equation*}
+    E(X) = \sum_{i = 0}^{\infty} if(X = i)
+        = \sum_{i = 0}^{\infty} i p^i
+        = \left( \frac{1}{1 - p} \right)'
+        = \frac{p}{(1 - p)^2}
+        = 2.
+\end{equation*}
+
+
+\subsection*{Solution 3.6}
+
+Write out the definition and do required book keeping.
+\begin{equation*}
+    \begin{split}
+        E_Y(Y) &= \sum_y y P(Y = y)
+            = \sum_y y P(r(X) = y)
+            = \sum_y y P(X \in r^{-1}(y))
+            = \sum_y \sum_{x \in r^{-1}(y)} y P(X = x) \\
+            &= \sum_y \sum_{x \in r^{-1}(y)} r(x) P(X = x)
+            = \sum_x r(x) P(X = x)
+            = E_X(r(X)).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 3.7}
+
+We first prove a lemma.
+\begin{equation*}
+    x P(X > x) = x \int_x^{\infty} f(t) dt
+        \leq \int_x^{\infty} t f(t) dt
+        = E(X) - \int_{-\infty}^{x} t f(t) dt
+        \to 0,
+\end{equation*}
+as $x \to \infty$.
+So $\lim_{x \to \infty} x(1 - F(x)) = \lim_{x \to \infty} x P(X > x) = 0$.
+
+For the solution, use integration by parts.
+\begin{equation*}
+    \int_0^{\infty} P(X > x) dx = \int_0^{\infty} (1 - F(x)) dx
+        = x(1 - F(x))|_0^{\infty} + \int_0^{\infty} xf(x) dx
+        = E(X).
+\end{equation*}
+
+
+\subsection*{Solution 3.8}
+
+Let $X_1, X_2, ..., X_n$ i.i.d. with $\mu = E(X_i)$ and $\sigma^2 = V(X_i)$.
+Let the sample mean be $\overline{X}_n = \frac{1}{n} \sum X_i$.
+We have
+\begin{equation*}
+    \begin{split}
+        E(\overline{X}_n) &= \frac{1}{n} \sum_{i = 1}^n E(X_i)
+            = \frac{n}{n} \mu
+            = \mu, \\
+        V(\overline{X}_n) &= \frac{1}{n^2} \sum_{i = 1}^n V(X_i)
+            = \frac{n}{n^2} \sigma^2
+            = \frac{\sigma^2}{n}.
+    \end{split}
+\end{equation*}
+Define the sample variance by $S^2_n = \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X}_n)^2$.
+Note that
+\begin{equation*}
+    \begin{split}
+        E(X_i^2) &= V(X_i) + E(X_i)^2 = \sigma^2 + \mu^2, \\
+        E(\overline{X}_n^2) &= V(\overline{X}_n) + E(\overline{X}_n)^2 = \frac{\sigma^2}{n} + \mu^2, \\
+        E(X_i \overline{X}_n) &= \frac{1}{n} \sum_{j = 1}^n E(X_i X_j)
+            = \frac{1}{n} \left(E(X_i^2) + \sum_{i \neq j} E(X_i) E(X_j)\right)
+            = \mu^2 + \frac{\sigma^2}{n}.
+    \end{split}
+\end{equation*}
+We calculate
+\begin{equation*}
+    \begin{split}
+        E(S_n^2) &= \frac{1}{n - 1} \sum_{i = 1}^n \left(E(X_i^2) - 2 E(X_i \overline{X}_n) + E(\overline{X}_n^2)\right) \\
+            &= \frac{1}{n - 1} \sum_{i = 1}^n \left(\sigma^2 + \mu^2 - 2 \frac{\sigma^2}{n} - 2 \mu^2 + \mu^2 + \frac{\sigma^2}{n}\right) \\
+            &= \frac{1}{n - 1} \sum_{i = 1}^n \frac{n - 1}{n} \sigma^2
+            = \sigma^2.
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 3.9}
+
+See code.
+Note that the Cauchy distribution doesn't have moments.
+Therefore, we cannot "sample" the mean of the Cauchy distribution.
+
+
+\subsection*{Solution 3.10}
+
+Let $X \sim \mathrm{Normal}(0, 1)$ and let $Y = e^X$.
+Note that for the moment generating function for X we have $\exp(\frac{t^2}{2}) = \phi_X(t) = E(e^{tX}) = E(Y^t)$.
+So $E(Y) = \phi_X(1) = \sqrt{e}$, and $E(Y^2) = \phi_X(2) = e^2$ so that $V(Y) = E(Y^2) - E(Y)^2 = e^2 - e = e(e - 1)$.
+
+
+\subsection*{Solution 3.11}
+
+\begin{itemize}
+    \item[(a)] See solution 3.4 with $p = \frac{1}{2}$.
+        $E(X_n) = 0$ and $V(X_n) = n$.
+    \item[(b)] See code.
+        Note that $V(X_n) = n \to \infty$ as $n \to \infty$.
+        So, although $E(X_n) = 0$, the variance increases as $n$ increases, and the random walks will be different from each other.
+\end{itemize}
+
+
+\subsection*{Solution 3.12}
+
+We calculate the expected value and variance for all distributions in section 3.4.
+
+\begin{itemize}
+\item[(a)] Point mass distribution. $E(X) = \sum x p(x) = a p(a) = a$ and $V(X) = E(X^2) - E(X)^2 = a^2 - a^2 = 0$.
+
+\item[(b)] Bernoulli, $X \sim \mathrm{Bernoulli}(p)$. $E(X) = 1p + 0(1-p) = p$.
+Note that $E(X^2) = 1^2p + 0^2(1-p) = p$, so $V(X) = E(X^2) - E(X)^2 = p - p^2 = p(1 - p)$.
+
+\item[(c)] Binomial, $X \sim \mathrm{Binomial}(n, p)$.
+Write $X = \sum_{i = 1}^n X_i$, where $X_i \sim \mathrm{Bernoulli}(p)$.
+Then $E(X) = E(\sum X_i) = np$ and $V(X) = V(\sum X_i) = np(1 - p)$.
+
+\item[(d)] Geometric, $X \sim \mathrm{Geometric}(p)$.
+\begin{equation*}
+E(X) = \sum_{x = 1}^{\infty} xp(1 - p)^{x - 1}
+    = p \left(-\sum_{x = 0}^{\infty} (1 - p)^{x}\right)'
+    = p \left(-\frac{1}{p}\right)'
+    = \frac{p}{p^2}
+    = \frac{1}{p},
+\end{equation*}
+and
+\begin{equation*}
+E(X(X - 1)) = \sum_{x = 2}^{\infty} x(x - 1) p (1 - p)^{x - 1}
+    = p (1 - p) \left(\sum_{x = 0}^{\infty} (1 - p)^{x}\right)''
+    = p (1 - p) \left(\frac{1}{p}\right)''
+    = \frac{2(1 - p)}{p^2}.
+\end{equation*}
+So $E(X^2) = E(X(X - 1)) + E(X) = \frac{2(1 - p)}{p^2} + \frac{1}{p} = \frac{2 - p}{p^2}$.
+Such that $V(X^2) = E(X^2) - E(X)^2 = \frac{2 - p}{p^2} - \frac{1}{p^2} = \frac{1 - p}{p^2}$.
+
+\item[(e)] Poisson, $X \sim \mathrm{Poisson}(\lambda)$.
+\begin{equation*}
+E(X) = \sum_{x = 0}^{\infty} x \frac{\lambda^x}{x!} e^{-\lambda}
+    = \lambda e^{-\lambda} \sum_{x = 0} \frac{\lambda^{x-1}}{(x-1)!}
+    = \lambda e^{-\lambda} e^{\lambda}
+    = \lambda.
+\end{equation*}
+Note that
+\begin{equation*}
+E(X(X-1)) = \sum_{x = 0}^{\infty} x(x - 1) \frac{\lambda^x}{x!} e^{-\lambda}
+    = \lambda^2 e^{-\lambda} \sum_{x = 2}^{\infty} \frac{\lambda^{x-2}}{x!}
+    = \lambda^2.
+\end{equation*}
+So $E(X^2) - E(X)^2 = E((X - 1)X) + E(X) - E(X)^2 = \lambda^2 + \lambda - \lambda^2 = \lambda$.
+
+\item[(f)] Uniform, $X \sim \mathrm{Uniform}(a, b)$. First take $U \sim \mathrm{Uniform}(0, 1)$, then
+\begin{equation*}
+\begin{split}
+E(U) &= \int_0^1 xf(x)dx = \left.\frac{1}{2}x^2\right|_0^1 = \frac{1}{2}, \\
+E(U^2) &= \int_0^1 x^2f(x)dx = \left.\frac{1}{3}x^3\right|_0^1 = \frac{1}{3}.
+\end{split}
+\end{equation*}
+So
+\begin{equation*}
+\begin{split}
+E(X) &= E((b - a)U + a) = (b - a) \frac{1}{2} + a = \frac{1}{2}(a + b), \\
+V(X) &= V((b - a)U + a) = (b - a)^2 V(U) = (b - a)^2 (E(U^2) - E(U)) = \frac{1}{12} (b - a)^2.
+\end{split}
+\end{equation*}
+
+\item[(g)] Normal, $X \sim \mathrm{Normal}(\mu, \sigma^2)$.
+First take $Z \sim \mathrm{Normal}(0, 1)$.
+Because $xf_z(x) = x\phi(x)$ is anti-symmetric $E(Z) = 0$.
+To calculate $V(Z) = E(Z^2)$ we need the following lemma.
+
+Let $\phi$ be monotonic decreasing function with finite moments on some interval $(a, \infty)$ such that $\phi(z) \to 0$ if $z \to \infty$, then $z\phi(z) \to 0$ if $z \to \infty$.
+Indeed
+\begin{equation*}
+\int_{z/2}^{\infty} \phi(t)dt
+    \geq \int_{z/2}^{z} \phi(t)dt
+    \geq \int_{z/2}^{z} \phi(z)dt
+    = \frac{1}{2} z\phi(z)
+    > z\phi(z),
+\end{equation*}
+when $z$ is large enough such that $\phi(t)$ is monotonic decreasing.
+As $\phi \to 0$ as $z \to \infty$, we have
+\begin{equation*}
+z\phi(z) < \int_{\frac{z}{2}}^{\infty} \phi(t)dt \to 0.
+\end{equation*}
+So $z\phi(z) \to 0$ as $z \to \infty$.
+
+Now we calculate
+\begin{equation*}
+E(Z^2) = \int_{-\infty}^{\infty} z^2\phi(z) dz
+    = 2\int_{0}^{\infty} z^2\phi(z) dz
+    = \left[\Phi(z) - z\phi(z)\right]_{0}^{\infty}
+    = 2\lim_{z \to \infty} \Phi(z) - 2\Phi(0)
+    = 2 - 1
+    = 1
+\end{equation*}
+Where we use the lemma $z\phi(z) \to 0$ if $z \to \infty$.
+So $V(Z) = E(Z^2) = 1$.
+
+Now $X = \sigma Z + \mu$, so $E(X) = \sigma E(Z) + \mu = \mu$ and $V(X) = \sigma^2 V(Z) = \sigma^2$.
+
+\item[(h)] Exponential, $X \sim \mathrm{Exp}(\beta)$.
+Using integration by parts
+\begin{equation*}
+\begin{split}
+E(X) &= \int_0^{\infty} \frac{x}{\beta} \mathrm{exp}\left(-\frac{x}{\beta}\right) dx \\
+    &= -\left.x \exp\left(-\frac{x}{\beta}\right)\right|_0^{\infty} + \frac{1}{\beta}\int_0^{\infty} \beta \exp\left(-\frac{x}{\beta}\right) dx \\
+    &= \left.-\beta \exp\left(-\frac{x}{\beta}\right)\right|_0^{\infty}
+    = \beta.
+\end{split}
+\end{equation*}
+And
+\begin{equation*}
+E(X^2) = \int_0^{\infty} \frac{x^2}{\beta} \mathrm{exp}\left(-\frac{x}{\beta}\right) dx
+    = -\left. x\exp\left(-\frac{x}{\beta}\right)\right|_0^{\infty} + 2 \int_0^{\infty} x \exp\left(-\frac{x}{\beta}\right) dx
+    = 2 \beta E(X) = 2 \beta^2.
+\end{equation*}
+So $V(X) = E(X^2) - E(X)^2 = 2 \beta^2 - \beta^2 = \beta^2$.
+
+\item[(i)] Gamma, $X \sim \mathrm{Gamma}(\alpha, \beta)$.
+\begin{equation*}
+\begin{split}
+E(X) &= \int_{0}^{\infty} \frac{\beta^{\alpha} x^{\alpha}}{\Gamma(\alpha)} \exp(-\beta x) dx \\
+    &= \frac{\alpha}{\beta} \int_0^{\infty} \frac{\beta^{\alpha + 1} x^{(\alpha + 1) - 1}}{\Gamma(\alpha + 1)} \exp(-\beta x) dx \\
+    &= \frac{\alpha}{\beta} \int_0^{\infty} f(x; \alpha + 1, \beta) dx
+    = \frac{\alpha}{\beta}.
+\end{split}
+\end{equation*}
+And
+\begin{equation*}
+\begin{split}
+E(X^2) &= \int_{0}^{\infty} \frac{\beta^{\alpha} x^{\alpha + 1}}{\Gamma(\alpha)} \exp(-\beta x) dx \\
+    &= \frac{\alpha(\alpha + 1)}{\beta^2} \int_0^{\infty} \frac{\beta^{\alpha + 2} x^{(\alpha + 2) - 1}}{\Gamma(\alpha + 2)} \exp(-\beta x) dx \\
+    &= \frac{\alpha(\alpha + 1)}{\beta^2} \int_0^{\infty} f(x; \alpha + 2, \beta) dx
+    = \frac{\alpha(\alpha + 1)}{\beta^2}.
+\end{split}
+\end{equation*}
+So $V(X) = E(X^2) - E(X)^2 = \frac{\alpha}{\beta^2}$.
+
+\item[(j)] Beta, $X \sim \mathrm{Beta}(\alpha, \beta)$.
+\begin{equation*}
+\begin{split}
+E(X) &= \int_0^1 \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha} (1 - x)^{\beta - 1} dx \\
+    &= \frac{\alpha}{\alpha + \beta} \int_0^1 \frac{\Gamma(\alpha + 1 + \beta)}{\Gamma(\alpha + 1) \Gamma(\beta)} x^{(\alpha + 1) - 1} (1 - x)^{\beta - 1} dx
+    = \frac{\alpha}{\alpha + \beta}.
+\end{split}
+\end{equation*}
+For the variance
+\begin{equation*}
+\begin{split}
+E(X^2) &= \int_0^1 \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} x^{\alpha + 1} (1 - x)^{\beta - 1} dx \\
+    &= \frac{\alpha (\alpha + 1)}{(\alpha + \beta)(\alpha + \beta + 1)} \int_0^1 \frac{\Gamma(\alpha + 2 + \beta)}{\Gamma(\alpha + 2) \Gamma(\beta)} x^{(\alpha + 2) - 1} (1 - x)^{\beta - 1} dx
+    = \frac{\alpha(\alpha + 1)}{(\alpha + \beta)(\alpha + \beta + 1)},
+\end{split}
+\end{equation*}
+so that
+\begin{equation*}
+V(X) = E(X^2) - E(X)^2
+    = \frac{\alpha}{\alpha + \beta} + \frac{\alpha(\alpha + 1)}{(\alpha + \beta)(\alpha + \beta + 1)}
+    = \frac{\alpha \beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}.
+\end{equation*}
+
+\item[(k)] Student-t, $X \sim t(\nu)$.
+For $\nu > 1$, $xf(x;\nu)$ is odd, so $E(X) = 0$.
+Let $\nu > 2$, because $E(X) = 0$ we have $V(X) = E(X^2)$.
+The pdf is given by
+\begin{equation*}
+    f(x; \nu) = \frac{1}{\sqrt{\nu}} \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu + 1}{2}}.
+\end{equation*}
+Note that we have the equality
+\begin{equation*}
+    \int_0^1 y^{\alpha - 1} (1 - y)^{\beta - 1} dy = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}.
+\end{equation*}
+We'll rewrite $E(X^2)$ into this integral using substition $y = \left(1 + \frac{x^2}{\nu}\right)^{-1}$, such that $x = \sqrt{\nu} y^{-\frac{1}{2}} (1 - y)^{\frac{1}{2}}$ and $x dx = -\frac{v}{2} y^2 dy$.
+The variance is calculated with the following tedious calculation
+\begin{equation*}
+    \begin{split}
+        E(X^2) &= \frac{1}{\sqrt{\nu}} \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \int_{-\infty}^{\infty} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu + 1}{2}} dx \\
+            &= \frac{2}{\sqrt{\nu}} \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \int_{0}^{\infty} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu + 1}{2}} dx \\
+            &= \frac{2}{\sqrt{\nu}} \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \int_{1}^{0} \sqrt{\nu} y^{-\frac{1}{2}} (1 - y)^{\frac{1}{2}} y^{\frac{\nu + 1}{2}} (-1) \frac{\nu}{2} y^2 dy \\
+            &= \nu \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \int_{0}^{1} y^{\frac{\nu - 2}{2} - 1} (1 - y)^{\frac{3}{2} - 1} dy \\
+            &= \nu \frac{\Gamma(\frac{\nu + 1}{2})}{\Gamma(\frac{1}{2}) \Gamma(\frac{\nu}{2})} \frac{\Gamma(\frac{\nu - 2}{2}) \Gamma(\frac{3}{2})}{\Gamma(\frac{\nu + 1}{2})} \\
+            &= \frac{\nu}{2} \frac{1}{\frac{\nu}{2} - 1}
+            = \frac{\nu}{\nu - 2}.
+    \end{split}
+\end{equation*}
+
+\item[($\ell$)] $\chi^2$ distribution, $X \sim \chi^2_p$.
+We calculate all moments of $X$.
+\begin{equation*}
+\begin{split}
+E(X^k) &= \frac{1}{2^{p/2} \Gamma(p/2)} \int_0^{\infty} x^{k + p/2 - 1} e^{-x/2} dx \\
+    &= \frac{2}{2^{p/2} \Gamma(p/2)} \int_0^{\infty} (2y)^{k + p/2 - 1} e^{-y} dy \\
+    &= \frac{2^{k + p/2}}{2^{p/2} \Gamma(p/2)} \int_0^{\infty} y^{k + p/2 - 1} e^{-y} dy
+    = \frac{2^{k}}{\Gamma(p/2)} \Gamma\left(k + \frac{p}{2}\right).
+\end{split}
+\end{equation*}
+So $E(X) = p$, $E(X^2) = p(p + 1)$, and $V(X) = E(X^2) - E(X)^2 = p(p + 1) - p^2 = p$.
+
+\item[(m)] Multinomial is explained in the book.
+
+\item[(n)] Multi-Normal, $X \sim \mathrm{Normal}(\mu, \Sigma)$.
+By Theorem 2.44, if $Z \sim \mathrm{Normal}(0, I)$, then $E(Z) = 0$ and $V(Z) = I$.
+By Theorem 2.43, $X = \Sigma^{\frac{1}{2}} (Z - \mu)$.
+By lemma 3.21, $E(X) = E(\Sigma^{1/2}Z + \mu) = \mu$ and $V(X) = V(\Sigma^{1/2}Z + \mu) = \Sigma^{1/2} V(Z) \Sigma^{1/2} = \Sigma$.
+
+\end{itemize}
+
+
+\subsection*{Solution 3.13}
+
+Let $X = B U_1 + (1 - B) U_2$ a random variable, where $B \sim \mathrm{Bernoulli}(\frac{1}{2})$, $U_1 \sim \mathrm{Uniform}(0, 1)$, and $U_2 \sim \mathrm{Uniform}(3, 4)$.
+
+\begin{itemize}
+    \item[(a)] $E(X) = E(B)E(U_1) + E(1-B)E(U_2) = 2$.
+    \item[(b)] Note that $E(U_1^2) = \frac{1}{3}$ and $E(U_2^2) = \frac{37}{3}$.
+        We have
+        \begin{equation*}
+            \begin{split}
+                E(X^2) &= E(B^2 U_1^2 + B U_1 (1 - B) U_2 + (1 - B)^2 U_2^2) \\
+                    &= E(B^2 U_1^2) + E((1 - B)^2 U_2^2) \\
+                    &= E(B^2) E(U_1^2) + E((1 - B)^2) E(U_2^2) \\
+                    &= \frac{1}{2 \cdot 3} + \frac{37}{2 \cdot 3}
+                    = \frac{19}{3},
+            \end{split}
+        \end{equation*}
+        such that $V(X) = E(X^2) - E(X)^2 = \frac{7}{3}$.
+\end{itemize}
+
+
+\subsection*{Solution 3.14}
+
+Let $X_1, X_2, ..., X_m$ and $Y_1, Y_2, ..., Y_m$ be random variables, and $a_1, a_2, ..., a_m$ and $b_1, b_2, ..., b_n$ be constants.
+We have
+\begin{equation*}
+    \begin{split}
+        \mathrm{Cov}\left(\sum_{i=1}^m a_i X_i, \sum_{j=1}^n b_j Y_j\right)
+            &= E\left(\sum_{i=1}^m a_i X_i \sum_{j=1}^n b_j Y_j\right) - E\left(\sum_{i=1}^m a_i X_i\right) E\left(\sum_{j=1}^n a_j Y_j\right) \\
+            &= \sum_{i=1}^m \sum_{j=1}^n a_i b_j \left( E(X_i Y_j) - E(X_i) E(Y_j) \right)
+            = \sum_{i=1}^m \sum_{j=1}^n a_i b_j \mathrm{Cov}(X_i, Y_j).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 3.15}
+
+We have
+\begin{equation*}
+E(2X - 3Y) = \frac{1}{3} \int_0^2 \int_0^1 (2x - 3y)(x + y) dx dy
+    = \frac{1}{3} \int_0^2 (\frac{2}{3} - \frac{1}{2}y - 3y^2) dy
+    = \frac{1}{3} (\frac{4}{3} - 1 - 8)
+    = - \frac{23}{9},
+\end{equation*}
+and
+\begin{equation*}
+\begin{split}
+E((2X - 3Y)^2) &= \frac{1}{3} \int_0^2 \int_0^2 (2x - 3y)^2 (x + y) dx dy \\
+    &= \frac{1}{3} \int_0^1 \int_0^2 (4x^3 - 8x^2y - 3xy^2 + 9y^3) dy dx \\
+    &= \frac{1}{3} \int_0^1 (8x^3 - 16x^2 - 8x + 36) dx \\
+    &= \frac{1}{3} (2 - \frac{16}{3} - 4 + 36)
+    = \frac{86}{3}.
+\end{split}
+\end{equation*}
+So that $V(2X - 3Y) = E((2X - 3Y)^2) - E(2X - 3Y)^2 = \frac{245}{81}$.
+
+
+\subsection*{Solution 3.16}
+
+This follows almost by definition,
+\begin{equation*}
+    E(r(X)s(Y)|X) = \int r(x)s(y) f(y|x) dy
+        = r(x) \int s(y) f(y|x) dy
+        = r(X) E(s(Y)|X).
+\end{equation*}
+Take $s(Y) = 1$ so that $E(r(X)|X) = E(r(X)s(Y)|X) = r(X) E(s(Y)|X) = r(X)$.
+
+
+\subsection*{Solution 3.17}
+
+This is an algebraic manipulation of symbols.
+\begin{equation*}
+    \begin{split}
+        E(V(Y|X)) + V(E(Y|X)) &= E(E(Y^2|X) - E(Y|X)^2) + E(E(Y|X)^2) - E(E(Y|X))^2 \\
+            &= E(E(Y^2|X)) - E(E(Y|X)^2) + E(E(Y|X)^2) - E(E(Y|X))^2 \\
+            &= E(E(Y^2|X)) - E(E(Y|X))^2 \\
+            &= E(Y^2) - E(Y)^2
+            = V(Y).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 3.18}
+
+Suppose $E(X|Y) = c$.
+We have $E(XY) = E(E(XY|Y)) = E(E(X|Y)Y) = cE(Y)$.
+The covariance of $X$ and $Y$ is
+\begin{equation*}
+    \mathrm{Cov}(X, Y) = E(XY) - E(X)E(Y)
+        = (c - E(X))E(Y)
+        = (c - E(E(X|Y)))E(Y)
+        = (c - c)E(Y)
+        = 0.
+\end{equation*}
+If the covariance of $X$ and $Y$ is zero, $X \bot Y$.
+
+
+\subsection*{Solution 3.19}
+
+We have $f_X(x) = 1$ for $0 \leq x \leq 1$.
+As $E(X_i) = 1$ and $V(X_i) = \frac{1}{12}$, we have $E(\overline{X}_n) = \frac{1}{2}$ and $V(\overline{X}_n) = \frac{1}{12n}$.
+
+
+\subsection*{Solution 3.20}
+
+Let $a$ be a vector and $X$ a random variable with mean $\mu$ and variance $\Sigma$.
+We have
+\begin{equation*}
+    E(a^tX) = E\left(\sum_{i = 1}^n a_i X_i\right)
+        = \sum_{i = 1}^n E(a_i X_i)
+        = \sum_{i = 1}^n a_i E(X_i)
+        = a^t \mu.
+\end{equation*}
+Note that in the same way $E(Xa) = \mu a$.
+For the variance we calculate
+\begin{equation*}
+    V(a^tX) = E((a^tX - E(a^tX))^2)
+        = E(a^t (X - E(X))(X - E(X))^t a)
+        = a^t E((X - E(X))(X - E(X))^t) a
+        = a^t \Sigma a.
+\end{equation*}
+For the matrix $A$ the calculations are similar,
+\begin{equation*}
+    E(AX)_k = E\left(\sum_{i = 1}^n a_{ki} X_i\right)
+        = \sum_{i = 1}^n a_{ki} E(X_i)
+        = (A\mu)_k,
+\end{equation*}
+so $E(AX) = A\mu$, and similar $E(XA) = \mu A$.
+The variance is
+\begin{equation*}
+    V(AX) = E((AX - E(AX))^2)
+        = E(A(X - \mu)(X - \mu)^t A^t)
+        = A E((X - \mu)(X - \mu)^t) A^t
+        = A \Sigma A^t.
+\end{equation*}
+
+
+\subsection*{Solution 3.21}
+
+Let $X$ and $Y$ be random variables.
+Suppose that $E(Y|X) = X$.
+We have
+\begin{equation*}
+    \begin{split}
+        \mathrm{Cov}(X, Y) &= E(XY) - E(X)E(Y) \\
+            &= E(E(XY|X)) - E(X)E(E(Y|X)) \\
+            &= E(XE(Y|X)) - E(X)E(X) \\
+            &= E(X^2) - E(X)^2
+            = \mathrm{Var}(X).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 3.22}
+
+Let $0 < a < b < 1$ and $X \sim \mathrm{Uniform}(0, 1)$.
+Define $Y = 1$ if $0 \leq x \leq b$ else $Y = 0$, and $Z = 1$ if $a \leq x \leq 0$ else $Z = 0$.
+\begin{itemize}
+    \item[(a)] $Y$ and $Z$ are dependent.
+        Suppose $Y$ and $Z$ are independent, then $P(Y=1|Z=1) = P(Y=1) = P(X < b) = b$.
+        But we calculate
+        \begin{equation*}
+            P(Y=1|Z=1) = \frac{P(Y=1, Z=1)}{P(Z=1)}
+                = \frac{P(a < X < b)}{P(a < X)}
+                = \frac{b - a}{1 - a}
+                \neq b.
+        \end{equation*}
+    \item[(b)] If $Z = 1$, then $a \leq x \leq 1$, so $E(Y|Z=1) = \frac{b - a}{1 - a}$.
+        If $Z = 0$, then $x < a$, so $E(Y|Z=0) = 1$.
+        Similar $E(Z|Y=1) = \frac{b - a}{a}$ and $E(Z|Y=0) = 1$.
+\end{itemize}
+
+
+\subsection*{Solution 3.23}
+
+We do the whole list.
+
+\begin{itemize}
+    \item[(a)] $X \sim \mathrm{Bernoulli}(p)$, then
+        \begin{equation*}
+            \psi_X(t) = E(e^{tX})
+                = \sum_{x=0}^{1} e^{tx} f(x)
+                = pe^t + (1 - p).
+        \end{equation*}
+    \item[(b)] $X \sim \mathrm{Binomial}(n, p)$.
+        If we write $X = \sum_{i = 0}^n B_i$, where $B_i \sim \mathrm{Bernoulli}(p)$, we have
+        \begin{equation*}
+            \psi_X(t) = E(e^{t\sum B_i})
+                = \prod_{i = 0}^n E(e^{tB_i})
+                = (pe^t + (1 - p))^n.
+        \end{equation*}
+    \item[(c)] $X \sim \mathrm{Poisson}(\lambda)$, then
+        \begin{equation*}
+            \psi_X(t) = E(e^{tX})
+                = \sum_{x = 0}^{\infty} e^{tx} \frac{\lambda^x}{x!} e^{-\lambda}
+                = e^{-\lambda} \sum_{x = 0}^{\infty} \frac{(\lambda e^t)^x}{x!}
+                = e^{-\lambda} e^{\lambda e^t}
+                = \exp(\lambda(e^t - 1)).
+        \end{equation*}
+    \item[(d)] $X \sim \mathrm{Normal}(\mu, \sigma)$.
+        Note that $X = \sigma Z + \mu$ and $E(e^{tX}) = e^{t\mu} E(e^{t\sigma Z})$.
+        So we only have to calculate
+        \begin{equation*}
+            \begin{split}
+                E(e^{t \sigma Z}) &= \int e^{t \sigma z} \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{z^2}{2}\right) dz \\
+                    &= \int \frac{1}{\sqrt{2 \pi}} \exp\left(\sigma t z - \frac{z^2}{2}\right) dz \\
+                    &= \int \frac{1}{\sqrt{2 \pi}} \exp\left(\frac{1}{2} (z - \sigma t)^2 + \frac{\sigma^2 t^2}{2}\right) dz \\
+                    &= \exp\left(\frac{\sigma^2 t^2}{2}\right) \int \frac{1}{\sqrt{2 \pi}} \exp\left(\frac{1}{2} (z - \sigma t)^2\right) dz
+                    = \exp\left(\frac{\sigma^2 t^2}{2}\right).
+            \end{split}
+        \end{equation*}
+        Which gives $\psi_X(t) = E(e^{tX}) = \exp\left(t \mu + \frac{\sigma^2 t^2}{2}\right)$.
+    \item[(e)] $X \sim \Gamma(\alpha, \beta)$.
+        This is a lenghty calculation.
+        The idea is to rewrite the integral to the Gamma function $\Gamma(\alpha) = \int_0^{\infty} u^{\alpha - 1} e^{-u} du$.
+        Use substitution $u = (\frac{1}{\beta} - t)x$, such that $dx = \frac{\beta}{1 - t\beta} du$.
+        We calculate
+        \begin{equation*}
+            \begin{split}
+                E(e^{tX})
+                    &= \int_0^{\infty} e^{xt} \frac{1}{\beta^{\alpha} \Gamma(\alpha)} x^{\alpha - 1} e^{-\frac{x}{\beta}} dx \\
+                    &= \frac{1}{\beta^{\alpha} \Gamma(\alpha)} \int_0^{\infty} x^{\alpha - 1} e^{-(\frac{1}{\beta} - t)x} dx \\
+                    &= \frac{1}{\beta^{\alpha} \Gamma(\alpha)} \int_0^{\infty} \left(\frac{\beta}{1 - t\beta}\right)^{\alpha - 1} u^{\alpha - 1} e^{-u} \frac{\beta}{1 - t\beta} du \\
+                    &= \frac{1}{\beta^{\alpha} \Gamma(\alpha)} \left(\frac{\beta}{1 - t\beta}\right)^{\alpha} \int_0^{\infty} u^{\alpha - 1}e^{-u} du
+                    = \left( \frac{1}{1 - t\beta} \right)^{\alpha}.
+            \end{split}
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 3.24}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Exp}(\beta)$.
+We have
+\begin{equation*}
+    \begin{split}
+        \psi_{X_i}(t) &= E(e^{X_i t}) \\
+            &= \int_0^{\infty} e^{xt} \frac{1}{\beta} e^{-\frac{x}{\beta}} dx \\
+            &= \frac{1}{1 - \beta t} \int_0^{\infty} \frac{1 - \beta t}{\beta} \exp\left( -\left(\frac{1 - \beta t}{\beta} x \right)\right) dx \\
+            &= \frac{1}{1 - \beta t} \left[ -\exp( -\left(\frac{1 - \beta t}{\beta}\right) x\right]_{x = 0}^{\infty}
+            = \frac{1}{1 - \beta t}.
+    \end{split}
+\end{equation*}
+Let $Y = \sum_{i = 1}^n X_i$.
+The moment generating function of $Y$ is $\psi_Y(t) = E(e^{Y t}) = \prod E(e^{t X_i}) = \left( \frac{1}{1 - \beta t} \right)^n$.
+Because $\psi_Y(t) = (1 - \beta t)^{-n}$ is the moment generating function for the Gamma distribution, we have $Y \sim \mathrm{Gamma}(n, \beta)$.

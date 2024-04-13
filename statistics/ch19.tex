@@ -1,0 +1,93 @@
+\section*{Chapter 19 - The log-linear model}
+
+\subsection*{Solution 19.1}
+
+\begin{align*}
+    p_{00} &= e^{\beta_1}, & p_{10} &= e^{\beta_1 + \beta_2}, \\
+    p_{01} &= e^{\beta_1 + \beta_3}, & p_{02} &= e^{\beta_2 + \beta_4}, \\
+    p_{11} &= e^{\beta_1 + \beta_2 + \beta_3 + \beta_5}, & p_{12} &= e^{\beta_1 + \beta_2 + \beta_4 + \beta_6}.
+\end{align*}
+
+
+\subsection*{Solution 19.2}
+
+\begin{itemize}
+    \item[$\rightarrow$)] If $X_b \bot X_c | X_a$, then
+        \begin{equation*}
+            \frac{f(x_a, x_b, x_c)}{f(x_a)}
+                = f(x_b, x_c| x_a) = f(x_b|x_a) f(x_c|x_a)
+                = \frac{f(x_a, x_b)}{f(x_a)} \frac{f(x_a, x_c)}{f(x_a)}.
+        \end{equation*}
+        Rearranging the equation we find
+        \begin{equation*}
+            f(x_a, x_b, x_c) = f(x_a, x_b) \frac{f(x_a, x_c)}{f(x_a)}
+                := g(x_a, x_b) h(x_a, x_c).
+        \end{equation*}
+    \item[$\leftarrow$)] Note that
+        \begin{equation*}
+            f(x_b, x_c|x_a) = \frac{f(x_a, x_b, x_c)}{f(x_a)}
+                = \frac{g(x_a, x_b) h(x_a, x_c)}{f(x_a)}
+                = g'(x_b) h'(x_c).
+        \end{equation*}
+        Using solution 2.12 we have $X_b \bot X_c | X_a$.
+\end{itemize}
+
+
+\subsection*{Solution 19.3}
+
+Let $\mathcal{G} = (E, V)$ be a graphical model.
+Take $\log(f(x)) = \sum_{A \subset S} \psi_A(x)$ with $\psi_A(x) = 0$ iff $A$ is non-empty and for all $\{i, j\} \in A$ and $(i, j) \notin E$.
+Let $A \subset S$ such that $\psi_A = 0$ and $A \subset B \subset S$.
+Let $\{i, j\} \in A$, then $(i, j) \notin E$.
+Since $A \subset B$, $\{i, j\} \in B$, and hence $\psi_B = 0$.
+Therefore, $\mathcal{G}$ is hierarchical.
+
+The opposite is not true as you can see in example 19.11.
+
+
+\subsection*{Solution 19.4}
+
+\begin{itemize}
+    \item[(a)]
+        \tikz \graph {
+            "$X_1$" -- {"$X_2$", "$X_3$"} -- "$X_4$"
+        };
+    \item[(b)] $X_1 \bot X_4 | \{X_2, X_3\}$, $X_2 \bot X_3 | \{X_1, X_4\}$.
+    \item[(c)] The graph is not graphical, because $(1, 2) \in E$, but $\psi_{123} = 0$.
+        The graph is hierarchical as $\emptyset$ is the only non-zero subset.
+\end{itemize}
+
+
+\subsection*{Solution 19.5}
+
+In this particular case it's easier to calculate ${}^2\log(f)$.
+Note that $\log(f) = \frac{{}^2\log(f)}{\log(2)}$.
+So we can recover $\log(f)$ from ${}^2\log(f)$.
+We have
+\begin{equation*}
+    {}^2\log(f)(x_1, x_2, x_3) = 1 + 3x_1 x_2 + 2x_3 + x_1x_3,
+\end{equation*}
+and
+\begin{equation*}
+    \log(f) = \psi_{\emptyset} + \psi_1 + \psi_2 + \psi_3 + \psi_{13}.
+\end{equation*}
+The graph is given by
+\begin{center}
+\tikz \graph {
+    "$X_1$" -- {"$X_2$", "$X_3$"} -- "$X_4$"
+};
+\end{center}
+In particular, $X_1 \bot X_2$ and $X_2 \bot X_3$.
+
+
+\subsection*{Solution 19.6}
+
+I skip drawing the graphs, because you can see immediately from the formulas if the graphs are graphical or hierarchical.
+
+\begin{itemize}
+    \item[(a)] Graphical and hierarchical.
+    \item[(b)] Graphical and hierarchical.
+    \item[(c)] Graphical and hierarchical.
+    \item[(d)] Not hierarchical, hence not graphical.
+        In particular, $\psi_{12} = 0$, but $\{1, 2\} \subset \{1, 2, 3, 4\}$ and $\psi_{1234} \neq 0$.
+\end{itemize}

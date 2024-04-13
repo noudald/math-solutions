@@ -1,0 +1,117 @@
+\section*{Chapter 4 - Inequalities}
+
+\subsection*{Solution 4.1}
+
+Let $X \sim \mathrm{Exp}(\beta)$.
+We have $E(X) = \beta$ and $\sigma^2 = V(X) = \beta^2$.
+So
+\begin{equation*}
+P(|X - \mu| \geq k\sigma)
+    = 1 - P(|X - \beta| < k\beta)
+    = 1 - F((1 + k)\beta) + F((1 - k)\beta)
+    = 1 - \exp(-(k + 1)) + \exp(k - 1).
+\end{equation*}
+From Chebyshev's inequality
+\begin{equation*}
+P(|X - \mu| \geq k\sigma) \leq \frac{\sigma^2}{(k\sigma)^2}
+    = \frac{1}{k^2}.
+\end{equation*}
+Note that $1 - \exp(-(k + 1)) + \exp(k - 1) \leq k^{-2}$.
+
+
+\subsection*{Solution 4.2}
+
+Let $X \sim \mathrm{Poisson}(\lambda)$.
+Note that $E(X) = \lambda$, $\sigma^2 = V(X) = \lambda$, and $X > 0$.
+From Chebyshev's inequality
+\begin{equation*}
+P(X > 2\lambda)
+    = P(|X - \lambda| > \lambda)
+    \leq \frac{\sigma^2}{\lambda^2}
+    = \frac{1}{\lambda}.
+\end{equation*}
+
+
+\subsection*{Solution 4.3}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Bernoulli}(p)$ and $\overline{X} = \frac{1}{n} \sum_{i=1}^n X_n$.
+We have $E(\overline{X}) = p$ and $V(\overline{X}) = \frac{1}{n} p (1 - p)$.
+From Chebyshev's inequality
+\begin{equation*}
+P(|\overline{X} - p| > \epsilon)
+    \leq \frac{\sigma^2}{\epsilon^2}
+    = \frac{p(1 -p)}{n\epsilon^2}.
+\end{equation*}
+From Hoeffding's inequality
+\begin{equation*}
+P(|\overline{X} - p| > \epsilon)
+    \leq 2 e^{-2n\epsilon^2}.
+\end{equation*}
+Note that $e^{-n} / n \to 0$ when $n \to \infty$, so Hoeffding's inequality is a more strict upperbound than Chebyshev's inequality for $P(|\overline{X} - p| > \epsilon)$ when $n$ is large.
+
+
+\subsection*{Solution 4.4}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Bernoulli}(p)$.
+
+\begin{itemize}
+\item[(a)] Let $\alpha > 0$ and
+\begin{equation*}
+\epsilon_n = \sqrt{\frac{1}{2n} \log\left(\frac{2}{\alpha}\right)}.
+\end{equation*}
+Let $\hat{p}_n = \frac{1}{n}\sum_{i=1}^n X_i$ and $C_n = (\hat{p_n}_n - \epsilon_n, \hat{p}_n + \epsilon_n)$.
+By Hoeffdings inequality
+\begin{equation*}
+P(p \in C_n) = 1 - P(p \notin C_n)
+    = 1 - P(|\hat{p}_n - p| > \epsilon)
+    \geq 1 - 2e^{-2n\epsilon^2}
+    = 1 - \alpha.
+\end{equation*}
+\item[(b)] See code. It seems that Hoeffding's inequality is a weak lower bound, with a factor 10 error margin.
+\item[(c)] See code.
+\end{itemize}
+
+
+\subsection*{Solution 4.5}
+
+Let $Z \sim \mathrm{Normal}(0, 1)$.
+Note that if $x > t$, then $\frac{x}{t} > 1$.
+We have
+\begin{equation*}
+    P(|Z| > t) = 2P(Z > t)
+        = 2 \int_t^{\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}} dx
+        < \frac{2}{\sqrt{2\pi}} \int_t^{\infty} \frac{x}{t} e^{-\frac{x^2}{2}} dx
+        = \sqrt{\frac{2}{\pi}} \frac{e^{-\frac{t^2}{2}}}{t}.
+\end{equation*}
+
+
+\subsection*{Solution 4.6}
+
+Let $Z \sim \mathrm{Normal}(0, 1)$.
+We calculate the moments of the absolute normal random variable $|Z|$.
+\begin{equation*}
+    E(|Z|^k) = \int_{-\infty}^{\infty} |z|^k \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} dz
+        = \frac{2}{\sqrt{2\pi}} \int_0^{\infty} z^k e^{-\frac{z^2}{2}} dz
+        = \frac{2}{\sqrt{2\pi}} \int_0^{\infty} 2^{\frac{k - 1}{2}} x^{\frac{k - 1}{2}} e^{-x} dx
+        = \sqrt{\frac{2^{k}}{\pi}} \Gamma\left(\frac{k+1}{2}\right),
+\end{equation*}
+were we use substitution $x = z^2/2$.
+For the rest of the solution see code.
+
+
+\subsection*{Solution 4.7}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(0, 1)$.
+Define $\overline{X}_n = \frac{1}{2} \sum X_i$.
+Note that $E(\overline{X}) = 0$ and $V(\overline{X}) = \frac{1}{n}$, so $\sqrt{n}\overline{X} \sim \mathrm{Normal}(0, 1)$.
+Using Mill's inequality, we have
+\begin{equation*}
+    P(|\overline{X}_n| \geq t) = P(|\sqrt{n}\,\overline{X}_n| \geq \sqrt{n}t)
+        \leq \sqrt{\frac{2}{\pi}} \frac{e^{-\frac{nt}{2}}}{\sqrt{n}t}.
+\end{equation*}
+By Chebyshev's inequality, we have
+\begin{equation*}
+    P(|\overline{X}_n| \geq t) = P(|\sqrt{n}\,\overline{X}_n| \geq \sqrt{n}t)
+        \leq \frac{1}{\sqrt{n}t}
+\end{equation*}
+Note that Mill's inequality is a shaper bound that Chebychev's inequality.

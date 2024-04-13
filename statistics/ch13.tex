@@ -1,0 +1,548 @@
+\section*{Chapter 13 - Linear and Logistic Regression}
+
+\subsection*{Solution 13.1}
+
+I tried to calculate the equations directly from the formula, but it's significantly easier to do it with matrix differentiation.
+Therefore, we develop a set of matrix differentiation tools.
+
+For the rest of this section, let $\psi: \mathbb{R}^n \to \mathbb{R}^m$, $\bm{x} \in \mathbb{R}^m$ and $\bm{y} \in \mathbb{R}^n$, such that $\bm{y} = \bm{y}(\bm{x}) = \psi(\bm{x})$.
+We define
+\begin{equation*}
+    \frac{\partial \psi(\bm{x})}{\partial \bm{x}}
+        = \frac{\partial \bm{y}}{\partial \bm{x}}
+        = \left( \frac{\partial y_i}{\partial x_j} \right)_{\substack{1 \leq i \leq m \\ 1 \leq j \leq n}}
+        = \left( \begin{matrix}
+            \frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \ldots & \frac{\partial y_1}{\partial x_n} \\
+            \frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \ldots & \frac{\partial y_2}{\partial x_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial y_m}{\partial x_1} & \frac{\partial y_m}{\partial x_2} & \ldots & \frac{\partial y_m}{\partial x_n}
+        \end{matrix} \right)
+        \in \mathbb{R}^{m \times n}.
+\end{equation*}
+
+
+\begin{theorem} \label{md1}
+If $\psi = A \in \mathbb{R}^{m \times n}$, such that $\bm{y}(\bm{x}) = A\bm{x}$, and $A$ is independent of $\bm{x}$, then $\frac{\partial \bm{y}}{\partial \bm{x}} = A$.
+\end{theorem}
+
+\begin{proof}
+We have $y_i = \sum_{j = 1}^n a_{ij} x_j$, so $\frac{\partial y_i}{\partial x_j} = a_{ij}$, and therefore, $\frac{\partial \bm{y}}{\partial \bm{x}} = A$.
+\end{proof}
+
+
+\begin{theorem} \label{md2}
+Let $\bm{y}(\bm{x}, \bm{z}) = A\bm{x}(\bm{z})$, where $\bm{x}$ is a vector values function in vector $\bm{z}$, and $A$ is independent of $\bm{x}$ and $\bm{z}$, then $\frac{\partial \bm{y}}{\partial \bm{z}} = A \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+\begin{proof}
+We have $y_i = \sum_{j = 1}^n a_{ij} x_j(\bm{z})$, so $\frac{\partial y_i}{\partial z_j} = \sum_{k = 1}^n a_{ik} \frac{\partial x_k}{\partial z_j} = \left(A \frac{\partial \bm{x}}{\partial \bm{z}}\right)_{ij}$.
+Hence, $\frac{\partial \bm{y}}{\partial \bm{z}} = A \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{proof}
+
+
+\begin{theorem} \label{md3}
+Let $\alpha(\bm{x}, \bm{y}) = \bm{y}^t A \bm{x}$ be a real valued function, where $A$ is a matrix indepedent of $\bm{x}$ and $\bm{y}$.
+We have $\frac{\partial \alpha}{\partial \bm{x}} = \bm{y}^t A$ and $\frac{\partial \alpha}{\partial \bm{y}} = (A \bm{x})^t$.
+\end{theorem}
+
+\begin{proof}
+Let $\bm{z}^t = \bm{y}^t A$, so that $\alpha = \bm{z}^t \bm{x}$.
+By Theorem \ref{md1} we have $\frac{\partial \alpha}{\partial \bm{x}} = \bm{z}^t = \bm{y}^t A$.
+Because $\alpha$ is a scalar, $\alpha = \alpha^t = \bm{x}^t A \bm{y}$.
+Applying the same method for $\bm{x}^t A$ we get $\frac{\partial \alpha}{\partial \bm{y}} = \frac{\partial \alpha^t}{\partial \bm{y}} = \bm{x}^t A^t = (A \bm{x})^t$.
+\end{proof}
+
+
+\begin{theorem} \label{md4}
+Let $\alpha(\bm{x}) \bm{x}^t A \bm{x}$, where $A$ is independent of $\bm{x}$, then $\frac{\partial \alpha}{\partial \bm{x}} = \bm{x}^t(A + A^t)$.
+\end{theorem}
+
+\begin{proof}
+We have $\alpha(\bm{x}) = \sum_{i = 1}^n \sum_{j = 1}^n x_i \alpha_{ij} x_j$, so $\frac{\partial \alpha}{\partial x_k} = \sum_{i = 1}^n x_i \alpha_{ik} + \sum_{j = 1}^n x_j \alpha_{kj} = \left(\bm{x}^t (A + A^t)\right)_{k}$.
+\end{proof}
+
+Directly from Theorem \ref{md4} we have,
+
+\begin{theorem} \label{md5}
+If $A$ is symmetic, i.e., $A^t = A$, then $\frac{\partial}{\partial \bm{x}} \bm{x}^t A \bm{x} = 2 \bm{x}^t A$.
+\end{theorem}
+
+
+\begin{theorem} \label{md6}
+Let $\alpha(\bm{x}, \bm{y}, \bm{z}) = \bm{y}(\bm{z})^t \bm{x}(\bm{z})$, then $\frac{\partial \alpha}{\partial \bm{z}} = \bm{x}^t \frac{\partial \bm{y}}{\partial \bm{z}} + \bm{y}^t \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+\begin{proof}
+We have $\alpha(\bm{x}, \bm{y}, \bm{z}) = \sum_{i = 1}^n y_i(\bm{z}) x_i(\bm{z})$, so $\frac{\partial \alpha}{\partial z_j} = \sum_{i = 1}^n \frac{\partial y_j}{\partial z_j} x_i + \sum_{i = 1}^n y_i \frac{\partial x_i}{\partial z_j}$.
+Hence $\frac{\partial \alpha}{\partial \bm{z}} = \bm{x}^t \frac{\partial \bm{y}}{\partial \bm{z}} + \bm{y}^t \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{proof}
+
+
+Directly from Theorem \ref{md6} we have,
+
+\begin{theorem} \label{md7}
+    Let $\alpha(\bm{x}, \bm{z}) = \bm{x}(\bm{z})^t \bm{x}(\bm{z})$, then $\frac{\partial \alpha}{\partial \bm{z}} = 2 \bm{x}^t \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+
+\begin{theorem} \label{md8}
+    Let $\alpha(\bm{x}, \bm{y}, \bm{z}) = \bm{y}(\bm{z})^t A \bm{x}(\bm{z})$, where $A$ is independent of $\bm{x}$ and $\bm{y}$, then $\frac{\partial \alpha}{\partial \bm{z}} = \bm{x}(\bm{z})^t A^t \frac{\partial \bm{y}}{\bm{z}} + \bm{y}(\bm{z})^t A \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+\begin{proof}
+    Let $\bm{w}(\bm{z}) = A^t \bm{y}(\bm{z})$, such that $\alpha(\bm{x}, \bm{z}, \bm{w}) = \bm{w}(\bm{z})^t \bm{x}(\bm{z})$.
+    By Theorem \ref{md2}, $\frac{\partial \bm{w}}{\partial \bm{z}} = A^t \frac{\partial \bm{y}^t}{\partial \bm{z}}$.
+    By Theorem \ref{md6}, $\frac{\partial \alpha}{\partial \bm{z}} = \bm{x}(\bm{z})^t \frac{\partial \bm{w}}{\partial \bm{z}} + \bm{w}(\bm{z})^t \frac{\partial \bm{x}}{\partial \bm{z}} = \bm{x}(\bm{z})^t A^t \frac{\partial \bm{y}(\bm{z})}{\bm{z}} + \bm{y}(\bm{z})^t A \frac{\partial \bm{x}(\bm{z})}{\partial \bm{z}}$.
+\end{proof}
+
+
+\begin{theorem} \label{md9}
+    Let $\alpha(\bm{x}, \bm{z}) = \bm{x}(\bm{z})^t A \bm{x}$, where $A$ is independent of $\bm{x}$, then $\frac{\partial \alpha}{\partial \bm{z}} = \bm{x}(\bm{z}) (A + A^t) \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+\begin{proof}
+    Directly from Theorem \ref{md8}.
+\end{proof}
+
+
+\begin{theorem} \label{md10}
+    Let $\alpha(\bm{x}, \bm{z}) = \bm{x}(\bm{z})^t A \bm{x}$, where $A$ is independent of $\bm{x}$.
+    If $A$ is symmetric, i.e., $A^t = A$, then $\frac{\partial \alpha}{\partial \bm{z}} = 2 \bm{x}^t A \frac{\partial \bm{x}}{\partial \bm{z}}$.
+\end{theorem}
+
+\begin{proof}
+    Directly from Theorem \ref{md9}
+\end{proof}
+
+
+Now we can follow Hasty, with a lot of extra calculations.
+Let
+\begin{equation*}
+    \mathrm{RSS}(\bm{\beta}) = (\bm{y} - X\bm{\beta})^t (\bm{y} - X\bm{\beta}).
+\end{equation*}
+We want to minimize $\mathrm{RSS}(\bm{\beta})$.
+To do so we differentiate with respect to $\bm{\beta}$, using matrix differentiation.
+\begin{equation*}
+    \frac{\partial \mathrm{RSS}(\bm{\beta})}{\partial \bm{\beta}}
+        = (\bm{y} - X\bm{\beta})^t(-X) + (\bm{y} - X\bm{\beta})^t(-X)
+        = -2(\bm{y} - X\bm{\beta})^t X.
+\end{equation*}
+Solving the equation to zero gives estimate $\hat{\bm{\beta}} = (X^t X)^{-1} X^t \bm{y}$.
+
+In the case of $n = 1$, we have
+\begin{equation*}
+    X = \begin{pmatrix}
+        1 & X_1 \\
+        1 & X_2 \\
+        \ldots & \ldots \\
+        1 & X_m
+    \end{pmatrix}, \quad
+    \bm{y} = \begin{pmatrix}
+        Y_1 \\
+        Y_2 \\
+        \ldots \\
+        Y_m
+    \end{pmatrix}, \quad
+    X^t \bm{y} = \begin{pmatrix}
+        \sum Y_i \\
+        \sum X_i Y_i
+    \end{pmatrix}, \quad
+    X^t X = \begin{pmatrix}
+        n & \sum X_i \\
+        \sum X_i & \sum X_i^2
+    \end{pmatrix},
+\end{equation*}
+so that
+\begin{equation*}
+    \begin{split}
+        \hat{\bm{\beta}}
+            &= (X^t X)^{-1} X^t \bm{y} \\
+            &=  \frac{1}{n \sum X_i^2 - \left(\sum X_i\right)^2}
+                \begin{pmatrix}
+                    \sum X_i^2 & -\sum X_i \\
+                    -\sum X_i & n
+                \end{pmatrix}
+                \begin{pmatrix}
+                    \sum Y_i
+                    \sum X_i Y_i
+                \end{pmatrix} \\
+            &= \frac{1}{n \sum X_i^2 - \left(\sum X_i\right)^2}
+                \begin{pmatrix}
+                    \left(\sum X_i^2\right)\left(\sum Y_i\right) - \left(\sum X_i\right)\left(\sum X_i Y_i\right) \\
+                    n \left(\sum X_i Y_i\right) - \left(\sum X_i\right)\left(\sum Y_i\right)
+                \end{pmatrix}.
+    \end{split}
+\end{equation*}
+In particular,
+\begin{equation*}
+    \begin{split}
+        \hat{\beta}_1
+            &= \frac{
+                n \left(\sum X_i Y_i\right) - \left(\sum X_i\right)\left(\sum Y_i\right)
+            }{
+                n \sum X_i^2 - \left(\sum X_i\right)^2
+            }
+            = \frac{
+                \sum X_i Y_i - \frac{1}{n}\left(\sum X_i\right)\left(\sum Y_i\right)
+            }{
+                \sum X_i^2 - \frac{1}{n}\left(\sum X_i\right)\left(\sum X_i\right)
+            }
+            = \frac{
+                \sum (X_i - \overline{X}_n)(Y_i - \overline{Y}_n)
+            }{
+                \sum (X_i - \overline{X}_n)^2
+            }, \\
+        \hat{\beta}_0
+            &= \frac{
+                \left(\sum X_i^2\right)\left(\sum Y_i\right) - \left(\sum X_i\right)\left(\sum X_i Y_i\right)
+            }{
+                n \sum X_i^2 - \left(\sum X_i\right)^2
+            } \\
+            &= \frac{
+                \left(\sum X_i^2\right)\left(\sum Y_i\right) - \left(\sum X_i\right)\left(\sum X_i Y_i\right)
+                    + \frac{1}{n} (\sum X_i) (n \sum X_i Y_i - (\sum X_i) (\sum Y_i))
+            }{
+                n \sum X_i^2 - \left(\sum X_i\right)^2
+            } - \hat{\beta}_1 \overline{X}_n \\
+            &= \frac{
+                \left(\sum X_i^2\right)\left(\sum Y_i\right)
+                    - (\sum X_i)^2 \frac{1}{n} \sum Y_i
+            }{
+                n \sum X_i^2 - \left(\sum X_i\right)^2
+            } - \hat{\beta}_1 \overline{X}_n \\
+            &= \overline{Y}_n - \hat{\beta}_1 \overline{X}_n.
+    \end{split}
+\end{equation*}
+The residual is defined by $\bm{\epsilon} = Y - X \bm{\beta}$ and $\hat{\bm{\epsilon}} = Y - X \hat{\bm{\beta}}$.
+Note that
+\begin{equation*}
+    (I - X(X^tX)^{-1}X^t)X\bm{\beta} = X\bm{\beta} - X\bm{\beta} = 0, \quad
+    (X\bm{\beta})^t(I - X(X^tX)^{-1}X^t) = \bm{\beta}^tX^t - \bm{\beta}^tX^t = 0.
+\end{equation*}
+Therefore, to find the relationship of $\hat{\bm{\epsilon}}$ with $\bm{\epsilon}$, note that
+\begin{equation*}
+    E(\bm{\epsilon}^t\bm{\epsilon}|X^n)
+         = \frac{1}{n} \sum_{i = 1}^n E(\epsilon_i^2|X_i)
+         = \frac{1}{n} \sum_{i = 1}^n (V(\epsilon_i|X_i) - E(\epsilon_i|X_i)^2)
+         = \sigma^2,
+\end{equation*}
+and
+\begin{equation*}
+    \begin{split}
+        \hat{\bm{\epsilon}}^t\hat{\bm{\epsilon}}
+            &= (Y - X\bm{\beta})^t(Y - X\bm{\beta}) \\
+            &= Y^t (I - X(X^tX)^{-1}X^t)^t (I - X(X^tX)^{-1}X^t) Y \\
+            &= Y^t (I - X(X^tX)^{-1}X^t)^2 Y \\
+            &= Y^t (I - 2X(X^tX)^{-1}X^t + (X(X^tX)^{-1}X^t)^2) Y \\
+            &= Y^t (I - X(X^tX)^{-1}X^t) Y \\
+            &= (X\bm{\beta} + \bm{\epsilon})^t (I - X(X^tX)^{-1}X^t) (X\bm{\beta} + \bm{\epsilon}) \\
+            &= \bm{\epsilon}^t (I - X(X^tX)^{-1}X^t) \bm{\epsilon}.
+    \end{split}
+\end{equation*}
+We apply a trick, used somewhere further up in the book as well, to calculate $\hat{\bm{\epsilon}}^t\bm{\epsilon}$.
+Note that $\hat{\bm{\epsilon}}^t\bm{\epsilon} \in \mathbb{R}$, so $\mathrm{tr}(\hat{\bm{\epsilon}}^t\bm{\epsilon}) = \hat{\bm{\epsilon}}^t\bm{\epsilon}$ and $E(\hat{\bm{\epsilon}}^t\hat{\bm{\epsilon}}|X^n) = \hat{\bm{\epsilon}}^t\hat{\bm{\epsilon}}$.
+So,
+\begin{equation*}
+    \begin{split}
+        E(\hat{\bm{\epsilon}}^t\hat{\bm{\epsilon}}|X^n)
+            &= E(\mathrm{tr}(\hat{\bm{\epsilon}}^t\hat{\bm{\epsilon}})|X^n) \\
+            &= E(\mathrm{tr}(\bm{\epsilon}^t(I - X(X^tX)^{-1}X^t)\bm{\epsilon})|X^n) \\
+            &= E(\mathrm{tr}(\bm{\epsilon}^t\bm{\epsilon}(I - X(X^tX)^{-1}X^t)|X^n) \\
+            &= \sigma^2 E(\mathrm{tr}(I - X(X^tX)^{-1}X^t)|X^n) \\
+            &= \sigma^2 (\mathrm{tr}(I_n) - \mathrm{tr}(X(X^tX)^{-1}X^t)) \\
+            &= \sigma^2 (\mathrm{tr}(I_n) - \mathrm{tr}(I_k)) \\
+            &= \sigma^2 (n - k),
+    \end{split}
+\end{equation*}
+and therefore an unbias estimator of $\sigma^2$ is
+\begin{equation*}
+    \hat{\sigma}^2 = \frac{1}{n - k} \bm{\hat{\epsilon}}^t \bm{\hat{\epsilon}}
+        = \frac{1}{n - k} \sum_{i = 1}^k \hat{\epsilon}_i^2.
+\end{equation*}
+In particular for this exercise, $k = 2$, which gives the final result.
+
+
+\subsection*{Solution 13.2}
+
+Note that $E(\hat{\bm{\beta}}|X) = \bm{\beta}$, so from the definition of the variance and $X\bm{\beta} + \bm{\epsilon} = Y$,
+\begin{equation*}
+    \begin{split}
+        V(\hat{\bm{\beta}}|X)
+            &= E((\hat{\bm{\beta}} - \bm{\beta})(\hat{\bm{\beta}} - \bm{\beta})^t|X^n) \\
+            &= E(((X^tX)^{-1}X^tY - \bm{\beta})((X^tX)^{-1}X^tY - \bm{\beta})^t|X^n) \\
+            &= E(((X^tX)^{-1}X^t(X\bm{\beta} + \bm{\epsilon}) - \bm{\beta})((X^tX)^{-1}X^t(X\bm{\beta} + \bm{\epsilon}) - \bm{\beta})^t|X^n) \\
+            &= E((X^tX)^{-1}X^t \bm{\epsilon}\bm{\epsilon}^t X(X^tX)^{-1}|X^n) \\
+            &= (X^tX)^{-1}X^t E(\bm{\epsilon}\bm{\epsilon}^t|X^n) X(X^tX)^{-1} \\
+            &= \sigma^2 (X^tX)^{-1} \\
+            &= \frac{\sigma^2}{n S_X^2} \begin{pmatrix}
+                \frac{1}{n}\sum X_i^2 & -\overline{X}_n \\
+                -\overline{X}_n & 1
+            \end{pmatrix}.
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 13.3}
+
+With all the previous work this exercise is almost trivial.
+We have
+\begin{equation*}
+    \hat{\beta} = (X^tX)^{-1}X^tY
+        = \frac{\sum_{i = 1}^n X_i Y_i}{\sum_{i = 1}^n X_i^2}.
+\end{equation*}
+The standard error is given by
+\begin{equation*}
+    \mathrm{se}(\hat{\beta})
+        = \sqrt{V(\hat{\beta}|X^n)}
+        = \sqrt{\sigma^2(X^tX)^{-1}}
+        = \frac{\sigma}{||X||_2}.
+\end{equation*}
+
+
+\subsection*{Solution 13.4}
+
+The bias is defined by $\mathrm{bias}(\hat{\theta}) = E_{\theta}(\hat{\theta}) - \theta$, so by definition
+\begin{equation*}
+    \mathrm{bias}(\hat{R}_{\mathrm{tr}}(S)) = E_{R(S)}(\hat{R}_{\mathrm{tr}}(S)) - R(S).
+\end{equation*}
+Firstly, as $\epsilon^* \perp \epsilon_{\mathrm{tr}}$, we have $\hat{Y}_i(S) = X_i \beta(S) + \epsilon_{\mathrm{tr}} \perp X_i \beta + \epsilon^* = Y_i^*$, hence $E(\hat{Y}_i(S) Y_i^*) = E(\hat{Y}_i(S))E(Y_i^*)$.
+Secondly, $E(Y_i^*) = E(X_i \beta + \epsilon^*) = X_i \beta + E(\epsilon^*) = X_i \beta + E(\epsilon) = E(X_i \beta + \epsilon) = E(Y_i)$, and similar $E((Y_i^*)^2) = E(Y_i^2)$.
+Therefore,
+\begin{equation*}
+    \begin{split}
+        E_{R(S)}(\hat{R}_{\mathrm{tr}}(S)) - R(S)
+            &= \sum_{i = 1}^n \left(
+                    E((\hat{Y}_i(S) - Y_i)^2) - E((\hat{Y}_i(S) - Y_i^*)^2)
+                \right) \\
+            &= \sum_{i = 1}^n \left(
+                    E(\hat{Y}_i(S)^2) - 2E(\hat{Y}_i(S)Y_i) + E(Y_i^2) - E(\hat{Y}_i(S)^2) + 2E(\hat{Y}_i(S)Y_i^*) - E((Y_i^*)^2)
+                \right) \\
+            &= \sum_{i = 1}^n \left(
+                    -2E(\hat{Y}_i(S) Y_i) + 2E(\hat{Y}_i(S))E(Y_i)
+                \right) \\
+            &= -2 \sum_{i = 1}^n \left(
+                    E(\hat{Y}_i(X) Y_i) - E(\hat{Y}_i(S))E(Y_i)
+                \right) \\
+            &= -2 \sum_{i = 1}^n \mathrm{Cov}(\hat{Y}_i(S), Y_i).
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 13.5}
+
+Let generalize the exercise a little bit.
+Let $a \neq 0$, we test $H_0: \beta_1 = a \beta_0$ against $H_1: \beta_1 \neq a \beta_0$.
+Take $\theta = \beta_1 - a \beta_0$, then $\hat{\theta} = \hat{\beta}_1 - a \hat{\beta}_0$, and
+\begin{equation*}
+    V(\hat{\theta})
+        = V(\hat{\beta}) + a^2 V(\hat{\beta}_0)
+        = \frac{\sigma^2}{n S_X^2} \left(\frac{1}{n} \sum_{i = 1}^n X_i^2 + a^2 \right).
+\end{equation*}
+So $\hat{\mathrm{se}}(\hat{\theta}) = \sqrt{V(\hat{\theta})}$.
+For the Wald test we reject $H_0$ when $|W| > z_{\frac{\alpha}{2}}$, where
+\begin{equation*}
+    W = \frac{\hat{\beta}_1 - a \hat{\beta}_0}{\sqrt{\frac{1}{n}\sum_{i = 1}^n X_i^2 + a^2}} \frac{\sqrt{n} S_X}{\hat{\sigma}}.
+\end{equation*}
+
+
+\subsection*{Solution 13.6}
+
+See code.
+
+
+\subsection*{Solution 13.7}
+
+See code.
+Note that for BIC,
+\begin{equation*}
+    \mathrm{BIC}(S) = \ell_n(S) - \frac{1}{2}|S|\log(n)
+        = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} \sum_{i = 1}^n (\hat{Y}_i(S) - Y_i)^2 - \frac{1}{2}|S| \log(n).
+\end{equation*}
+So minimizing $\mathrm{BIC}(S)$ is equivalent to maximizing
+\begin{equation*}
+    \frac{1}{\sigma^2}\sum_{i = 1}^n (\hat{Y}_i(S) - Y_i)^2 + |S|\log(n).
+\end{equation*}
+
+
+\subsection*{Solution 13.8}
+
+As $\sigma$ is known, $\hat{\sigma} = \sigma$.
+Mallow's $C_p$ statistic and AIC are connected through,
+\begin{equation*}
+    \begin{split}
+        \hat{R}(S)
+            &= \hat{R}_{\mathrm{tr}}(S) + 2|S|\sigma^2 \\
+            &= \sum_{i = 1}^n (\hat{Y}_i(S) - Y_i)^2 + 2|S|\sigma^2 \\
+            &= -2\sigma^2 \left( -\frac{1}{2\sigma^2} \sum_{i = 1}^n (\hat{Y}_i(S) - Y_i)^2 - |S| \right) \\
+            &= -2\sigma^2 \left( \ell_n(S) + \frac{n}{2} \log(2\pi\sigma^2) - |S| \right) \\
+            &\propto -\mathrm{AIC}(S).
+    \end{split}
+\end{equation*}
+So maximizing $\hat{R}(S)$ is equivalent to minimizing $\mathrm{AIC}(S)$.
+
+
+\subsection*{Solution 13.9}
+
+Let $X_1, X_2, ..., X_n$ i.i.d. random variables.
+Consider two models: $\mathcal{M}_0$ assumes $X_i \sim \mathrm{Normal}(0, 1)$, $\mathcal{M}_1$ assumes $X_i \sim \mathrm{Normal}(\theta, 1)$ where $\theta \neq 0$.
+We have $\mathrm{AIC}(\mathcal{M}_0) = \ell_n(0)$ and $\mathrm{AIC}(\mathcal{M}_1) = \ell_n(\hat{\theta}) - 1$, as $\mathcal{M}_1$ has one extra parameter (i.e., $\theta$).
+Define
+\begin{equation*}
+    J_n = \left\{\begin{matrix}
+        0 & \text{if} & \mathrm{AIC}(\mathcal{M}_0) > \mathrm{AIC}(\mathcal{M}_1), \\
+        1 & \text{if} & \mathrm{AIC}(\mathcal{M}_0) \leq \mathrm{AIC}(\mathcal{M}_0).
+    \end{matrix}\right.
+\end{equation*}
+
+\begin{itemize}
+    \item[(a)] We calculate
+        \begin{equation*}
+            \mathrm{AIC}(\mathcal{M}_0) - \mathrm{AIC}(\mathcal{M}_1)
+                 = -\frac{1}{2}\sum_{i = 1}^n X_i^2 + \frac{1}{2} \sum_{i = 1}^n (X_i - \hat{\theta})^2 + 1
+                 = \frac{n}{2} \hat{\theta}^2 - \hat{\theta} \sum_{i = 1}^n X_i + 1
+                 = -\frac{n}{2} \hat{\theta}^2 + 1,
+        \end{equation*}
+        where we've used that $\hat{\theta} = \frac{1}{n} \sum_{i = 1}^n X_i$.
+        So for $\mathrm{AIC}(\mathcal{M}_0) > \mathrm{AIC}(\mathcal{M}_1)$, we need $\hat{\theta}^2 < \frac{2}{n}$.
+        We know that $\hat{\theta} \sim \mathrm{Normal}(\theta, \frac{1}{n})$, and therefore,
+        \begin{equation*}
+            \begin{split}
+                P(\mathrm{AIC}(\mathcal{M}_0) > \mathrm{AIC}(\mathcal{M}_1))
+                    &= P\left(-\sqrt{\frac{2}{n}} < \hat{\theta} < \sqrt{\frac{2}{n}}\right) \\
+                    &= P\left(-\sqrt{\frac{2}{n}} < \frac{Z + \theta}{\sqrt{n}} < \sqrt{\frac{2}{n}}\right) \\
+                    &= \Phi(\sqrt{2} - \sqrt{n}\theta) - \Phi(-\sqrt{2} - \sqrt{n}\theta).
+            \end{split}
+        \end{equation*}
+        Under the assumption of $\mathcal{M}_0$ we have $\theta = 0$ and
+        \begin{equation*}
+            P(\mathrm{AIC}(\mathcal{M}_0) > \mathrm{AIC}(\mathcal{M}_1))
+                = \Phi(\sqrt{2}) - \Phi(-\sqrt{2})
+                \approx 0.84.
+        \end{equation*}
+        Under the assumption of $\mathcal{M}_1$ we have $\theta = 0$ and
+        \begin{equation*}
+            P(\mathrm{AIC}(\mathcal{M}_0) > \mathrm{AIC}(\mathcal{M}_1))
+                = \Phi(\sqrt{2} - \sqrt{n}\theta) - \Phi(-\sqrt{2} - \sqrt{n}\theta)
+                < \Phi(\sqrt{2} - \sqrt{n}\theta)
+                \to 0,
+        \end{equation*}
+        as $n \to \infty$.
+    \item[(b)] Define
+        \begin{equation*}
+            \hat{f}_n(x) = \left\{ \begin{matrix}
+                \phi_0(x) & \text{if} & J_n = 0, \\
+                \phi_{\hat{\theta}}(x) & \text{if} & J_n = 1.
+            \end{matrix} \right.
+        \end{equation*}
+        Let $D(f, g)$ be the Kullback-Leibner distance.
+        We have
+        \begin{equation*}
+            D(\phi_{\theta}, \hat{f}_n)
+                = \int \phi_{\theta}(x) \log\left(\frac{\phi_{\theta}(x)}{\hat{f}_n(x)}\right) dx
+                = \int \phi_{\theta}(x) \left(\log(\phi_{\theta}(x)) - \log(\hat{f}_n(x))\right) dx.
+        \end{equation*}
+        Suppose $\theta \neq 0$, then from (a) we know $J_n \xrightarrow{P} 1$, hence $\hat{f}_n \xrightarrow{P} \phi_{\theta}$.
+        But, because $\log$ is continuous almost everywhere, $\log(\hat{f}_n) \xrightarrow{P} \log(\phi_{\theta})$.
+        Hence, $D(\phi_{\theta}, \hat{f}_n) \xrightarrow{P} 0$ as $n \to \infty$.
+    \item[(c)] We have $\mathrm{BIC}(\mathcal{M}_0) = \ell_n(0)$ and $\mathrm{BIC}(\mathcal{M}_1) = \ell_n(\hat{\theta}) - \frac{1}{2}\log(n)$.
+        We calculate
+        \begin{equation*}
+            \begin{split}
+                \mathrm{BIC}(\mathcal{M}_0) - \mathrm{BIC}(\mathcal{M}_1)
+                    &= \ell_n(0) - \ell_n(\hat{\theta}) + \frac{1}{2}\log(n) \\
+                    &= -\frac{1}{2}\sum_{i = 1}^n X_i^2 + \frac{1}{2} \sum_{i = 1}^n (X_i - \hat{\theta})^2 + \frac{1}{2}\log(n) \\
+                    &= -\frac{n}{2} \hat{\theta}^2 + \frac{1}{2}\log(n).
+            \end{split}
+        \end{equation*}
+        So $\mathrm{BIC}(\mathcal{M}_0) > \mathrm{BIC}(\mathcal{M}_1)$ if and only if $\hat{\theta}^2 < \frac{1}{n}\log(n)$.
+        Therefore,
+        \begin{equation*}
+            \begin{split}
+                P(\hat{\theta}^2 < \frac{1}{n}\log(n))
+                    &= P\left(-\sqrt{\frac{1}{n}\log(n)} < \frac{Z}{\sqrt{n}} + \theta < \sqrt{\frac{1}{n}\log(n)}\right) \\
+                    &= \Phi\left(\sqrt{\log(n)} - \sqrt{n}\theta\right) - \Phi\left(-\sqrt{\log(n)} - \sqrt{n}\theta\right)
+                    \rightarrow \left\{ \begin{matrix}
+                        1 & \text{if} & \theta = 0, \\
+                        0 & \text{if} & \theta \neq 0.
+                    \end{matrix} \right.
+            \end{split}
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 13.10}
+
+Let $\theta = \beta_0 + \beta_1 X_*$, and $\hat{theta} = \hat{\beta}_0 + \hat{\beta}_1 X_*$, such that $Y_* = \theta + \epsilon_*$ and $\hat{Y}_* = \hat{\theta}$.
+
+\begin{itemize}
+    \item[(a)] Let $s = \sqrt{V(\hat{Y}_*)}$, we have
+        \begin{equation*}
+            P\left(\hat{Y}_* - 2s < Y_* < \hat{Y}_* + 2s\right)
+                = P\left(-2 < \frac{Y_* - \hat{Y}}{s} < 2\right).
+        \end{equation*}
+        The variance is
+        \begin{equation*}
+            V\left(\frac{Y_* - \hat{Y}}{s}\right)
+                = \frac{1}{s^2}V\left(\hat{\theta} - \theta\right) + \frac{1}{s^2}V(\epsilon)
+                = \frac{1}{s^2}V(\hat{\theta}) + \frac{1}{s^2}V(\epsilon)
+                = 1 + \frac{\sigma^2}{s^2}.
+        \end{equation*}
+        So $(Y_* - \hat{Y})/s \sim \mathrm{Normal}(0, 1 + \sigma^2/s^2)$, and
+        \begin{equation*}
+            P\left(\hat{Y}_* - 2s < Y_* < \hat{Y}_* + 2s\right)
+                = \Phi\left(2\left(1 + \frac{\sigma^2}{s^2}\right)\right) - \Phi\left(-2\left(1 + \frac{\sigma^2}{s^2}\right)\right)
+                \neq 0.95,
+        \end{equation*}
+        if not $\sigma^2 \approx 0$.
+    \item[(b)] Introduce the correction factor
+        \begin{equation*}
+            \hat{\xi}_n^2 = V(\hat{Y}_*) + \hat{\sigma}^2
+                = \left(\frac{1}{n} \frac{\sum_{i = 1}^n (X_i - X_*)^2}{\sum_{i = 1}^n (X_i - \overline{X})^2} + 1\right) \hat{\sigma}^2.
+        \end{equation*}
+        We have
+        \begin{equation*}
+            P\left(\hat{Y}_* - 2\hat{\xi}_n < Y_* < \hat{Y}_* + 2\hat{\xi}_n\right)
+                = P\left(-2 < \frac{Y_* - \hat{Y}}{\hat{\xi}_n} < 2\right),
+        \end{equation*}
+        and
+        \begin{equation*}
+            V\left(\frac{Y_* - \hat{Y}}{\hat{\xi}_n}\right)
+                = \frac{1}{\hat{\xi}_n^2} V(Y_* - \hat{Y}_*)
+                = \frac{V(\hat{Y}_*) + \sigma^2}{V(\hat{Y}_*) + \hat{\sigma}^2}
+                \approx 1.
+        \end{equation*}
+        So $(Y_* - \hat{Y})/\hat{\xi}_n \sim \mathrm{Normal}(0, 1)$ (approximately), and
+        \begin{equation*}
+            P\left(\hat{Y}_* - 2\hat{\xi}_n < Y_* < \hat{Y}_* + 2\hat{\xi}_n\right)
+                \approx P(-2 < \mathrm{Normal}(0, 1) < 2)
+                \approx 0.95.
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 13.11}
+
+See code.
+
+The proposed reweighted least squares algorithm in the book contains many mistakes that make it not possible to implement.
+\begin{itemize}
+    \item[1.] The starting value $\bm{\beta}$ should not be random, as the initial value is of much importance.
+        It's generally accepted that $\bm{\beta} = \bm{0}$ is a good initial value.
+    \item[2.] You get an floating point overflow when you calculate (13.32), instead use
+        \begin{equation*}
+            p_i = \frac{1}{1 + \exp(-\beta_0 - \sum_{j = 1}^k \beta_j x_{ij})}.
+        \end{equation*}
+    \item[3.] The formula for the updated $\hat{\bm{\beta}}^s$ in step 3 contains a typo an is missing a $Z$.
+        The correct formula is
+        \begin{equation*}
+            \hat{\bm{\beta}}^s = (X^t W X)^{-1} X^t W Z.
+        \end{equation*}
+    \item[4.] Before step 4 you should check for convergence.
+        Calculate the log likelihood
+        \begin{equation*}
+            \ell_n(\hat{\bm{\beta}}^s) = \sum_{i = 1}^n \left(
+                Y_i \log(p_i(\hat{\bm{\beta}}^s)) + (1 - Y_i) \log(1 - p_i(\hat{\bm{\beta}^s}))
+            \right).
+        \end{equation*}
+        If $|\ell_n(\hat{\bm{\beta}}^{s - 1} - \ell_n(\hat{\bm{\beta}}^s)| < \epsilon$ (I use $\epsilon = 10^{-7}$) stop the iteration.
+\end{itemize}

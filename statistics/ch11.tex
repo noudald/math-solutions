@@ -1,0 +1,368 @@
+\section*{Chapter 11 - Bayesian Inference}
+
+\subsection*{Solution 11.1}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\theta, \sigma^2)$ with $\sigma$ known.
+As prior take $\theta \sim \mathrm{Normal}(a, b^2)$.
+By Bayes' Theorem we have
+\begin{equation*}
+    f(\theta|X^n) = \frac{f(X^n|\theta) f(\theta)}{\int f(X^n|\theta)f(\theta) d\theta}
+        \propto \mathcal{L}_n(\theta) f(\theta),
+\end{equation*}
+where
+\begin{equation*}
+    \begin{split}
+        \mathcal{L}_n(\theta)
+            = \prod_{i = 1}^n f(X_i|\theta)
+            &= \frac{1}{\sigma^n (\sqrt{2\pi})^n} \exp\left(-\frac{1}{2\sigma^2} \sum_{i = 1}^n (X_i - \theta)^2\right), \\
+        f(\theta) &= \frac{1}{b\sqrt{2\pi}} \exp\left(-\frac{1}{2b^2} (\theta - a)^2\right).
+    \end{split}
+\end{equation*}
+With a tedious calculation we get
+\begin{equation*}
+    \begin{split}
+        \mathcal{L}_n(\theta)f(\theta)
+            &\propto \exp\left(-\frac{1}{2\sigma^2} \sum_{i = 1}^n (X_i - \theta)^2 - \frac{1}{2b^2} (\theta - a)^2\right) \\
+            &\propto \exp\left(-\frac{(nb^2 + \sigma^2)\theta^2 - 2(n\overline{X}b^2 + a\sigma^2)\theta}{2\sigma^2b^2}\right) \\
+            &= \exp\left(-\frac{(nb^2 + \sigma^2)}{2\sigma^2b^2}\left(\theta^2 - 2\frac{nb^2\overline{X} + a\sigma^2}{nb^2 + \sigma^2}\theta\right)\right) \\
+            &\propto \exp\left(-\frac{1}{2}\left(\frac{n}{\sigma^2} + \frac{1}{b^2}\right)\left(\theta - \frac{b^2\overline{X} + a\frac{\sigma^2}{n}}{b^2 + \frac{\sigma^2}{n}}\right)^2\right) \\
+            &=\exp\left(-\frac{1}{2\tau^2}(\theta - \overline{\theta})^2\right).
+    \end{split}
+\end{equation*}
+Therefore, $\theta|X^n \sim \mathrm{Normal}(\theta, \overline{\theta})$.
+
+
+\subsection*{Solution 11.2}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\mu, 1)$.
+
+\begin{itemize}
+    \item[(a)] See code.
+    \item[(b)] Let $f(\mu) = 1$, then
+        \begin{equation*}
+            f(\mu|X^n) \propto f(X^n|\mu) f(\mu)
+                = \prod_{i = 1}^n \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}(X_i - \mu)^2\right)
+                \propto \exp\left(-\frac{n}{2}(\mu - \overline{X})^2\right),
+        \end{equation*}
+        such that we have $\mu|X^n \sim \mathrm{Normal}(\overline{X}, \frac{1}{n})$.
+    \item[(c)] See code.
+    \item[(d)] Let $\theta = e^{\mu}$, we calculate the cumulative distribution function
+        \begin{equation*}
+            \begin{split}
+                P_{\theta}(\theta < T | X^n)
+                    &= P_{\theta}(e^{\mu} < T | X^n) \\
+                    &= P_{\theta}(\mu < \log(T) | X^n) \\
+                    &= P_{\theta}(Z < \sqrt{n}(\log(T) - \overline{X})) \\
+                    &= \Phi(\sqrt{n}(\log(T) - \overline{X})).
+            \end{split}
+        \end{equation*}
+        Differentiate with respect to $T$ gives the probability density function
+        \begin{equation*}
+            f(\theta|X^n) = \frac{\sqrt{n}}{\theta} \phi\left(\sqrt{n}(\log(\theta) - \overline{X})\right).
+        \end{equation*}
+        For the simulation see code.
+    \item[(e)] We have $\mu|X^n \sim \mathrm{Normal}(\overline{X}, \frac{1}{n})$, so the 95\% posterior interval is
+        \begin{equation*}
+            \left(\overline{X} - \frac{z_{0.025}}{\sqrt{n}}, \overline{X} + \frac{z_{0.025}}{\sqrt{n}}\right).
+        \end{equation*}
+    \item[(f)] We use the Delta method.
+        Let $\theta = g(\mu) = e^{\mu}$, then $g'(\mu) = e^{\mu}$, so $\hat{se}(\hat{\theta}) = |g'(\hat{\mu})|\hat{se}(\hat{\mu})$.
+        The 95\% confidence interval is given by
+        \begin{equation*}
+            \left(e^{\overline{X}} - z_{0.025} \frac{e^{\overline{X}}}{\sqrt{n}}, e^{\overline{X}} + z_{0.025} \frac{e^{\overline{X}}}{\sqrt{n}}\right)
+            = \left(e^{\overline{X}}(1 - \frac{z_{0.025}}{\sqrt{n}}), e^{\overline{X}}(1 + \frac{z_{0.025}}{\sqrt{n}})\right).
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 11.3}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, \theta)$ and prior $f(\theta) \propto 1/\theta$.
+The likelihood is
+\begin{equation*}
+    \mathcal{L}_n(\theta)
+        = \prod_{i = 1}^n f(X_i | \theta)
+        = \prod_{i = 1}^n \frac{1}{\theta} I(X_i \leq \theta)
+        = \frac{1}{\theta^n} I(X^+ \leq \theta).
+\end{equation*}
+The posterior becomes
+\begin{equation*}
+    \theta | X^n \propto \mathcal{L}_n(\theta) f(\theta)
+        \propto \frac{1}{\theta^{n+1}} I(X^+ \leq \theta).
+\end{equation*}
+Finally, to calculate the normalization coefficient
+\begin{equation*}
+    \int_{-\infty}^{\infty} \frac{1}{\theta^{n+1}} I(X^+ \leq \theta) d\theta
+        = \int_{X^+}^{\infty} \frac{1}{\theta^{n+1}} d\theta
+        = \left.-\frac{1}{n\theta^n}\right|_{\theta = X^+}^{\infty}
+        = \frac{1}{n (X^+)^n}.
+\end{equation*}
+So, the probability density function is
+\begin{equation*}
+    f(\theta|X^n) = \frac{1}{n} \frac{1}{(X^+)^n} \frac{1}{\theta^{n+1}},
+\end{equation*}
+for $\theta \geq X^+$.
+
+
+\subsection*{Solution 11.4}
+
+Let $n_1 = 50 = n_2$, $x_1 = 30$ and $x_2 = 40$.
+Let $X_1 \sim \mathrm{Binomial}(n_1, p_1)$ and $X_2 \sim \mathrm{Binomial}(n_2, p_2)$.
+Define $\tau = p_1 - p_2$.
+
+\begin{itemize}
+    \item[(a)] To find MLE $\hat{\tau} = g(\hat{p}_1, \hat{p}_2) = \hat{p}_1 - \hat{p}_2$ we first find MLE $\hat{p}_1$ and $\hat{p}_2$.
+        Calculate the likelihood estimator for $p_i$,
+        \begin{equation*}
+            \mathcal{L}_n(p_i) = \binom{n_i}{X_i} p_i^{X_i} (1 - p_i)^{n_i - X_i}.
+        \end{equation*}
+        The logarithm of the likelihood estimator is
+        \begin{equation*}
+            \ell_n(p_i) = X_i \log(p_i) - (n_i - X_i) \log(1 - p_i) + C,
+        \end{equation*}
+        where $C$ is independent of $p_i$.
+        Maximize $\ell_n(p_i)$ by taking setting the derivative to zero,
+        \begin{equation*}
+            0 = \ell_n'(p_i) = \frac{X_i}{p_i} - \frac{n_i - X_i}{1 - p_i} \rightarrow p_i = \frac{X_i}{n_i}.
+        \end{equation*}
+        Therefore, the MLE is $\hat{p}_1 = \frac{x_1}{n_1} = \frac{3}{5}$ and $\hat{p}_2 = \frac{x_2}{n_2} = \frac{4}{5}$, and the MLE for $\tau$ is given by $\hat{\tau} = g(\hat{p}_1, \hat{p}_2) = \hat{p}_1 - \hat{p}_2 = \frac{x_1}{n_1} - \frac{x_2}{n_2} = -\frac{1}{5}$.
+        The Fisher information matrix for $p_i$ is
+        \begin{equation*}
+            I(p_i) = E(-s(p_i))
+                = E\left(-\frac{\partial^2 \ell(p_i)}{\partial p_i^2}\right)
+                = E\left(\frac{X_i}{p_i^2} - \frac{n_i - X_i}{(1 - p_i)^2}\right)
+                = \frac{n_i p_i}{p_i^2} - \frac{n_i - n_i p_i}{(1 - p_i)^2}
+                = \frac{n}{p_i(1 - p_i)}.
+        \end{equation*}
+        So we have $\hat{se}(\hat{p}_i)^2 = I(p_i)^{-1} = \frac{p_i(1 - p_i)}{n}$.
+        With the Delta method, $\tau = g(p_1, p_2) = p_1 - p_2$.
+        $\nabla g = (1, -1)^t$ and
+        \begin{equation*}
+            I(p_1, p_2) = \left( \begin{matrix}
+                \frac{n_1}{p_1 (1 - p_1)} & 0 \\
+                0 & \frac{n_2}{p_2 (1 - p_2)}
+            \end{matrix} \right),
+            \quad
+            J(p_1, p_2) = \left( \begin{matrix}
+                \frac{p_1 (1 - p_1)}{n_1} & 0 \\
+                0 & \frac{p_2 (1 - p_2)}{n_2}
+            \end{matrix} \right).
+        \end{equation*}
+        We have
+        \begin{equation*}
+            \hat{se}(\hat{\tau})^2 = \nabla\hat{g}^t \hat{J}(\hat{p}_1, \hat{p}_2) \nabla\hat{g}
+                = \frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2}.
+        \end{equation*}
+        The 90\% confidence interval is therefore given by
+        \begin{equation*}
+                \left(\hat{\tau} - z_{0.05} \hat{se}(\hat{\tau}), \hat{\tau} + z_{0.05} \hat{se}(\hat{\tau}) \right) \approx (-0.35, -0.05).
+        \end{equation*}
+    \item[(b)] See code.
+    \item[(c)] Use $f(p_1, p_2) = 1$ as prior, then
+        \begin{equation*}
+            \begin{split}
+                f(p_1, p_2 | X_1, X_2)
+                    &\propto f(X_1|p_1) f(X_2|p_2) f(p_1, p_2) \\
+                    &\propto p_1^{X_1}(1 - p_1)^{n_1 - X_1} p_2^{X_2}(1 - p_2)^{n_2 - X_2} \\
+                    &\propto f(p_1|X_1) f(p_2|X_2),
+            \end{split}
+        \end{equation*}
+        so $p_1|X_1 \sim \mathrm{Beta}(X_1 + 1, n_1 - X_1 + 1)$ and $p_2|X_2 \sim \mathrm{Beta}(X_2 + 1, n_2 - X_2 + 1)$.
+        See code for simulation.
+    \item[(d)]
+        Let
+        \begin{equation*}
+            \psi = g(p_1, p_2) = \log\left(\left(\frac{p_1}{1 - p_1}\right)/\left(\frac{p_2}{1 - p_2}\right)\right).
+        \end{equation*}
+        The MLE is given by $\hat{psi} = g(\hat{p}_1, \hat{p}_2)$.
+        We use the Delta method to calculate the confidence interval.
+        The gradient of $\psi$ is (skipping the details)
+        \begin{equation*}
+            \frac{\partial g(p_1, p_2)}{\partial p_1} = \frac{1}{p_1(1 - p_1)}, \quad
+            \frac{\partial g(p_1, p_2)}{\partial p_2} = -\frac{1}{p_2(1 - p_2)}.
+        \end{equation*}
+        Such that
+        \begin{equation*}
+            \mathrm{se}(\psi)^2
+                = \nabla g^t J(p_1, p_2) \nabla g
+                = \frac{1}{n_1 p_1 (1 - p_1)} + \frac{1}{n_2 p_2 (1 - p_2)}.
+        \end{equation*}
+        The 90\% confidence interval is given by
+        \begin{equation*}
+            (\hat{\psi} - z_{0.05}\hat{se}(\hat{\psi}), \hat{psi} + z_{0.05}\hat{se}(\hat{\psi}))
+            \approx (-1.44, 0.06).
+        \end{equation*}
+    \item[(e)] See code.
+        We can use the algorithm above, replacing $\tau$ with $\psi$.
+\end{itemize}
+
+
+\subsection*{Solution 11.5}
+
+Let $X_1, X_2, ..., X_{n} \sim \mathrm{Bernoulli}(p)$.
+Take prior $p \sim \mathrm{Beta}(a, b)$.
+The posterior $p|X^n$ is
+\begin{equation*}
+    f(p|X^n) \sim \mathcal{L}_n(p) f(p)
+        = \left(\prod_{i = 1}^n p^{X_i}(1 - p)^{1 - X_i}\right) p^{a - 1} (1 - p)^{b - 1}
+        = p^{\sum X_i + a - 1} (1 - p)^{n - \sum X_i + b - 1},
+\end{equation*}
+such that $p|X^n \sim \mathrm{Beta}(\sum X_i + a, \sum X_i + b)$.
+See code for probability density function plots of $p|X^n$.
+
+
+\subsection*{Solution 11.6}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Poisson}(\lambda)$.
+\begin{itemize}
+    \item[(a)] Take prior $\lambda \sim \mathrm{Gamma}(a, b)$.
+        The likelihood is
+        \begin{equation*}
+            \mathcal{L}_n(\lambda) = \prod_{i = 1}^n \frac{\lambda^{X_i}}{X_i!} e^{-\lambda}
+                \propto \lambda^{\sum X_i} e^{-n\lambda}.
+        \end{equation*}
+        The posterior becomes
+        \begin{equation*}
+            \lambda|X^n \propto \mathcal{L}_n(\lambda) f(\lambda)
+                \propto \lambda^{\sum X_i} e^{-n\lambda} \lambda^{\alpha - 1} e^{-\lambda \beta}
+                = \lambda^{\sum X_i + \alpha - 1} e^{-\lambda (n + \beta)},
+        \end{equation*}
+        so that $\lambda|X^n \sim \mathrm{Gamma}(\sum X_i + \alpha, n + \beta)$.
+        The posterior mean is
+        \begin{equation*}
+            E(\lambda|X^n) = \frac{\sum X_i + \alpha}{n + \beta}.
+        \end{equation*}
+    \item[(b)] Let $f(\lambda) \propto \sqrt{I(\lambda)}$ be Jeffrey's prior.
+        We calculate
+        \begin{equation*}
+            \ell_n(\lambda) = \sum_{i = 1}^n \log(\lambda) X_i - n \lambda, \quad
+            \ell_n'(\lambda) = \sum_{i = 1}^n \frac{X_i}{\lambda} - n, \quad
+            \ell_n''(\lambda) = -\sum_{i = 1}^n \frac{X_i}{\lambda^2}.
+        \end{equation*}
+        The Fisher information matrix becomes
+        \begin{equation*}
+            I(\lambda) = \frac{1}{n} I_n(\lambda)
+                = -\frac{1}{n} E_{\lambda}(\ell_n''(\lambda))
+                = \frac{1}{\lambda}.
+        \end{equation*}
+        So we take prior $f(\lambda) \propto \frac{1}{\sqrt{\lambda}}$, and get posterior
+        \begin{equation*}
+            \lambda|X^n \propto \mathcal{L}_n(\lambda) f(\lambda)
+                \propto \lambda^{\sum X_i - \frac{1}{2}} e^{-n\lambda},
+        \end{equation*}
+        so that $\lambda|X^n \sim \mathrm{Gamma}\left(\sum X_i + \frac{1}{2}, n\right)$.
+\end{itemize}
+
+
+\subsection*{Solution 11.7}
+
+Let $\theta = (\theta_1, \theta_2, ..., \theta_n) \in \mathbb{R}^n$ and $\xi = (\xi_1, \xi_2, ..., \xi_n) \in \mathbb{R}^n$.
+Let $X_i \sim \mathrm{Uniform}(\{1, 2, ..., B\})$ with $B >> 0$, $R_i \sim \mathrm{Bernoulli}(\xi_{X_i})$, and $Y_i \sim \mathrm{Bernoulli}(\theta_{X_i})$ if $R_i = 1$ and else don't draw $Y_i$.
+We frequentist approximate $\psi = P(Y = 1)$ with
+\begin{equation*}
+    \hat{\psi} = \frac{1}{n} \sum_{i = 1}^n \frac{R_i Y_i}{\xi_i}.
+\end{equation*}
+Note that
+\begin{equation*}
+    \begin{split}
+        E\left(\frac{R_i Y_i}{\xi_{X_i}}\right)
+            &= E\left(E\left(\left.\frac{R_i Y_i}{\xi_{X_i}}\right|X_i\right)\right) \\
+            &= \sum_{j = 1}^B \frac{1}{\xi_j} P(R_i|X_i=j) P(Y_i|X_i=j) P(X_i=j) \\
+            &= \sum_{j = 1}^B \frac{1}{\xi_j} \xi_j \theta_j \frac{1}{B} \\
+            &= \frac{1}{B} \sum_{j = 1}^B \theta_j
+            = \psi.
+    \end{split}
+\end{equation*}
+Furthermore,
+\begin{equation*}
+    \begin{split}
+        E\left(\left(\frac{R_i Y_i}{\xi_{X_i}}\right)^2\right)
+            &= E\left(E\left(\left.\left(\frac{R_i Y_i}{\xi_{X_i}}\right)^2\right|X_i\right)\right) \\
+            &= \sum_{j = 1}^B \frac{1}{\xi_j^2} P(R_i^2|X_i=j) P(Y_i^2|X_i=j) P(X_i=j) \\
+            &= \sum_{j = 1}^B \frac{1}{\xi_j^2} \xi_j \theta_j
+            = \frac{1}{B} \sum_{j = 1}^B \frac{\theta_j}{\xi_j}.
+    \end{split}
+\end{equation*}
+Take $\delta$ such that $\frac{\theta_j}{\xi_j} \leq \frac{1}{\delta^2}$ for all $j$.
+The variance is bounded by
+\begin{equation*}
+    \begin{split}
+        V(\hat{\psi}) &= \frac{1}{n^2} V\left(\sum_{i = 1}^n \frac{R_i Y_i}{\xi_{X_i}}\right) \\
+            &= \frac{1}{n^2} \sum_{i = 1}^n \left(E\left(\left(\frac{R_i Y_i}{\xi_{X_i}}\right)^2\right) - E\left(\frac{R_i Y_i}{\xi_{X_i}}\right)^2\right) \\
+            &= \frac{1}{n^2} \sum_{i = 1}^n \left(\frac{1}{B}\sum_{j = 1}^B \frac{\theta_j}{\xi_j} - \left(\frac{1}{B}\sum_{j = 1}^B \theta_j\right)^2\right) \\
+            &\leq \frac{1}{n^2} \sum_{i = 1}^n \frac{1}{B} \sum_{j = 1}^B \frac{1}{\delta^2}
+            = \frac{1}{n \delta^2}.
+    \end{split}
+\end{equation*}
+
+
+\subsection*{Solution 11.8}
+
+Let $X \sim \mathrm{Normal}(\mu. 1)$.
+We will test $H_0: \mu = 0$ against the alternative hypothesis $H_1: \mu \neq 0$.
+As prior of the tests take $P(H_0) = P(H_1) = \frac{1}{2}$.
+And let the prior of $\mu$ under $H_1$ be $\mu \sim \mathrm{Normal}(0, b^2)$.
+From Bayes' Theorem we have
+\begin{equation*}
+    P(H_0|X^n) = \frac{\mathcal{L}_n(\mu_0)}{\mathcal{L}_n(0) + \int \mathcal{L}_n(\mu) f(\mu) d\mu}
+        = \frac{1}{1 + \int \frac{\mathcal{L}_n(\mu)}{\mathcal{L}_n(0)} f(\mu) d\mu}.
+\end{equation*}
+We calculate the nominator and denominator in the integral seperately
+\begin{equation*}
+    \mathcal{L}_n(0)
+        = \left(\frac{1}{\sqrt{2\pi}}\right)^n \exp\left(-\frac{1}{2}\sum_{i = 1}^n X_i^2\right),
+\end{equation*}
+and
+\begin{equation*}
+    \mathcal{L}_n(\mu) f(\mu)
+        = \left(\frac{1}{\sqrt{2\pi}}\right)^{n + 1} \frac{1}{b}
+            \exp\left(-\frac{1}{2}\left(\sum_{i = 1}^n (X_i - \mu)^2 + \frac{\mu^2}{b^2}\right)\right).
+\end{equation*}
+Expanding and factorizing $\mu$ in the exponential term in $\mathcal{L}_n(\mu) f(\mu)$ gives
+\begin{equation*}
+    \sum_{i = 1}^n (X_i - \mu)^2 + \frac{\mu^2}{b^2}
+        = \sum_{i = 1}^n X_i^2 - 2n \overline{X} \mu + \left(n + \frac{1}{b^2}\right)\mu^2
+        = \frac{1}{\sigma^2}\left(\mu - \sigma^2 n \overline{X}\right)^2 - \sigma^2 n^2 \overline{X}^2 + \sum_{i = 1}^n X_i^2,
+\end{equation*}
+where $\sigma^2 = \frac{1}{n + 1/b^2} = \frac{b^2}{1 + nb^2}$.
+This brings us to
+\begin{equation*}
+    \mathcal{L}_n(\mu) f(\mu)
+        = \left(\frac{1}{\sqrt{2\pi}}\right)^{n + 1} \frac{1}{b}
+            \exp\left(-\frac{1}{2}\sum_{i = 1}^n X_i^2 + \frac{1}{2}\sigma^2 n^2 \overline{X}^2 \right)
+            \exp\left(-\frac{1}{2\sigma^2} \left(\mu - \sigma^2 n \overline{X}\right)^2\right).
+\end{equation*}
+With these expressions we can calculate the integral
+\begin{equation*}
+    \begin{split}
+        \int \frac{\mathcal{L}_n(\mu)}{\mathcal{L}_n(0)} f(\mu) d\mu
+            &= \int \frac{
+                    \left(\frac{1}{\sqrt{2\pi}}\right)^{n + 1} \frac{1}{b}
+                        \exp\left(-\frac{1}{2}\sum_{i = 1}^n X_i^2 + \frac{1}{2}\sigma^2 n^2 \overline{X}^2 \right)
+                        \exp\left(-\frac{1}{2\sigma^2} \left(\mu - \sigma^2 n \overline{X}\right)^2\right)
+                }{
+                    \left(\frac{1}{\sqrt{2\pi}}\right)^n \exp\left(-\frac{1}{2}\sum_{i = 1}^n X_i^2\right)
+                } d\mu \\
+            &= \int \frac{1}{\sqrt{2\pi}} \frac{1}{b} \exp\left(\frac{1}{2}\sigma^2 n^2 \overline{X}^2\right)
+                        \exp\left(-\frac{1}{2\sigma^2} \left(\mu - \sigma^2 n \overline{X}\right)^2\right) d\mu \\
+            &= \frac{\sigma}{b} \exp\left(\frac{1}{2}\sigma^2 n^2 \overline{X}^2\right)
+                        \int \frac{1}{\sqrt{2\pi}\sigma} \exp\left(-\frac{1}{2\sigma^2} \left(\mu - \sigma^2 n \overline{X}\right)^2\right) d\mu \\
+            &= \frac{\sigma}{b} \exp\left(\frac{1}{2}\sigma^2 n^2 \overline{X}^2\right) \\
+            &= \sqrt{\frac{b}{1 + n^2 b^2}} \exp\left(\frac{bn^2\overline{X}^2}{2(1 + n^2b^2)}\right) \\
+            &= \sqrt{\frac{b}{1 + n^2 b^2}} \exp\left(\frac{b\overline{X}^2}{2(\frac{1}{n^2} + b^2)}\right).
+    \end{split}
+\end{equation*}
+Therefore,
+\begin{equation*}
+    P(H_0|X^n) = \frac{1}{1 + \sqrt{\frac{b}{1 + n^2 b^2}} \exp\left(\frac{b\overline{X}^2}{2(\frac{1}{n^2} + b^2)}\right)}
+        \longrightarrow 1,
+\end{equation*}
+when $n \to \infty$.
+In other words, $P(H_0|X^n)$ goes to $1$ when $n$ goes to infinity, no matter if $H_0$ is true or false.
+This is called the Jeffreys-Lindley paradox.
+
+Frequentist would use the Wald's test instead, i.e.,
+$$
+    W = \frac{\overline{X}_n}{\hat{se}} = \sqrt{n}\,\overline{X}_n,
+$$
+and reject $H_0$ when $|W| \geq z_{\alpha/2}$.

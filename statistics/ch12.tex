@@ -1,0 +1,211 @@
+\section*{Chapter 12 - Statistical Decision Theory}
+
+\subsection*{Solution 12.1}
+
+Note that the definition for Bayes risk is wrong.
+The Bayes risk should be
+\begin{equation*}
+    r(f, \hat{p}) = \int L(p, \hat{p}) f(p) dp.
+\end{equation*}
+
+\begin{itemize}
+\item[(a)] $X \sim \mathrm{Binomial}(n, p)$, $p \sim \mathrm{Beta}(\alpha, \beta)$.
+    Bayes risk is given by
+    \begin{equation*}
+        \begin{split}
+            r(f, \hat{p})
+                &= \int L(p, \hat{p}) f(p) dp \\
+                &= \int (p - \hat{p})^2 \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \Gamma(\beta)} p^{\alpha - 1} (1 - p)^{\beta - 1} dp \\
+                &= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} \int (p^2 - 2p\hat{p} + \hat{p}^2) p^{\alpha - 1} (1 - p)^{\beta - 1} dp \\
+                &= \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} \left(\frac{\Gamma(\alpha + 2)\Gamma(\beta)}{\Gamma(\alpha + \beta + 2)} - 2\hat{p}\frac{\Gamma(\alpha + 1)\Gamma(\beta)}{\Gamma(\alpha + \beta + 1)} + \hat{p}^2\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}\right) \\
+                &= \frac{\alpha(\alpha + 1)}{(\alpha + \beta + 1)(\alpha + \beta)} - \frac{2 \alpha}{\alpha + \beta} \hat{p} + \hat{p}^2 \\
+                &= \frac{\alpha(\alpha + 1) - 2 \alpha (\alpha + \beta + 1) \hat{p} + (\alpha + \beta + 1)(\alpha + \beta) \hat{p}^2}{(\alpha + \beta)(\alpha + \beta + 1)}.
+        \end{split}
+    \end{equation*}
+    According to Theorem 12.8, the Bayes estimator is given by
+    \begin{equation*}
+        \hat{\theta}(x^n) = \int \theta f(\theta|x^n) dx^n = E(\theta|X^n = x^n).
+    \end{equation*}
+    We calculate
+    \begin{equation*}
+        \begin{split}
+            \theta|X^n \propto \mathcal{L}_{\theta}(X^n) f(\theta)
+                &= \left(\prod_{i = 1}^m \binom{n}{X_i} p^{X_i} (1 - p)^{n - X_i}\right) \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{\alpha - 1}(1 - p)^{\beta - 1} \\
+                &\propto p^{\alpha + \sum X_i - 1} (1 - p)^{\beta + mn - \sum X_i - 1} \\
+                &\sim \mathrm{Gamma}\left(\alpha + \sum_{i = 1}^n X_i, \beta + mn - \sum_{i = 1}^n X_i\right).
+        \end{split}
+    \end{equation*}
+    As the mean of $X \sim \mathrm{Gamma}(\alpha, \beta)$ is $E(X) = \frac{\alpha}{\alpha + \beta}$, the Bayes estimator is
+    \begin{equation*}
+        \hat{\theta}(x^n) = E(\theta|X^n = x^n) = \frac{\alpha + \sum_{i = 1}^n X_i}{\alpha + \beta + mn}.
+    \end{equation*}
+\item[(b)] $X \sim \mathrm{Poisson}(\lambda)$, $\lambda \sim \mathrm{Gamma}(\alpha, \beta)$.
+    We use
+    \begin{equation*}
+        \int \lambda^{a - 1} e^{-b\lambda} d\lambda
+            = \int b^{-a + 1} y^{a - 1} e^{-y} \frac{1}{b} dy
+            = \frac{1}{b^a} int y^{a - 1} e^{-y} dy
+            = \frac{\Gamma(a)}{b^a},
+    \end{equation*}
+    where we substituted $y = b\lambda$, to show that the Bayes risk is given by
+    \begin{equation*}
+        \begin{split}
+            r(f, \hat{\lambda})
+                &= \int L(\lambda, \hat{\lambda}) f(\lambda) d\lambda \\
+                &= \int (\lambda - \hat{\lambda})^2 \frac{\beta^{\alpha}}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} d\lambda \\
+                &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} \left[
+                    \int \lambda^{2 + \alpha - 1} e^{-\beta \lambda} d\lambda - 2 \hat{\lambda} \int \lambda^{1 + \alpha - 1} e^{\beta \lambda} d\lambda + \int \lambda^{\alpha - 1} e^{\beta \lambda} d\lambda
+                \right] \\
+                &= \frac{\beta^{\alpha}}{\Gamma(\alpha)} \left[ \frac{\Gamma(\alpha + 2)}{\beta^{\alpha + 2}} - 2 \hat{\lambda} \frac{\Gamma(\alpha + 1)}{\beta^{\alpha + 1}} + \hat{\lambda}^2 \frac{\Gamma(\alpha)}{\beta^{\alpha}} \right] \\
+                &= \frac{\alpha(\alpha + 1)}{\beta^2} - 2\hat{\lambda} \frac{\alpha}{\beta} + \hat{\lambda}^2.
+        \end{split}
+    \end{equation*}
+    For the Bayes estimator we use Theorem 12.8 such that
+    \begin{equation*}
+        \begin{split}
+            f(\lambda|X^n) \propto \mathcal{L}_n(\lambda) f(\lambda)
+                &= \left( \prod_{i = 1}^n \frac{1}{X_i!} \lambda^{X_i} e^{-\lambda} \right) \frac{\beta^{\alpha}}{\Gamma(\alpha)} \lambda^{\alpha - 1} e^{-\beta \lambda} \\
+                &\propto \lambda^{\sum X_i + \alpha - 1} e^{-(\beta + n)\lambda}
+                \sim \mathrm{Gamma}\left(\sum_{i = 1}^n X_i + \alpha, \beta + n\right).
+        \end{split}
+    \end{equation*}
+\item[(c)] $X \sim \mathrm{Normal}(\theta, \sigma^2)$, $\sigma^2$ known, $\theta \sim \mathrm{Normal}(a, b^2)$.
+    Bayes risk is
+    \begin{equation*}
+        \begin{split}
+            r(f, \hat{\theta})
+                &= \int (\hat{\theta} - \theta)^2 f(\theta) d\theta \\
+                &= \int (\hat{\theta}^2 - 2 \hat{\theta} \theta + \theta^2) \frac{1}{2\pi} \frac{1}{b} \exp\left(-\frac{1}{2b^2} (\theta - a)^2\right) d\theta \\
+                &= \hat{\theta}^2 - 2\hat{\theta} E(\theta) + E(\theta^2) \\
+                &= \hat{\theta}^2 - 2 \hat{\theta} a + a^2 + b^2,
+        \end{split}
+    \end{equation*}
+    as $V(\theta) = E(\theta^2) - E(\theta)^2$, we have $E(\theta^2) = V(\theta) - E(\theta)^2 = a^2 + b^2$.
+    Bayes estimator is, using Theorem 12.8,
+    \begin{equation*}
+        \begin{split}
+            f(\theta|X^n) &\propto \mathcal{L}_n(\theta) f(\theta) \\
+                &= \left(\prod_{i = 1}^n \frac{1}{\sqrt{2 \pi}} \frac{1}{\sigma} \exp\left(-\frac{1}{2\sigma^2} (X_i - \theta)^2\right)\right) \frac{1}{\sqrt{2\pi}} \frac{1}{b} \exp\left(-\frac{1}{2b^2} (\theta - a)^2\right) \\
+                &\propto \exp\left(-\frac{1}{2}\left(\left(\frac{n}{\sigma^2} + \frac{1}{b^2}\right) \theta^2 - (2n\overline{X} - 2a)\theta\right)\right) \\
+                &\propto \exp\left(-\frac{1}{2\hat{\sigma}^2} \left(\theta - \hat{\sigma}^2(n\overline{X} - a)\right)^2\right)
+                \sim \mathrm{Normal}(\hat{\mu}, \hat{\sigma}^2),
+        \end{split}
+    \end{equation*}
+    where
+    \begin{equation*}
+        \frac{1}{\hat{\sigma}^2} = \left(\frac{n}{\sigma^2} + \frac{1}{b^2}\right), \quad \hat{\mu} = \hat{\sigma}^2(n\overline{X} - a).
+    \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 12.2}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\theta, \sigma^2)$, and $\theta$ is estimated with loss function $L(\theta, \hat{\theta}) = \frac{1}{\sigma^2}(\theta - \hat{\theta})^2$.
+Note that
+\begin{equation*}
+    R(\theta, \hat{\theta}) = E\left(\frac{1}{\sigma^2}(\theta - \hat{\theta})^2\right)
+        = \frac{1}{\sigma^2} E\left((\theta - \hat{\theta})^2\right)
+        = \frac{1}{\sigma^2} \left(V_{\theta}(\hat{\theta}) + \mathrm{bias}^2_{\theta}(\hat{\theta})\right)
+        = \frac{1}{\sigma^2} R_{\mathrm{MSE}}(\theta, \hat{\theta}).
+\end{equation*}
+By Theorem 12.20, $\overline{X}$ is admissible under $R_{\mathcal{MSE}}$, i.e., There is no $\hat{\theta}' \neq \overline{X}$ such that
+\begin{equation*}
+    R_{\mathrm{MSE}}(\theta, \hat{\theta}') \leq R_{\mathrm{MSE}}(\theta, \overline{X}),
+\end{equation*}
+for all $\theta$, and
+\begin{equation*}
+    R_{\mathrm{MSE}}(\theta, \hat{\theta}') < R_{\mathrm{MSE}}(\theta, \overline{X}),
+\end{equation*}
+for at least one $\theta$.
+When we replace $R_{\mathrm{MSE}} \leftarrow \frac{1}{\sigma^2} R_{\mathrm{MSE}} = R$ in the two equations above, we see that $R$ is admissible.
+Moreover,
+\begin{equation*}
+    R(\theta, \overline{X}) = \frac{1}{\sigma^2} R_{\mathrm{MSE}}(\theta, \overline{X})
+        = \frac{1}{\sigma^2} \frac{\sigma^2}{n}
+        = \frac{1}{n},
+\end{equation*}
+is constant.
+Therefore, by Theorem 12.21, $\overline{X}$ is minimax.
+
+
+\subsection*{Solution 12.3}
+
+Let $\Theta = \{\theta_1, \theta_2, ..., \theta_k\}$ be a finite parameter space.
+The zero-one loss is given by $L(\theta, \hat{\theta}) = 0$ if $\theta = \hat{\theta}$ and $L(\theta, \hat{\theta}) = 1$ otherwise.
+The posterior risk is defined by
+\begin{equation*}
+    r(\hat{\theta}|x) = \int L(\theta, \hat{\theta}(x)) f(\theta|x) dx
+        = \int \left(1 - I_{\theta, \hat{\theta}(x)}\right) f(\theta|x) dx
+        = 1 - \sum_{\theta = \hat{\theta}(x)} f(\theta|x) dx
+        = 1 - f(\hat{\theta}(x)|x),
+\end{equation*}
+where we use that $\Theta$ is finite.
+The Bayes estimator $\hat{\theta}$ is the minimal value of the posterior risk $r(\hat{\theta}|x)$.
+By Theorem 12.8, the Bayes estimator, under zero-one loss $L$, is the mode of the posterior $f(\theta|x)$.
+The mode of the posterior is not defined in the book, so I give it here.
+In the discrete case, the mode of the posterior is the value $\hat{\theta}_{\mathrm{MAP}}(x)$ at wich the probability mass function of the posterior $f(\theta|x)$ takes it's maximum value, i.e.,
+\begin{equation*}
+    \hat{\theta}_{\mathrm{MAP}}(x) = \mathrm{argmax}_{\theta} f(\theta|x),
+\end{equation*}
+where MAP estimator stands for Maximum A Posteriori estimator.
+Notice that $\hat{\theta}_{\mathrm{MAP}}(x)$ is the minimal value for $1 - f(\theta|x)$, so $\hat{\theta}_{\mathrm{MAP}}(x)$ is the Bayes estimator.
+
+
+\subsection*{Solution 12.4}
+
+Let $X_1, X_2, ..., X_n$ be samples from a distribution with variance $\sigma^2$.
+Consider the estimator $bS^2$, where
+\begin{equation*}
+    S^2 = \frac{1}{n - 1} \sum_{i = 1}^n (X_i - \overline{X}_i)^2.
+\end{equation*}
+Define loss
+\begin{equation*}
+    L(\sigma^2, \hat{\sigma}^2) = \frac{\hat{\sigma}^2}{\sigma^2} - \log\left(\frac{\hat{\sigma}^2}{\sigma^2}\right) - 1.
+\end{equation*}
+To find the optimal $b$ that minimizes the risk of $L$ simplify
+\begin{equation*}
+    L(\sigma^2, bS^2) = b \frac{S^2}{\sigma^2} - \log(b) - \log\left(\frac{S^2}{\sigma^2}\right) - 1.
+\end{equation*}
+The risk becomes
+\begin{equation*}
+    R(\sigma^2, bS^2) = E_{\sigma^2}(L(\sigma^2, bS^2))
+        = b - \log(b) + C,
+\end{equation*}
+where $C$ is a term independent of $b$.
+Differentiating $f(x) = x - \log(x)$ and setting the differential to zero gives $b = 1$.
+So $R(\sigma^2, bS^2)$ is minimal if $b = 1$.
+
+
+\subsection*{Solution 12.5}
+
+Let $X \sim \mathrm{Binomial}(n, p)$.
+Define loss function
+\begin{equation*}
+    L(p, \hat{p}) = \left(1 - \frac{\hat{p}}{p}\right)^2,
+\end{equation*}
+where $0 < p < 1$.
+Take estimator $\hat{p}(X) = 0$.
+We calculate the risk
+\begin{equation*}
+    R(p, \hat{p}) = E_{p}(L(p, \hat{p}))
+        = E_p\left(\left(1 - \frac{\hat{p}}{p}\right)^2\right)
+        = E_p\left(1 - 2\frac{\hat{p}}{p} + \frac{\hat{p}^2}{p^2}\right)
+        = 1 - \frac{2}{p} E_p(\hat{p}) + \frac{1}{p^2} E(\hat{p}^2).
+\end{equation*}
+When $\hat{p}(X) = 0$ we have $R(p, \hat{p}(X)) = 1$.
+Let $\hat{p}'(X) > 0$, then $E(\hat{p}'(X)) > 0$.
+Take $p$ such that
+\begin{equation*}
+    0 < p < \frac{1}{2} \frac{E(\hat{p}'(X)^2)}{E(\hat{p}'(X))}.
+\end{equation*}
+In particular we have
+\begin{equation*}
+    \frac{1}{p^2} E(\hat{p}'(X)^2) - \frac{2}{p} E(\hat{p}'(X)) > 0,
+\end{equation*}
+such that $R(p, \hat{p}'(X)) > 1 = R(p, \hat{p}(X))$.
+In other words, $\hat{p}(X)$ is minimax.
+
+
+\subsection*{Solution 12.6}
+
+See code.

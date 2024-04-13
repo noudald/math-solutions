@@ -1,0 +1,312 @@
+\section*{Chapter 9 - Parametric Inference}
+
+\subsection*{Solution 9.1}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Gamma}(\alpha, \beta)$.
+We have
+\begin{equation*}
+    \begin{split}
+        E(X^n)
+            &= \int_0^{\infty} x^n \frac{x^{\alpha - 1}}{\beta^{\alpha} \Gamma(\alpha)} e^{-\frac{x}{\alpha}} dx \\
+            &= \frac{(\alpha + n - 1)!}{(\alpha - 1)!} \beta \int_0^{\infty} \frac{x^{\alpha + n - 1}}{\beta^{\alpha + n} \Gamma(\alpha + n)} e^{-\frac{x}{\alpha}} dx \\
+            &= \frac{(\alpha + n - 1)!}{(\alpha - 1)!} \beta \int_0^{\infty} f(x; \alpha + n, \beta + n) dx
+            = \frac{(\alpha + n - 1)!}{(\alpha - 1)!} \beta.
+    \end{split}
+\end{equation*}
+In particular, $\alpha_1 = E(X) = \alpha \beta$ and $\alpha_2 = E(X^2) = (\alpha + 1) \alpha \beta^2$.
+Solving these two equations leads to
+\begin{equation*}
+    \alpha = \frac{\alpha_1^2}{\alpha_2 - \alpha_1^2}, \quad \beta = \frac{\alpha_2 - \alpha_1^2}{\alpha_1^2}.
+\end{equation*}
+When we take $\hat{\alpha}_1 = \frac{1}{n} \sum X_i$ and $\hat{\alpha}_2 = \frac{1}{n} \sum X_i^2$, the methods of moment estimators for $\alpha$ and $\beta$ become
+\begin{equation*}
+    \hat{\alpha} = \frac{\alpha_1^2}{\alpha_2 - \alpha_1^2}, \quad \hat{\beta} = \frac{\alpha_2 - \alpha_1^2}{\alpha_1^2}.
+\end{equation*}
+
+
+\subsection*{Solution 9.2}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(a, b)$.
+\begin{itemize}
+    \item[(a)] We calculate the moments
+        \begin{equation*}
+            E(X^n)
+                = \int_a^b x^n f(x;a,b) dx
+                = \left. \frac{1}{b - a} \frac{x^{n+1}}{n + 1} \right|_a^b
+                = \frac{1}{n + 1} \frac{b^{n+1} - a^{n+1}}{b - a}.
+        \end{equation*}
+        In particular, $\alpha_1 = E(X) = \frac{a + b}{2}$ and $\alpha_2 = E(X^2) = \frac{a^2 + ab + b^2}{3}$.
+        From $\alpha_1$ we have $\hat{b} = 2\hat{\alpha}_1 - \hat{a}$.
+        Combined with $\alpha_2$ we get a second order equation
+        \begin{equation*}
+            3\hat{\alpha}_2
+                = \hat{a}^2 + \hat{a}(2\hat{\alpha}_1 - \hat{a}) + (2\hat{\alpha}_1 - \hat{a})^2
+                = \hat{a}^2 - 2\hat{a}\hat{\alpha}_1 + 4\hat{\alpha}_1^2,
+        \end{equation*}
+        with the (only possible) solution
+        \begin{equation*}
+            \hat{a} = \hat{\alpha}_1 - \sqrt{3(\hat{\alpha_2} - \hat{\alpha_1}^2)}, \quad
+            \hat{b} = \hat{\alpha}_1 + \sqrt{3(\hat{\alpha_2} - \hat{\alpha_1}^2)}.
+        \end{equation*}
+    \item[(b)] The likelihood estimator is
+        \begin{equation*}
+            \mathcal{L}_n(a, b)
+                = \prod_{i = 1}^n f(X_i;a,b)
+                = \left\{ \begin{array}{lll}
+                    (b - a)^{-n} & \text{if} & a \leq X_1, X_2, ..., X_n \leq b \\
+                    0 & \text{otherwise}
+                \end{array} \right.
+        \end{equation*}
+        We cannot differentiate the likelihood estimator.
+        However, let $\hat{a} = \min(X_1, X_2, ..., X_n)$ and $\hat{b} = \max(X_1, X_2, ..., X_n)$.
+        If $a' < \hat{a}$ or $\hat{b} < b'$, then $\mathcal{L}_n(a', b') = 0 \leq \mathcal{L}_n(\hat{a}, \hat{b})$.
+        If $\hat{a} \leq a'$ and $b' \leq \hat{b}$, then $\mathcal{L}_n(a', b') = (b' - a')^{-n} \leq (\hat{b} - \hat{a})^{-n} = \mathcal{L}_n(\hat{a}, \hat{b})$.
+        Therefore, $\mathcal{L}_n(a, b)$ is maximized in $\hat{a}, \hat{b}$.
+    \item[(c)] Let $\tau = \int x dF(x) = E(X) = \frac{a + b}{2}$.
+        The MLE is $\hat{\tau} = \frac{\hat{a} + \hat{b}}{2}$.
+    \item[(d)] The plugin-estimator for $\tau$ is $\tilde{\tau} = \frac{1}{n} \sum X_i$, also see examples 7.10 and 7.11.
+        We have
+        \begin{equation*}
+            \begin{split}
+                E((\tilde{\tau} - \tau)^2)
+                    &= E((\tilde{\tau} - E(\tilde{\tau}))^2) \\
+                    &= V(\tilde{\tau}) \\
+                    &= E(\tilde{\tau}^2) - E(\tilde{\tau}^2) \\
+                    &= \frac{1}{n^2} E\left(\sum_{i = 1}^n \sum_{j = 1}^n X_i X_j\right) - \left(\frac{a + b}{2}\right)^2 \\
+                    &= \frac{1}{n^2} \left(\sum_{i = 1}^n E(X_i^2) - \sum_{i \neq j} E(X_i) E(X_j)\right) - \left(\frac{a + b}{2}\right)^2 \\
+                    &= \frac{1}{n^2} \left(\sum_{i = 1}^n (V(X_i) + E(X_i)^2) - \sum_{i \neq j} \left(\frac{a + b}{2}\right)^2\right) - \left(\frac{a + b}{2}\right)^2 \\
+                    &= \frac{1}{n^2} \left(\frac{n}{12}(b - a)^2 + n\left(\frac{a + b}{2}\right)^2 + n(n - 1)\left(\frac{a + b}{2}\right)^2\right) - \left(\frac{a + b}{2}\right)^2 \\
+                    &= \frac{(b - a)^2}{12 n}
+                    = \frac{V(X)}{n}.
+            \end{split}
+        \end{equation*}
+\end{itemize}
+
+
+\subsection*{Solution 9.3}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\mu, \sigma^2)$.
+Let $\tau$ be the $95\%$ percentile, i.e., $P(X > \tau) = 0.95$.
+\begin{itemize}
+    \item[(a)] Note that
+        \begin{equation*}
+            0.95
+                = P(X < \tau)
+                = P(\sigma Z + \mu < \tau)
+                = P\left(Z < \frac{\tau - \mu}{\sigma}\right)
+                = \Phi\left(\frac{\tau - \mu}{\sigma}\right).
+        \end{equation*}
+        Hence $\tau = z_{0.95} \sigma + \mu$.
+        Therefore, the MLE for $\tau$ is $\hat{\tau} = z_{0.95} \hat{\sigma} + \hat{\mu}$.
+    \item[(b)] We use the Delta method.
+        $\tau = g(\mu, \sigma) = z_{0.95} \sigma + \mu$, such that $\bigtriangledown g = (1, z_{0.95})^t$.
+        The Fisher information matrix becomes
+        \begin{equation*}
+            I_n(\mu, \sigma) = \left( \begin{matrix}
+                \frac{n}{\sigma^2} & 0 \\
+                0 & \frac{2n}{\sigma^2}
+            \end{matrix} \right).
+        \end{equation*}
+        Let $J_n = I_n^{-1}$ be the inverse of the Fisher information matrix.
+        Then
+        \begin{equation*}
+            \hat{se}(\hat{\tau})^2
+                = \hat{\bigtriangledown} g^t \hat{J}_n \hat{\bigtriangledown} g
+                = \frac{\sigma^2}{n}\left(1 + \frac{1}{2} z_{0.95}^2\right).
+        \end{equation*}
+        Therefore, the (approximated) $1 - \alpha$ confidence interval for $\hat{\tau}$ is
+        \begin{equation*}
+            (\hat{\mu} + z_{0.95}\hat{\sigma}) \pm z_{\frac{\alpha}{2}} \sigma \sqrt{\frac{2 + z_{0.95}}{2}}.
+        \end{equation*}
+    \item[(c)] See code.
+\end{itemize}
+
+
+\subsection*{Solution 9.4}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Uniform}(0, \theta)$.
+The MLE of $\theta$ is given by $\hat{\theta} = \max(X_1, X_2, ..., X_n)$.
+For every $\epsilon > 0$, we have
+\begin{equation*}
+    P(|\theta - \hat{\theta}| < \epsilon)
+        = P(X_1 < \theta - \epsilon, X_2 < \theta - \epsilon, ..., X_n < \theta - \epsilon)
+        = \prod_{i = 1}^n \frac{\theta - \epsilon}{\theta}
+        = \left(1 - \frac{\epsilon}{\theta}\right)^n
+        \to 0,
+\end{equation*}
+when $n \to \infty$, so $\hat{\theta} \xrightarrow{P} \theta$ and $\hat{\theta}$ is consistant.
+
+
+\subsection*{Solution 9.5}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Poisson}(\lambda)$.
+\begin{itemize}
+    \item[(a)] Let $X \sim \mathrm{Poisson}(\lambda)$.
+        We have $\alpha_1 = E(X) = \lambda$, so the moments estimator is $\hat{\lambda} = \hat{\alpha}_1$.
+    \item[(b)] The Likelihood function is
+        \begin{equation*}
+            \mathcal{L}_n(\lambda)
+                = \prod_{i = 1}^n e^{-\lambda} \frac{\lambda^{X_i}}{x_i!}
+                = e^{-n\lambda} \frac{\lambda^{\sum_{i = 1}^n X_i}}{x_1! x_2! \dots x_n!}.
+        \end{equation*}
+        Let $F_n(\lambda) = e^{-n\lambda} \lambda^{\sum X_i}$.
+        To find the maximum likelihood estimator $\hat{\lambda}$ it's sufficient to maximize $F_n(\lambda)$, as the rest of $\mathcal{L}_n(\theta)$ is independent of $\theta$.
+        We have
+        \begin{equation*}
+            f_n(\lambda)
+                = \log(F_n(\lambda))
+                = -n\lambda + \log(\lambda) \sum_{i = 1}^n X_i
+                = 0,
+        \end{equation*}
+        if and only if $\lambda = \frac{1}{n} \sum_{i = 1}^n X_i$ ($= \hat{\alpha}_1$).
+    \item[(c)] To calculate the Fisher matrix we first calculate the score function
+        \begin{equation*}
+            \frac{\partial^2 \ell_n(\lambda)}{\partial \lambda^2}
+                = \frac{\partial^2 f_n(\lambda)}{\partial \lambda^2}
+                = -\frac{\sum_{i = 1}^n X_i}{\lambda^2},
+        \end{equation*}
+        such that
+        \begin{equation*}
+            I_n(\lambda)
+                = -E_{\lambda}\left(\frac{\partial^2 \ell_n(\lambda)}{\partial \lambda^2}\right)
+                = \frac{n\lambda}{\lambda^2}
+                = \frac{n}{\lambda}.
+        \end{equation*}
+        In particular, the Fisher Information matrix is given by $I(\lambda) = \frac{1}{n} I_n(\lambda) = \frac{1}{\lambda}$.
+\end{itemize}
+
+
+\subsection*{Solution 9.6}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\theta, 1)$.
+Define $Y_i = 1$ if $X_i \geq 0$ and $Y_i = 0$ otherwise.
+Let $\psi = P(Y_1 = 1)$.
+\begin{itemize}
+    \item[(a)] $\psi = P(Y_1 = 1) = P(X_1 \geq 0) = P(Z \geq -\theta) = P(Z < \theta) = \Phi(\theta)$.
+        So the MLE of $\psi$ is $\hat{\psi} = \Phi(\hat{\theta})$, where $\hat{\theta}$ is the MLE of $\theta$.
+    \item[(b)] We use Delta method of Theorem 9.24.
+        $\hat{\psi} = g(\hat{\theta}) = \Psi(\hat{\theta})$, so $g'(\hat{\theta}) = \phi(\hat{\theta})$.
+        Moreover, $\hat{se}(\hat{\theta})^2 = \frac{\sigma^2}{n} = \frac{1}{n}$.
+        So the $95\%$ confidence interval is
+        \begin{equation*}
+            \Phi(\hat{\theta}) \pm z_{0.025} \frac{\phi(\hat{\theta})}{\sqrt{n}}.
+        \end{equation*}
+    \item[(c)] Let $\tilde{\psi}_n = \frac{1}{n} \sum_{i = 1}^{n} Y_i$.
+        By the weak law of large numbers $\tilde{\psi}_n \xrightarrow{P} E(Y_1) = P(X > 0) = \psi$.
+    \item[(d)] We have $\sqrt{n}(\hat{\psi} - \psi) \xrightarrow{D} \mathrm{Normal}(0, \phi(\theta))$.
+        Note that $V(\tilde{\psi}_n) = \frac{1}{n^2} \sum V(Y_i) = \frac{1}{n} \psi(1 - \psi)$.
+        So $\sqrt{n}(\tilde{\psi}_n - \psi) \xrightarrow{D} \mathrm{Normal}(0, \psi(1 - \psi))$.
+        Which leads to
+        \begin{equation*}
+            \mathrm{ARE}(\hat{\psi}, \tilde{\psi}) = \frac{\phi(\theta)}{\psi(1 - \psi)}.
+        \end{equation*}
+    \item[(e)] $\hat{\psi} = \Phi(\hat{\theta})$ will converge to $\Psi(\mu)$ as $\hat{\theta}$ will converge to mean $\mu$.
+\end{itemize}
+
+
+\subsection*{Solution 9.7}
+
+Let $X_1 \sim \mathrm{Binomial}(n_1, p_1)$ and $X_2 \sim \mathrm{Binomial}(n_2, p_2)$.
+Take $\psi = p_1 - p_2$.
+
+\begin{itemize}
+    \item[(a)] The probability density function for $X_1$ and $X_2$ is $f(x;p) = \binom{n}{x} p^x (1 - p)^{n-x}$.
+        The Likelihood function is given by
+        \begin{equation*}
+            \mathcal{L}_1(p) = f(x;p) = \binom{n}{x} p^x (1 - p)^{n - x}.
+        \end{equation*}
+        So $\ell_1(p) = \log\binom{n}{x} + x\log(p) + (n - x)\log(p)$.
+        Maximizing $\ell_1(p)$ yields $\hat{p} = x/n$.
+        The MLE of $\psi = p_1 - p_2$ is $\hat{\psi} = \hat{p}_1 - \hat{p}_2 = \frac{X_1}{n_1} - \frac{X_2}{n_2}$.
+    \item[(b)] The probability density function is $f(x;p_1,p_2) = \binom{n_1}{x} p_1^x (1 - p_1)^{n-x} \binom{n_2}{x} p_2^x (1 - p_2)^{n_2 - x}$.
+        We have $\ell(p_1, p_2) = x\log(p_1) + (n_1 - x)\log(1 - p_1) + x\log(p_2) + (n_2 - x)\log(1 - p_2) + C$, where $C$ is a constant independent of $p_1$ and $p_2$.
+        The second order differentials are
+        \begin{equation*}
+            \frac{\partial^2 \ell(p_1, p_2)}{\partial p_i^2} = -\frac{X_i}{p_i^2} + \frac{X_i - n_i}{(1 - p_i)^2}, \quad
+            \frac{\partial^2 \ell(p_1, p_2)}{\partial p_1 \partial p_2} = 0.
+        \end{equation*}
+        Which gives
+        \begin{equation*}
+            -E\left(\frac{\partial^2 \ell(p_1, p_2)}{\partial p_i^2}\right)
+                = \frac{n_i p_i}{p_i^2} - \frac{n_i p_i - n_i}{(1 - p_i)^2}
+                = \frac{n_i}{p_i} - \frac{n_i}{(1 - p_i)}
+                = \frac{n_i}{p_i(1 - p_i)}.
+        \end{equation*}
+        The Fisher Information matrix is
+        \begin{equation*}
+            I(p_1, p_2) = \left( \begin{matrix}
+                \frac{n_1}{p_1(1 - p_1)} & 0 \\
+                0 & \frac{n_2}{p_2(1 - p_2)}
+            \end{matrix} \right).
+        \end{equation*}
+    \item[(c)] Let $g(p_1, p_2) = p_1 - p_2$.
+        We have $\nabla g = (1, -1)^t$.
+        The inverse Information matrix is given by
+        \begin{equation*}
+            J_n(p_1, p_2)
+                = I_n^{-1}(p_1, p_2)
+                = \frac{1}{n} I(p_1, p_2)
+                = \frac{1}{n} \left( \begin{matrix}
+                    \frac{p_1(1 - p_1)}{n_1} & 0 \\
+                    0 & \frac{p_2(1 - p_2)}{n_2}
+                \end{matrix} \right).
+        \end{equation*}
+        Set $n = 1$, with the Delta method,
+        \begin{equation*}
+            \hat{se}(\hat{\psi})^2
+                = \nabla \hat{g}^t \hat{J}_1 \nabla \hat{g}
+                = \frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2}.
+        \end{equation*}
+    \item[(d)] See code.
+\end{itemize}
+
+
+\subsection*{Solution 9.8}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Normal}(\mu, \sigma^2)$.
+The Likelihood estimator is given by
+\begin{equation*}
+    \mathcal{L}_n(\mu, \sigma) = C \frac{1}{\sigma^n} \exp\left(-\frac{1}{2\sigma^2} \sum_{i=1}^n (X_i - \mu)^2\right).
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \ell_n(\mu, \sigma) = \log(C) - n\log(\sigma) - \frac{1}{2\sigma^2} \sum_{i = 1}^n (X_i - \mu)^2.
+\end{equation*}
+The partial derivatives are
+\begin{equation*}
+    \begin{split}
+        \frac{\partial \ell_n}{\partial \mu} &= \frac{1}{\sigma^2} \sum_{i = 1}^n (X_i - \mu), \quad
+        \frac{\partial^2 \ell_n}{\partial \mu^2} = -\frac{1}{\sigma^2} \sum_{i = 1}^n X_i, \\
+        \frac{\partial^2 \ell_n}{\partial \mu \partial \sigma} &= -\frac{2}{\sigma^3} \sum_{i = 1}^n (X_i - \mu) = \frac{\partial^2 \ell_n}{\partial \sigma \partial \mu}, \\
+        \frac{\partial \ell_n}{\partial \sigma} &= -\frac{n}{\sigma} + \frac{1}{\sigma^3} \sum_{i = 1}^n (X_i - \mu)^2, \quad
+        \frac{\partial^2 \ell_n}{\partial \sigma^2} = \frac{n}{\sigma^2} - \frac{3}{\sigma^4} \sum_{i = 1}^n (X_i - \mu)^2.
+    \end{split}
+\end{equation*}
+The expected values become
+\begin{equation*}
+    E\left(-\frac{\partial^2 \ell_n}{\partial \mu^2}\right)
+        = \frac{n}{\sigma^2}, \quad
+    E\left(-\frac{\partial^2 \ell_n}{\partial \mu \partial \sigma}\right)
+        = 0, \quad
+    E\left(-\frac{\partial^2 \ell_n}{\partial \sigma^2}\right)
+        = -\frac{n}{\sigma^2} + \frac{3}{\sigma^3} n\sigma^2
+        = \frac{2n}{\sigma^2}.
+\end{equation*}
+The Fisher information matrix is
+\begin{equation*}
+    I_n(\mu, \sigma) = \left( \begin{matrix}
+        \frac{n}{\sigma^2} & 0 \\
+        0 & \frac{2n}{\sigma^2}
+    \end{matrix} \right).
+\end{equation*}
+
+
+\subsection*{Solution 9.9}
+
+See code.
+It seems like delta, parametric, and non-pametric bootstrap are equally close to the truth.
+
+
+\subsection*{Solution 9.10}
+
+See solution 8.7 and code.

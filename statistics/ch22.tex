@@ -1,0 +1,113 @@
+\section*{Chapter 22 - Classification}
+
+\subsection*{Solution 22.1}
+
+Suppose there is an $h$ such that $L(h) < L(h^*)$, then
+\begin{equation*}
+    \int_0^1 P(h(x) = Y | X = x) P(x) dx > \int_0^1 P(h^*(x) = Y | X = x) P(x) dx.
+\end{equation*}
+With sufficient properties on the distribution there is an $x$ such that $P(h(x) = Y | X = x) > P(h^*(x) = Y | X = x)$.
+But this contradicts the choice of $h^*$.
+
+
+\subsection*{Solution 22.2}
+
+In general we have
+\begin{equation*}
+    P(y|x) = \frac{P(x|y)P(y)}{P(x)}
+        = \frac{P(x|y)f(y)}{P(x|0)f(0) + P(x|1)f(1)}
+        = \frac{P(x|y) \pi_y}{P(x|0) \pi_0 + P(x|1) \pi_1},
+\end{equation*}
+where $\pi_y = P(Y = y)$.
+In particular
+\begin{equation*}
+    P(1|x) = \frac{P(x|1) \pi_1}{P(x|0) \pi_0 + P(x|1) \pi_1}
+        = \frac{P(x|1)}{P(x|0) \frac{\pi_0}{\pi_1} + P(x|1)}
+        > \frac{1}{2},
+\end{equation*}
+if and only if
+\begin{equation*}
+    \frac{\pi_1}{\pi_0} f(x|1) > f(x|0).
+\end{equation*}
+Expanding $f(x|0)$ and $f(x|1)$, and taking the log on both sides gives
+\begin{equation*}
+    r_1^2 < r_0^2 + \log\left(\frac{|\Sigma_0|}{|\Sigma_1|}\right) + 2\log\left(\frac{\pi_1}{\pi_0}\right).
+\end{equation*}
+
+
+\subsection*{Solution 22.3}
+
+See code.
+
+
+\subsection*{Solution 22.4}
+
+I have no idea how to solve this.
+
+
+\subsection*{Solution 22.5}
+
+See code.
+
+
+\subsection*{Solution 22.6}
+
+Similar to 22.4. I don't understand VC-theory.
+
+
+\subsection*{Solution 22.7}
+
+Suppose there is a linear classifier $r(x) = \beta_1 x + \beta_0$ that perfectly classifies the data.
+Note that $Y_i = 1$ if $r(X_i) > \frac{1}{2}$.
+So we have $Y_i = 1$ if and only if $X_i > \frac{1}{2 \beta_1} (1 - \beta_0)$.
+But in that case there will always be some $X_i$ with $Y_i = 0$, but $X_i > \frac{1}{2 \beta_1} (1 - \beta_0)$.
+
+Note that the kernelized data $Z_i = (X_i, X_i^2)$ can be linearly seperated.
+Indeed, we can take $r(Z_i) = \frac{1}{2} X_i^2$.
+
+
+\subsection*{Solution 22.8}
+
+See code.
+
+
+\subsection*{Solution 22.9}
+
+See code.
+
+
+\subsection*{Solution 22.10}
+
+The CDF is given by
+\begin{equation*}
+    F(t) = P(R < t)
+        = 1 - P(R \geq t)
+        = 1 - \prod_{i = 1}^n P(X_i \geq t)
+        = 1 - \prod_{i = 1}^n (1 - v_d(t))
+        = 1 - (1 - t^2 v_d(1))^n.
+\end{equation*}
+Hence, we have
+\begin{equation*}
+    F^{-1}(q) = \left(\frac{1 - (1 - q)^{\frac{1}{n}}}{v_d(1)}\right)^{\frac{1}{d}}.
+\end{equation*}
+The median is given by
+\begin{equation*}
+    F^{-1}\left(\frac{1}{2}\right) = \left(\frac{1 - (\frac{1}{2})^{\frac{1}{n}}}{v_d(1)}\right)^{\frac{1}{d}}.
+\end{equation*}
+See code for last part of the exercise.
+If $n = 100$, $d \geq 6$; $n = 1000$, $d \geq 8$; $n = 10000$, $d \geq 9$.
+
+
+\subsection*{Solution 22.11}
+
+See code.
+
+
+\subsection*{Solution 22.12}
+
+See code.
+
+
+\subsection*{Solution 22.13}
+
+I have no idea.

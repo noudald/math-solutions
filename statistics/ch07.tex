@@ -1,0 +1,202 @@
+\section*{Chapter 7 - Estimating the CDF and Statistical Functionals}
+
+\subsection*{Solution 7.1}
+
+Let $X_1, X_2, ..., X_n$ random variables with cumulative distribution function $F$.
+Let $\hat{F}_n(x) = \frac{1}{n} \sum I(X_i \leq x)$ be the emperical distribution function of $F$.
+\begin{itemize}
+    \item[(a)] Note that
+        \begin{equation*}
+            E(I(X_i \leq x)) = \int_{-\infty}^{\infty} I(t \leq x) f(t) dt
+                = \int_{-\infty}^{x} f(t) dt
+                = F(x).
+        \end{equation*}
+        Therefore, $E(\hat{F}_n(x)) = \frac{1}{n} \sum E(I(X_i \leq x)) = F(x)$.
+    \item[(b)] As in (a), we calculate $E(I(X_i \leq x)^2) = F(x)$.
+        So
+        \begin{equation*}
+            V(\hat{F}_n(x)) = \frac{1}{n^2} \sum_{i = 1}^n V(I(X_i \leq x))
+                = \frac{1}{n^2} \sum_{i = 1}^n (E(I(X_i \leq x)^2) - E(I(X_i \leq x))^2)
+                = \frac{1}{n} F(x) (1 - F(x)).
+        \end{equation*}
+    \item[(c)] Using (a) we have $\mathrm{bias} = E(\hat{F}_n(x)) - F(x) = 0$, so from (b), $\mathrm{MSE} = V(\hat{F}_n(x)) = \frac{1}{n} F(x) (1 - F(x)) \to 0$ when $n \to \infty$.
+    \item[(d)] As $\mathrm{MSE} = E((\hat{F}_n(x) - F(x))^2) \to 0$ as $n \to \infty$, $\hat{F}_n(x) \xrightarrow{qm} F(x)$ and by Theorem 5.4.a $\hat{F}_n(x) \xrightarrow{P} F(x)$.
+\end{itemize}
+
+
+\subsection*{Solution 7.2}
+
+Let $X_1, X_2, ..., X_n \sim \mathrm{Bernoulli}(p)$ and $Y_1, Y_2, ..., Y_m \sim \mathrm{Bernoulli}(q)$.
+
+\begin{itemize}
+    \item[(a)] The plug-in estimator for $p$ is $\hat{p} = E(\overline{X}_n) = \frac{1}{n} \sum_{i = 1}^n X_i$.
+        The plug-in estimator for the standard error on $\hat{p}$ is $\sqrt{\frac{1}{n} \hat{p}(1 - \hat{p})}$.
+    \item[(b)] The 90\% confidence interval for plug-in estimator $\hat{p}$ is $\hat{p} \pm z_{0.05} \sqrt{\frac{1}{n} \hat{p}(1 - \hat{p})}$.
+    \item[(c)] The plug-in estimator for $p - q$ is $\hat{p} - \hat{q}$.
+        The plug-in estimator for the standard error on $\hat{p} - \hat{q}$ is $\sqrt{V(\hat{p}) + V(\hat{q})} = \sqrt{\frac{1}{n} \hat{p}(1 - \hat{p}) + \frac{1}{m} \hat{q}(1 - \hat{1})}$.
+    \item[(d)] The 90\% confidence interval for plug-in estimator $\hat{p} - \hat{q}$ is $\hat{p} - \hat{q} \pm z_{0.05} \sqrt{\frac{1}{n} \hat{p}(1 - \hat{p}) + \frac{1}{m} \hat{q}(1 - \hat{q})}$.
+\end{itemize}
+
+
+\subsection*{Solution 7.3}
+
+See code.
+
+
+\subsection*{Solution 7.4}
+
+Let $X_1, X_2, ..., X_n \sim F$.
+Let $\hat{F}(x) = \frac{1}{n} \sum I(X_i \leq x)$.
+Denote $Y_i = I(X_i \leq x)$.
+Note that $\overline{Y}_n = \hat{F}(x)$, and $E(\hat{F}(x)) = F(x)$ and $V(\hat{F}(x)) = \frac{1}{n} F(x)(1 - F(x))$.
+By the central limit theorem
+\begin{equation*}
+    \mathrm{Normal}(0, 1) \approx \frac{\overline{Y}_n - E(\overline{Y}_n)}{\sqrt{V(\overline{Y}_n)}}
+        = \sqrt{n} \frac{\hat{F}(x) - F(x)}{\sqrt{F(x)(1 - F(x))}}.
+\end{equation*}
+In other words, when $n \to \infty$, $\hat{F}(x)$ behaves as a random variable from the distribution $\mathrm{Normal}(F(x), \frac{1}{n} F(x)(1 - F(x)))$.
+
+
+\subsection*{Solution 7.5}
+
+Let $x \neq y$.
+We have
+\begin{equation*}
+    \mathrm{Cov}(\hat{F}(x), \hat{F}(y))
+        = \frac{1}{n^2} \mathrm{Cov}(\sum_{i = 1}^n I(X_i \leq x), \sum_{j = 1}^n I(X_j \leq y))
+        = \frac{1}{n^2} \sum_{i = 1}^n \sum_{j = 1}^n \mathrm{Cov}(I(X_i \leq x), I(X_j \leq y)).
+\end{equation*}
+Now, to find
+\begin{equation*}
+    \begin{split}
+        \mathrm{Cov}(I(X_i \leq x), I(X_j \leq y))
+            &= E(I(X_i \leq x) I(X_j \leq y)) - E(I(X_i \leq x)) E((X_j \leq y)) \\
+            &= E(I(X_i \leq x) I(X_j \leq y)) - F(x) F(y).
+    \end{split}
+\end{equation*}
+If $i \neq j$, we have
+\begin{equation*}
+    \begin{split}
+        E(I(X_i \leq x) I(X_j \leq y))
+            &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} I(s \leq x) I(t \leq y) f(s) f(t) ds dt \\
+            &= \int_{-\infty}^{\infty} I(s \leq x) f(s) ds \int_{-\infty}^{\infty} I(t \leq y) f(t) dt
+            = F(x) F(y),
+    \end{split}
+\end{equation*}
+and if $i = j$,
+\begin{equation*}
+    E(I(X_i \leq x) I(X_i \leq y))
+        = E(I(X_i \leq \min(x, y))^2)
+        = F(\min(x, y)).
+\end{equation*}
+Therefore, we ahve
+\begin{equation*}
+    \mathrm{Cov}(\hat{F}(x), \hat{F}(y))
+        = \left\{
+            \begin{array}{lll}
+                0 & \text{if} & i \neq j, \\
+                \frac{1}{n}(F(\min(x, y)) - F(x)F(y)) & \text{if} & i = j.
+            \end{array}
+        \right.
+\end{equation*}
+
+
+\subsection*{Solution 7.6}
+
+Let $X_1, X_2, ..., X_n \sim F$, and define the emperical distribution function $\hat{F}_n(x) = \frac{1}{n} \sum_{i = 1}^n I(X_i \leq x)$.
+Take $a < b$ and $\theta = T(F) = F(b) - F(a)$.
+Let $\hat{\theta} = T(\hat{F}) = \hat{F}(b) - \hat{F}(a)$ be the plug-in estimator of $\theta$.
+We have
+\begin{equation*}
+    \begin{split}
+        E(\hat{\theta})
+            &= E(\hat{F}(b) - \hat{F}(a))
+            = F(b) - F(a)
+            = \theta, \\
+        E(\hat{F}(a)^2)
+            &= V(\hat{F}(a)) + E(\hat{F}(a))^2
+            = \frac{1}{n} F(a)(1 - F(a)) + F(a)^2
+            = \frac{1}{n} F(a) (1 + (n - 1)F(a)), \\
+        E(\hat{F}(b)^2)
+            &= \frac{1}{n} F(b) (1 + (n - 1)F(b)), \\
+        E(\hat{F}(a)\hat{F}(b))
+            &= \mathrm{Cov}(\hat{F}(a), \hat{F}(b)) + E(\hat{F}(a))E(\hat{F}(b)) \\
+            &\quad = \frac{1}{n}(F(a) - F(a)F(b)) + F(a)F(b)
+            = \frac{1}{n}F(a) + \frac{n - 1}{n}F(a)F(b),
+    \end{split}
+\end{equation*}
+where we used Solution 7.5 to calculate the covariance in the last equation.
+We now have
+\begin{equation*}
+    \begin{split}
+        E(\hat{\theta}^2)
+            &= E(F(b)^2 - 2F(b)F(a) + F(a)^2) \\
+            &= \frac{1}{n} F(b)(1 + (n - 1)F(b)) - \frac{2}{n}F(a)(1 - (n - 1)F(b)) + \frac{1}{n}F(a)(1 + (n - 1)F(a)) \\
+            &= \frac{1}{n} (F(b) - F(a)) + \frac{n - 1}{n} (F(b) - F(a))^2 \\
+            &= \frac{1}{n} \theta + \frac{n - 1}{n} \theta^2,
+    \end{split}
+\end{equation*}
+so that
+\begin{equation*}
+    V(\hat{\theta}) = E(\hat{\theta}^2) - E(\hat{\theta})^2
+        = \frac{1}{n} \theta + \frac{n - 1}{n} \theta^2 - \theta^2
+        = \frac{1}{n} \theta (1 - \theta).
+\end{equation*}
+The plugin-estimator for the standard error becomes
+\begin{equation*}
+    \hat{\mathrm{se}}(\hat{\theta}) = \sqrt{\frac{1}{n}\hat{\theta}(1 - \hat{\theta})},
+\end{equation*}
+and the $1 - \alpha$ confidence interval is given by
+\begin{equation*}
+    \hat{\theta} \pm z_{\frac{\alpha}{2}} \hat{se}(\hat{\theta})
+        = \hat{\theta} \pm z_{\frac{\alpha}{2}} \sqrt{\frac{1}{n}\hat{\theta}(1 - \hat{\theta})}.
+\end{equation*}
+
+
+\subsection*{Solution 7.7}
+
+See code.
+
+
+\subsection*{Solution 7.8}
+
+See code.
+
+
+\subsection*{Solution 7.9}
+
+Let $X_1, X_2, ..., X_{100} \sim \mathrm{Bernoulli}(p_1)$ and $Y_1, Y_2, ..., Y_{100} \sim \mathrm{Bernoulli}(p_2)$.
+The plugin-estimators are $\hat{p}_1 = \frac{90}{100} = 0.9$ and $\hat{p}_2 = \frac{85}{100} = 0.85$.
+Recall that the variance on $\hat{p}_i$ is
+\begin{equation*}
+    V(\hat{p}_i) = \frac{1}{100^2} \sum_{i = 1}^n V(X_i)
+        = \frac{1}{100} p_i(1 - p_i).
+\end{equation*}
+Let $\theta = p_1 - p_2$, then $\hat{\theta} = \hat{p}_1 - \hat{p}_2 = 0.9 - 0.85 = 0.05$.
+We have
+\begin{equation*}
+    V(\hat{\theta})
+        = V(\hat{p}_1) + V(\hat{p}_2)
+        = \frac{1}{100}(p_1(1 - p_1) + p_2(1 - p_2)),
+\end{equation*}
+so that we estimate $\mathrm{se}(\hat{\theta})$ with the plugin-estimator
+\begin{equation*}
+    \hat{\mathrm{se}}(\hat{\theta})
+        = \frac{1}{10} \sqrt{\hat{p}_1(1 - \hat{p}_1) + \hat{p}_2(1 - \hat{p}_2)}
+        \approx 0.05.
+\end{equation*}
+The $80\%$ interval is given by
+\begin{equation*}
+    \hat{\theta} \pm z_{0.1} \hat{\mathrm{se}}(\hat{\theta})
+        \approx (-0.01, 0.11),
+\end{equation*}
+and the $95\%$ interval is
+\begin{equation*}
+    \hat{\theta} \pm z_{0.05} \hat{\mathrm{se}}(\hat{\theta})
+        \approx (-0.04, 0.14).
+\end{equation*}
+
+
+\subsection*{Solution 7.10}
+
+See code.

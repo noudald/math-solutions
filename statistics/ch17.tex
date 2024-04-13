@@ -1,0 +1,259 @@
+\section*{Chapter 17 - Directed Graphs and Conditional Independence}
+
+\subsection*{Solution 17.1}
+
+If $f(x,y|z) = f(x|z)f(y|z)$, then $f(x|y,z) = \frac{f(x,y|z)}{f(y|z)} = f(x|z)$.
+In the opposite direction, if $f(x|y,z) = f(x|z)$, then $f(x,y|z) = f(x|y,z)f(y|z) = f(x|z)f(y|z)$.
+
+
+\subsection*{Solution 17.2}
+
+\begin{itemize}
+    \item[(a)] Let $X \bot Y | Z$, then $f_{Y,X|Z}(y,x|z) = f_{X,Y|Z}(x,y|z) = f(x|z)f(y|z) = f(y|z)f(x|z)$, so $Y \bot X | Z$.
+    \item[(b)] Let $X \bot Y | Z$, $h: \mathbb{R} \to \mathbb{R}$, and $U = h(X)$.
+        Define $A_{h,x} = \{x' | h(x') \leq x\}$.
+        We have
+        \begin{equation*}
+            f(h(x)|y,z) = \left(\int_{A_{h,x}} f(x|y,z) dx \right)'
+                = \left(\int_{A_{h,x}} f(x|z) dx \right)'
+                = f(h(x)|z).
+        \end{equation*}
+        So, $U \bot Y | Z$.
+    \item[(c)] Let $X \bot Y | Z$, $U = h(X)$.
+        Note from (b) that $Y \bot Y | Z$, so $f(h(x)|y, z) = f(h(x)|z)$.
+        We have
+        \begin{equation*}
+            f(x|y,z,h(x)) = \frac{f(x,h(x)|y,z)}{f(h(x)|y,z)}
+                = \frac{f(x,h(x)|z)}{f(h(x)|z)}
+                = f(x|z,h(x)).
+        \end{equation*}
+        So, $X \bot Y | (Z, U)$.
+    \item[(d)] Let $X \bot Y | Z$ and $X \bot W | (Y, Z)$.
+        We have
+        \begin{equation*}
+            f(w,y|x,z) = f(w|x,y,z) f(y|x,z)
+                = f(w|y,z) f(y|z)
+                = f(w,y|z).
+        \end{equation*}
+    \item[(e)] Let $X \bot Y | Z$ and $X \bot Z | Y$.
+        Note that $f(x|y,z) = f(x|z)$ and $f(x|y,z) = f(x|y)$, so $f(x|z) = f(x|y)$.
+        We have
+        \begin{equation*}
+            f(x) = \int f(x|z)f(z)dz
+                = \int f(x|y)f(z)dz
+                = f(x|y) \int f(z)dz
+                = f(x|y)
+                = f(x|y, z).
+        \end{equation*}
+        So $X \bot (Y, Z)$.
+\end{itemize}
+
+
+\subsection*{Solution 17.3}
+
+\begin{itemize}
+    \item[(a)]
+        We have
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{l|l||c|c}
+                X & Y & $P(X,Y|Z=0)$ & $P(X,Y|Z=1)$ \\ \hline \hline
+                0 & 0 & 0.81         & 0.25         \\ \hline
+                0 & 1 & 0.09         & 0.25         \\ \hline
+                1 & 0 & 0.09         & 0.25         \\ \hline
+                1 & 1 & 0.01         & 0.25
+            \end{tabular}
+        \end{table}
+    \item[(b)] We just have to check that $P(X,Y|Z) = P(X|Z)P(Y|Z)$, so
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{c|c|c||c|c|c|c}
+                $X$ & $Y$ & $Z$ & $P(X|Z)$ & $P(Y|Z)$ & $P(X|Z)P(Y|Z)$ & $P(X,Y|Z)$ \\ \hline \hline
+                0   & 0   & 0   & 0.9      & 0.9      & 0.81           & 0.81       \\ \hline
+                1   & 0   & 0   & 0.1      & 0.9      & 0.09           & 0.09       \\ \hline
+                0   & 1   & 0   & 0.9      & 0.1      & 0.09           & 0.09       \\ \hline
+                1   & 1   & 0   & 0.1      & 0.1      & 0.01           & 0.01       \\ \hline
+                0   & 0   & 1   & 0.5      & 0.5      & 0.25           & 0.25       \\ \hline
+                1   & 0   & 1   & 0.5      & 0.5      & 0.25           & 0.25       \\ \hline
+                0   & 1   & 1   & 0.5      & 0.5      & 0.25           & 0.25       \\ \hline
+                1   & 1   & 1   & 0.5      & 0.5      & 0.25           & 0.25
+            \end{tabular}
+        \end{table}
+        So $P(X,Y|Z) = P(X|Z)P(Y|Z)$.
+    \item[(c)] The marginal distributions of $X$ and $Y$ are $P(X = 0) = 0.7$, $P(X = 1) = 0.3)$, and $P(Y = 0) = 0.7$ and $P(Y = 1) = 0.3$.
+    \item[(d)] Take $X = 0$ and $Y = 0$, then $P(X=0)P(Y=0) = 0.49$, but $P(X=0,Y=0) = 0.53)$.
+        So $P(X, Y) \neq P(X)P(Y)$.
+\end{itemize}
+
+
+\subsection*{Solution 17.4}
+
+Apply Theorem 17.6.
+
+
+\subsection*{Solution 17.5}
+
+Using Theorem 17.6, $X \bot \tilde{X} | \pi_X = X \bot Z$.
+
+To show that $X$ and $Z$ are dependent of $Y$, we only have to find one example of $f$ satisfying $X \rightarrow Y \leftarrow Z$ such that not $X \bot Z | Y$.
+Let $P(X = 0) = \frac{1}{2} = P(X = 1)$ and $P(Z = 0) = \frac{1}{2} = P(Z = 1)$.
+Define $Y$ by $Y = 1$ if $X = 1$ and $Z = 1$, otherwise $Y = 0$.
+Note that for this case we have $f(x, y, z) = f(x) f(y|x,z) f(z)$, because
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c||c|c|c|c|c|c}
+        $X$ & $Y$ & $Z$ & $P(X)$ & $P(Y)$ &  $P(Z)$ & $P(Y|X,Z)$ & $P(X)P(Y|X,Z)P(Z)$ & $P(X,Y,Z)$ \\ \hline \hline
+        0   & 0   & 0   & 0.5    & 0.75   &  0.5    & 1          & 0.25               & 0.25       \\ \hline
+        1   & 0   & 0   & 0.5    & 0.75   &  0.5    & 1          & 0.25               & 0.25       \\ \hline
+        0   & 1   & 0   & 0.5    & 0.25   &  0.5    & 0          & 0                  & 0          \\ \hline
+        1   & 1   & 0   & 0.5    & 0.25   &  0.5    & 0          & 0                  & 0          \\ \hline
+        0   & 0   & 1   & 0.5    & 0.75   &  0.5    & 1          & 0.25               & 0.25       \\ \hline
+        1   & 0   & 1   & 0.5    & 0.75   &  0.5    & 0          & 0                  & 0          \\ \hline
+        0   & 1   & 1   & 0.5    & 0.25   &  0.5    & 0          & 0                  & 0          \\ \hline
+        1   & 1   & 1   & 0.5    & 0.25   &  0.5    & 1          & 0.25               & 0.25
+    \end{tabular}
+\end{table}
+Note that $f_{X,Z|Y}(1, 1| 1) = 1$, but $f_{X|Y}(1|1) = \frac{1}{2} = f_{Z|Y}(1|1)$, so $f_{X,Z|Y}(1,1|1) \neq f_{X|Y}(1|1)f_{Z|Y}(1|1)$.
+
+
+\subsection*{Solution 17.6}
+
+See code.
+
+
+\subsection*{Solution 17.7}
+
+\begin{itemize}
+    \item[(a)]
+        \begin{equation*}
+            f(x, \bm{y}, \bm{z}) = f(x) \left(\prod_{i = 1}^4 f(y_i|x, z_i) f(z_i) \right).
+        \end{equation*}
+    \item[(b)] We have
+        \begin{equation*}
+            \begin{split}
+                f(x, z_i)
+                    &= \int_{\bm{y}} \int_{\bm{z}_{(j)}} f(x, \bm{y}, \bm{z}) d\bm{y} d\bm{z}_{(j)} \\
+                    &= \int_{\bm{y}} \int_{\bm{z}_{(j)}}
+                            f(x) f(z_i)
+                            \left(\prod_{j = 1}^4 f(y_j|x, z_i) \right)
+                            \left(\prod_{j \neq i} f(z_j) \right)
+                        d\bm{y} d\bm{z}_{(j)} \\
+                    &= f(x) f(z_i)
+                            \int_{\bm{z}_{(j)}} \int_{\bm{y}}
+                                \left(\prod_{j = 1}^4 f(y_j|x, z_i) \right)
+                            d\bm{y}
+                        \left(\prod_{j \neq i} f(z_j) \right) d\bm{z}_{(j)} \\
+                    &= f(x) f(z_i).
+            \end{split}
+        \end{equation*}
+    Therefore, $X \bot Z_i$, for all $i$.
+\end{itemize}
+
+
+\subsection*{Solution 17.8}
+
+\begin{itemize}
+    \item[(a)] The joint distribution function is given by $f(x, y, z) = f(x) f(y|x) f(z|x, y)$.
+        So
+        \begin{equation*}
+            f(x,y,z) = \left(\frac{1}{2}\right)^x \left(\frac{1}{2}\right)^{1 - x}
+                \left(\frac{e^{4x-2}}{1 + e^{4x-2}}\right)^y \left(1 - \frac{e^{4x-2}}{1 + e^{4x-2}}\right)^{1-y}
+                \left(\frac{e^{2x + 2y - 2}}{1 + e^{2x + 2y - 2}}\right)^z \left(1 - \frac{e^{2x + 2y - 2}}{1 + e^{2x + 2y - 2}}\right)^{1-z}.
+        \end{equation*}
+        We have $f(z|y) = \sum_{x} f(z|x,y)f(x|y) = f(z|0,y)f(0|y) + f(z|1,y)f(1|y)$.
+        Write out $f(Y|X)$ explicitly, we see that
+        \begin{equation*}
+            X|Y \sim \mathrm{bernoulli}\left(\frac{e^{2y}}{1 + e^2}\right).
+        \end{equation*}
+        These two facts together gives a rather large expression for $f(z|y) = f(z|0,y)f(0|y) + f(z|1,y)f(1|y)$. (I could not find a simple expressions)
+        In particular, if $Z = 1$ and $Y = 1$, we have
+        \begin{equation*}
+            f(1|1) = f(1|0,1)f(0|1) + f(1|1,1)f(1|1)
+                = \frac{1}{2}\left(\frac{1}{1 + e^2}\right) + \left(\frac{e^2}{1 + e^2}\right)^2
+                \approx 0.8354.
+        \end{equation*}
+    \item[(b)] See code.
+    \item[(c)] To calculate $P(Z=z|Y:=y)$, we define $f^*(x, z) = f(x)f(z|x,y)$.
+        Therefore we have the expression
+        \begin{equation*}
+            P(Z=z|Y:=y) = \sum_{x \in \{0, 1\}} f^*(x, z)
+                = f(0) f(z|0,y) + f(1) f(z|1,y).
+        \end{equation*}
+        In particular,
+        \begin{equation*}
+            P(Z=1|Y:=1) = \frac{1}{4} + \frac{1}{2} \frac{e^2}{1 + e^2}
+                \approx 0.6904.
+        \end{equation*}
+    \item[(d)] See code.
+\end{itemize}
+
+
+\subsection*{Solution 17.9}
+
+Let $X \sim \mathrm{Normal}(0, 1)$, $Y|X \sim \mathrm{Normal}(\alpha x, 1)$ and $Z|X,Y \sim \mathrm{Normal}(\beta y + \gamma z, 1)$.
+As this is a tedious exercise with a lot of bookkeeping I skip most of the calculations (which I did on paper).
+\begin{itemize}
+    \item[(a)] Note that $f(x, y, z) = f(x)f(y|x)f(z|x,y)$.
+        Expanding the equation, we get $(X, Y, Z) \sim \mathrm{Normal}(0, \Sigma_{XYZ})$, where
+        \begin{equation*}
+            \Sigma_{XYZ} = \begin{pmatrix}
+                1 & \alpha & \alpha \beta + \gamma \\
+                \alpha & 1 + \alpha^2 & \beta + \alpha^2 \beta^2 + \alpha \gamma \\
+                \alpha \beta + \gamma & \beta + \alpha^2 \beta^2 + \alpha \gamma & 1 + (1 + \alpha^2) \beta^2 + \gamma^2 + 2 \alpha \beta \gamma
+            \end{pmatrix}.
+        \end{equation*}
+        According to Theorem 2.44, $(Y,Z) \sim \mathrm{Normal}(0, \Sigma_{YZ})$, and $Z \sim \mathrm{Normal}(\Sigma_{zy} \Sigma_{yy}^{-1} y, \Sigma_{zz} - \Sigma_{zy} \Sigma_{yy}^{-1} \Sigma_{yz})$.
+        Therefore,
+        \begin{equation*}
+            E(Z|Y) = \Sigma_{zy} \Sigma_{yy}^{-1} y
+                = \frac{\beta + \alpha^2 \beta^2 + \alpha \gamma}{1 + \alpha^2}.
+        \end{equation*}
+    \item[(b)] Let $Y := y$, then $f^*(x, z) = f(x)f(z|x,y)$.
+        Expanding $f^*(x,z)$ shows that $X,Z|Y:=y \sim (\mu_{XZ}, \Sigma_{XZ})$, where
+        \begin{equation*}
+            \mu_{XZ} = \begin{pmatrix}
+                0 \\
+                \beta y
+            \end{pmatrix}, \quad
+            \Sigma_{XZ} = \begin{pmatrix}
+                1 & \gamma \\
+                \gamma & 1 + \gamma^2
+            \end{pmatrix}.
+        \end{equation*}
+        Again, by Theorem 2.44, $Z|Y:=y \sim \mathrm{Normal}(\mu_z, \Sigma_z) = \mathrm{Normal}(\beta y, 1 + \gamma^2)$.
+        So $E(Z|Y:=y) = \beta y$.
+    \item[(c)] Note that $(Y, Z) \sim \mathrm{Normal}(0, \Sigma_{YZ})$, so the correlation coefficient is
+        \begin{equation*}
+            \rho_{YZ} = \mathrm{Cov}(Y, Z)
+                = \frac{\sigma_{yz}^2}{\sigma_y \sigma_z}
+                = \frac{\beta + \alpha^2 \beta^2 + \alpha \gamma}{\sqrt{(1 + \alpha^2)(1 + (1 + \alpha^2) \beta^2 + \gamma^2 + 2 \alpha \beta \gamma}}.
+        \end{equation*}
+    \item[(d)] Suppose $Y$ and $Z$ are dependent, then $\beta \neq 0$.
+        But we can choose $\alpha$ and $\gamma$ such that $\beta + \alpha^2\beta^2 + \alpha\gamma = 0$, which makes $\rho_{YZ} = 0$.
+        The opposite is also true.
+        Suppose $Y$ and $Z$ are independent, then $\beta = 0$.
+        Choose $\alpha, \gamma \neq 0$, then $\beta + \alpha^2 \beta^2 + \alpha \gamma \neq 0$, and $\rho_{YZ} \neq 0$.
+    \item[(e)] Let $Y \sim \mathrm{Normal}(\alpha, 1)$, so $Y$ is independent of $X$.
+        We have pdf $f(x, y, z) = f(x)f(y)f(z|x,y)$.
+        Expanding $f(x,y,z)$ we find $(X, Y, Z) \sim \mathrm{Normal}(\mu, \Sigma)$, where
+        \begin{equation*}
+            \mu = \begin{pmatrix}
+                0 \\
+                \frac{\alpha}{\sqrt{1 + \beta^2}} \\
+                0
+            \end{pmatrix}, \quad
+            \Sigma = \begin{pmatrix}
+                1 & 0 & \gamma \\
+                0 & 1 & \beta \\
+                \gamma & \beta & 1 + \beta^2 + \gamma^2
+            \end{pmatrix}.
+        \end{equation*}
+        The correlation coefficient is
+        \begin{equation*}
+            \rho_{YZ} = \frac{\mathrm{Cov}(Y,Z)}{\sigma_y \sigma_z} = \frac{\beta}{\sqrt{1 + \beta^2 + \gamma^2}}.
+        \end{equation*}
+        So $\rho = 0$ iff $\beta = 0$ iff $Y$ and $Z$ are independent.
+        Set $Y := y$.
+        With exactly the same calculation as (b) we have $Z|Y:=y \sim \mathrm{Normal}(\beta y, 1 + \gamma^2)$.
+        Now $Z|Y:=y$ is independent of $Y$ iff $\beta = 0$ iff $\rho_{YZ} = 0$.
+\end{itemize}
