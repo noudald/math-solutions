@@ -19,3 +19,21 @@ If $f(x)$ is an odd function, that is if $f(-x) = -f(x)$, prove that
     \end{split}
 \end{equation*}
 where we made the substitution $y = -x$ in the first integral of the third equality.
+
+
+\subsection*{Exercise 6.2}
+
+If $f(x)$ is an even function, that is, if $f(-x) = f(x)$, prove that
+\begin{equation*}
+    \int_{-a}^a f(x) dx = 2 \int_0^a f(x) dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+\begin{equation*}
+    \int_{-a}^a f(x) dx
+        = \int_{-a}^0 f(x) dx + \int_{0}^{a} f(x)dx
+        = -\int_a^0 f(y)dy + \int_0^a f(x)dx
+        = 2\int_0^a f(x)dx,
+\end{equation*}
+where we made the substitution $y = -x$ in the first integral of the second equality.
