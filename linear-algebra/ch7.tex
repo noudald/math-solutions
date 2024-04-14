@@ -419,3 +419,17 @@ Give an example of an operator $T \in \mathbb{R}^3$ such that $T$ is normal but 
 
 Extend example 7.19 to $\mathbb{R}^3$.
 For example $T(x, y, z) = (2x - 2y, 3x + 2x, z)$.
+
+
+\subsubsection*{Exercise 23}
+
+Suppose $T$ is a normal operator on $V$.
+Suppose also that $v, w \in V$ satisfy the equations $||v|| = ||w|| = 2$, $Tv = 3v$, and $Tw = 4w$.
+Show that $||T(v + w)|| = 10$.
+
+\subsubsection*{Solution}
+
+Note that $v$ and $w$ are eigenvectors of $T$.
+By 7.22, all eigenvectors with different eigenvalues are orthogonal, so $\langle v, w \rangle = 0$.
+Therefore, we have $||T(v + w)||^2 = ||Tv||^2 + ||Tw||^2 = 3^2 ||v||^2 + 3^2 ||w||^2 = 100$.
+So, $||T(v + w)|| = \sqrt{100} = 10$.
