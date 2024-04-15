@@ -433,3 +433,20 @@ Note that $v$ and $w$ are eigenvectors of $T$.
 By 7.22, all eigenvectors with different eigenvalues are orthogonal, so $\langle v, w \rangle = 0$.
 Therefore, we have $||T(v + w)||^2 = ||Tv||^2 + ||Tw||^2 = 3^2 ||v||^2 + 3^2 ||w||^2 = 100$.
 So, $||T(v + w)|| = \sqrt{100} = 10$.
+
+
+\subsubsection*{Exercise 24}
+
+Suppose $T \in \mathcal{V}$ and $a_0 + a_1 x + ... + a_n x^n$ is the minimal polynomial of $T$.
+Prove that the minimal polynomial of $T^*$ is $\overline{a_0} + \overline{a_1} x + ... + \overline{a_n} x^n$.
+
+\subsubsection*{Solution 24}
+
+By 5.27, the minimal polynomial of $T$ has the form $(x - \lambda_1)(x - \lambda_2)...(x - \lambda_n)$, where $\lambda_1, \lambda_2, ..., \lambda_n$ are the eigenvalues of $T$.
+By exercise 7A.3, $\lambda_i$ is an eigenvalue of $T$ if and only if $\overline{\lambda_i}$ is an eigenvalue of $T^*$.
+So, the minimal polynomial of $T^*$ is $(x - \overline{\lambda_1})(x - \overline{\lambda_2})...(x - \overline{\lambda_n})$.
+Expanding the product we see that
+\begin{equation*}
+    \prod_{i = 1}^n (x - \overline{\lambda_i})
+        = \overline{a_0} + \overline{a_1}x + ... + \overline{a_n} x^n.
+\end{equation*}
