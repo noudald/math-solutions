@@ -37,3 +37,24 @@ If $f(x)$ is an even function, that is, if $f(-x) = f(x)$, prove that
         = 2\int_0^a f(x)dx,
 \end{equation*}
 where we made the substitution $y = -x$ in the first integral of the second equality.
+
+
+\subsection*{Exercise 6.3}
+
+If $f(a - x) = f(x)$, prove that
+\begin{equation*}
+    \int_0^a f(x) dx = 2 \int_0^{\frac{a}{2}} f(x) dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+\begin{equation*}
+    \begin{split}
+        \int_0^a f(x) dx
+            &= \int_0^{\frac{a}{2}} f(x) dx + \int_{\frac{a}{2}}^a f(x) dx \\
+            &= \int_0^{\frac{a}{2}} f(x) dx + \int_{\frac{a}{2}}^a f(a - x) dx \\
+            &= \int_0^{\frac{a}{2}} f(x) dx - \int_{-\frac{a}{2}}^{0} f(y) dy
+            = 2 \int_0^{\frac{a}{2}} f(x) dx,
+    \end{split}
+\end{equation*}
+where we made the substitution $y = a - x$ in the second integral of the second equality.
