@@ -58,3 +58,40 @@ If $f(a - x) = f(x)$, prove that
     \end{split}
 \end{equation*}
 where we made the substitution $y = a - x$ in the second integral of the second equality.
+
+
+\subsection*{Exercise 6.4}
+
+Show that
+\begin{equation*}
+    \int_0^{2k\pi} f(sin(x)) dx = k \int_0^{2\pi} f(sin(x)) dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+This is a special case of Exercise 6.5.
+Note that if $g(x) = f(sin(x))$, then $g(x + 2\pi) = g(x)$.
+By Exercise 6.5, we get the result.
+
+
+\subsection*{Exercise 6.5}
+
+If $f(x)$ has a period $a$, that is, if $f(x + a) = f(x)$, prove that
+\begin{equation*}
+    \int_0^{ka} f(x) dx = k \int_0^a f(x) dx,
+\end{equation*}
+for any integer $k$.
+
+\subsection*{Solution}
+
+Note that for any integer $\ell$ we have
+\begin{equation*}
+    \int_{\ell a}^{(\ell + 1)a} f(x) dx = \int_0^a f(y + \ell a) dy = \int_0^a f(y) dy,
+\end{equation*}
+where we made the substitution $y = x - \ell a$.
+Therefore,
+\begin{equation*}
+    \int_0^{ka} f(x) dx
+        = \int_0^a f(x) dx + \int_a^{2a} f(x) dx + ... + \int_{(k-1)a}^{ka} f(x) dx
+        = k \int_0^a f(x) dx.
+\end{equation*}
