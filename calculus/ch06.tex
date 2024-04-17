@@ -95,3 +95,26 @@ Therefore,
         = \int_0^a f(x) dx + \int_a^{2a} f(x) dx + ... + \int_{(k-1)a}^{ka} f(x) dx
         = k \int_0^a f(x) dx.
 \end{equation*}
+
+
+\subsection*{Exercise 6.6}
+
+If $a < b$, and $f_1(x) < f_2(x) < f_3(x)$ for any $x$ in the interval $(a, b)$, prove that
+\begin{equation*}
+    \int_a^b f_1(x)dx < \int_a^b f_2(x) < \int_a^b f_3(x).
+\end{equation*}
+
+\subsection*{Solution}
+
+It's sufficient to show the result for $f_1(x)$ and $f_2(x)$, then replace $f_1$ by $f_2$ and $f_2$ by $f_3$.
+Let $g(x) = f_2(x) - f_1(x)$.
+Note that $g(x) > 0$ for all $x$ in $(a, b)$.
+By 56.2 and 56.5 we have
+\begin{equation*}
+    \int_a^b f_2(x) dx - \int_a^b f_1(x) = \int_a^b g(x) dx = (b - a) g(\xi) > 0,
+\end{equation*}
+for some $\xi \in (a, b)$.
+Therefore
+\begin{equation*}
+    \int_a^b f_1(x) dx < \int_a^b f_2(x) dx.
+\end{equation*}
