@@ -461,3 +461,57 @@ Prove that $T$ is diagonal if and only if $T^*$ is diagonal.
 
 From the previous exercise we know that $\prod_{i=1}^n (z - \lambda_i)$ is the minimal polynomial of $T$ if and only if $\prod_{i=1}^n (z - \overline{\lambda_i})$ is the minimal polynomial of $T^*$.
 From 5.62 it follows that $T$ is diagonal if and only if $T^*$ is diagonal.
+
+
+\subsubsection*{Exercise 7A.26}
+
+Fix $u, v \in V$.
+Define $T \in \mathcal{L}(V)$ by $Tv = \langle u, v \rangle x$ for every $v \in V$.
+\begin{itemize}
+    \item[(a)] Prove that if $V$ is a real vector space, then $T$ is self-adjoint if and only if the list $u, x$ is linearly independent.
+    \item[(b)] Prove that $T$ is normal if and only if the list $u, x$ is linearly dependent.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+Note that
+\begin{equation*}
+    \langle v_1, T^* v_2 \rangle
+        = \langle Tv_1, v_2 \rangle
+        = \langle v_1, u \rangle \langle x, v_2 \rangle
+        = \langle v_1, \overline{\langle x, v_2 \rangle} u \rangle,
+\end{equation*}
+so, $T^*v = \overline{\langle x, v\rangle} u = \langle v, x \rangle u$.
+
+\begin{itemize}
+    \item[(a)] $\rightarrow$, Suppose $T^* = T$.
+        Then $\langle v, u \rangle x = \langle v, x \rangle u$ for all $v \in V$, so $x$ and $u$ are linear dependent as they are a scalar difference of each other.
+        $\leftarrow$, Suppose $u$ and $x$ are linear dependent, i.e., $u = \lambda x$ for some $\lambda \in \mathbb{R}$ ($V$ is a real vector space).
+        We have
+        \begin{equation*}
+            T^*v = \langle v, x \rangle u
+                = \lambda \langle v, x \rangle x
+                = \langle v, u \rangle x
+                = Tv.
+        \end{equation*}
+    \item[(b)] $\rightarrow$, Suppose $T$ is normal.
+        \begin{equation*}
+            \langle x, v \rangle \langle u, u \rangle x
+                = \langle v, x \rangle Tu
+                = TT^* v
+                = T^*T v
+                = \langle v, u \rangle Tx
+                = \langle v, u \rangle \langle x, x \rangle u.
+        \end{equation*}
+        So $x$ and $u$ are linear dependent as they are a scalar difference of each other.
+        $\leftarrow$, Suppose $u = \lambda x$, then
+        \begin{equation*}
+            TT^*v
+                = \langle x, v \rangle \langle u, u \rangle x
+                = \langle x, v \rangle \langle x, x \rangle |\lambda|^2 x
+                = \langle x, \lambda v \rangle \langle x, x \rangle \lambda x
+                = \langle x, u \rangle \langle x, x \rangle u
+                = T^*Tv,
+        \end{equation*}
+        for all $v \in V$.
+\end{itemize}
