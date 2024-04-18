@@ -118,3 +118,30 @@ Therefore
 \begin{equation*}
     \int_a^b f_1(x) dx < \int_a^b f_2(x) dx.
 \end{equation*}
+
+
+\subsection*{Exercise 6.7}
+
+If $m$ and $M$ are the smallest and largest values of $f(x)$ in the interval $(a, b)$, and $\phi(x) > 0$ in the interval, prove that
+\begin{equation*}
+    m \int_a^b \phi(x) dx < \int_a^b f(x) \phi(x) dx < M \int_a^b \phi(x) dx,
+\end{equation*}
+and therefore
+\begin{equation*}
+    \int_a^b f(x) \phi(x) dx = f(\xi) \int_a^b \phi(x) dx,
+\end{equation*}
+for some $\xi \in (a, b)$.
+
+\subsection*{Solution}
+
+For the first part of the exercise take $f_1(x) = m \phi(x)$, $f_2(x) = f(x) \phi(x)$, and $f_3(x) = M \phi(x)$.
+Then $f_1(x) < f_2(x) < f_3(x)$, and we can apply Exercise 6.6 to get the result.
+Define the function
+\begin{equation*}
+    g(y) = f(y) \int_a^b \phi(x) dx.
+\end{equation*}
+By the previous result $g(y)$ takes any value between $m \int_a^b \phi(x) dx$ and $M \int_a^b \phi(x) dx$.
+In particular, as $g(y)$ is continuous, there is a $\xi \in (a, b)$ such that
+\begin{equation*}
+    \int_a^b f(x) \phi(x) dx = g(\xi) = f(\xi) \int_a^b \phi(x) dx.
+\end{equation*}
