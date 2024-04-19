@@ -145,3 +145,20 @@ In particular, as $g(y)$ is continuous, there is a $\xi \in (a, b)$ such that
 \begin{equation*}
     \int_a^b f(x) \phi(x) dx = g(\xi) = f(\xi) \int_a^b \phi(x) dx.
 \end{equation*}
+
+
+\subsection*{Exercise 6.8}
+
+Evaluate
+\begin{equation*}
+    \int_0^3 (1 + x^2)^{\frac{3}{2}} dx,
+\end{equation*}
+by Simpson's rule, taking $n = 3$.
+
+\subsection*{Solution}
+By Simpson's rule, using $n = 3$,
+\begin{equation*}
+    \int_0^3 (1 + x^2)^{\frac{3}{2}} dx
+        \approx \frac{3}{3 \cdot 6} \left(f(0) + 4f\left(\frac{1}{2}\right) + 2f(1) + 4f\left(\frac{3}{2}\right) + 2f(2) + 4f\left(\frac{5}{2}\right) + f(3)\right)
+        = 27.95857559...
+\end{equation*}
