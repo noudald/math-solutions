@@ -162,3 +162,25 @@ By Simpson's rule, using $n = 3$,
         \approx \frac{3}{3 \cdot 6} \left(f(0) + 4f\left(\frac{1}{2}\right) + 2f(1) + 4f\left(\frac{3}{2}\right) + 2f(2) + 4f\left(\frac{5}{2}\right) + f(3)\right)
         = 27.95857559...
 \end{equation*}
+
+
+\subsection*{Exercise 6.18}
+
+Evaluate
+\begin{equation*}
+    I(\alpha) = \int_0^1 \frac{x^{\alpha} - 1}{\log(x)} dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+We have initial condition $I(\alpha = 0) = 0$.
+Differentiate under the integral with respect to $\alpha$,
+\begin{equation*}
+    I'(\alpha) = \int_0^1 \frac{d}{d\alpha} \left( \frac{x^{\alpha} - 1}{\log(x)} \right) dx
+        = \int_0^1 x^{\alpha} d\alpha
+        = \frac{1}{1 + \alpha} x^{\alpha+1} \Biggr|_0^1
+        = \frac{1}{1 + \alpha}.
+\end{equation*}
+Therefore, $I(\alpha) = \log(1 + \alpha) + C$.
+Using initial condition $I(\alpha = 0) = 0$ we have $C = 0$.
+Hence $I(\alpha) = \log(1 + \alpha)$.
