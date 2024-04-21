@@ -515,3 +515,27 @@ so, $T^*v = \overline{\langle x, v\rangle} u = \langle v, x \rangle u$.
         \end{equation*}
         for all $v \in V$.
 \end{itemize}
+
+
+\subsubsection*{Exercise 7A.27}
+
+Suppose $T \in \mathcal{L}(V)$ is normal.
+Prove that $\nnull(T^k) = \nnull(T)$ and $\range(T^k) = \range(T)$ for every positive integer $k$.
+
+\subsubsection*{Solution}
+
+It's clear that $\null(T) \subseteq \nnull(T^k)$.
+If $k = 1$ there is nothing to prove.
+Suppose $k > 1$.
+Let $v \in \nnull(T^k)$, hence $T^k v = 0$, then $T^{k-1}v \in \nnull(T) = \nnull(T^*)$ by 7.21.
+Because $k > 1$, we have $T^{k-1}v \in \range(T)$.
+By 7.6 $\null(T^*) = \range(T)^{\perp}$, so $T^{k-1}v \in \range(T) \cap \range(T)^{\perp} = \{0\}$.
+Therefore $T^{k-1}v = 0$.
+By induction on $k$ we see $v \in \nnull(T)$.
+
+For the second statement, note that if $T$ is normal, then $T^k$ is normal.
+So by 7.21,
+\begin{equation*}
+    \nnull(T) \oplus \range(T) = V = \nnull(T^k) \oplus \range(T^k) = \nnull(T) \oplus \range(T^k),
+\end{equation*}
+so we must have $\range(T) = \range(T^k)$.
