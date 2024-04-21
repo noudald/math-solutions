@@ -184,3 +184,25 @@ Differentiate under the integral with respect to $\alpha$,
 Therefore, $I(\alpha) = \log(1 + \alpha) + C$.
 Using initial condition $I(\alpha = 0) = 0$ we have $C = 0$.
 Hence $I(\alpha) = \log(1 + \alpha)$.
+
+
+\subsection*{Exercise 6.19}
+
+By successive differentiations of $\int_0^1 x^n dx = \frac{1}{n + 1}$ obtain
+\begin{equation*}
+    \int_0^1 x^n \log(x)^m dx = (-1)^m \frac{m!}{(n + 1)^{m + 1}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Let $I(n) = \int_0^1 x^n dx = \frac{1}{n + 1}$.
+As $n \geq 1$, $I(n)$ is a continuous differentiable function, and we can differentiate the function $m$ times with respect to $n$.
+On the one hand we have
+\begin{equation*}
+    \frac{d^m}{dn^m} I(n) = \int_0^1 \frac{d^m}{dn^m} x^n dx = \int_0^1 x^n \log(x)^m dx,
+\end{equation*}
+while on the other hand
+\begin{equation*}
+    \frac{d^m}{dn^m} I(n) = \frac{d^m}{dn^m} \frac{1}{n + 1} = (-1)^m \frac{m!}{(n + 1)^{m + 1}}.
+\end{equation*}
+This gives the result.
