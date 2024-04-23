@@ -206,3 +206,61 @@ while on the other hand
     \frac{d^m}{dn^m} I(n) = \frac{d^m}{dn^m} \frac{1}{n + 1} = (-1)^m \frac{m!}{(n + 1)^{m + 1}}.
 \end{equation*}
 This gives the result.
+
+
+\subsection*{Exercise 6.20}
+
+From
+\begin{equation*}
+    \int_0^{\pi} \frac{dx}{a - \cos(x)} = \frac{\pi}{\sqrt{a^2 - 1}}, \quad a > 1,
+\end{equation*}
+find
+\begin{equation*}
+    \int_0^\pi \log\left(\frac{b - \cos(x)}{a - \cos(x)} \right) dx = \pi \log\left( \frac{b + \sqrt{b^2 - 1}}{a + \sqrt{a^2 - 1}} \right).
+\end{equation*}
+
+\subsection*{Solution}
+Define
+\begin{equation*}
+    I(a) = \int_0^\pi \log(a - \cos(x)) dx.
+\end{equation*}
+From the multiplication law of the logarithm we have
+\begin{equation*}
+    \int_0^\pi \log\left(\frac{b - \cos(x)}{a - \cos(x)} \right) dx
+        = \int_0^\pi \log(b - \cos(x)) dx - \int_0^\pi \log(a - \cos(x)) dx
+        = I(b) - I(a).
+\end{equation*}
+We differentiate under the integral to get
+\begin{equation*}
+    I'(a) = \int_0^{\pi} \frac{dx}{a - \cos(x)}.
+\end{equation*}
+To solve this integral apply Weierstrass half tangent substitution $t = \tan(\frac{x}{2})$, such that $dx = \frac{2}{1 + t^2}dt$ and $\cos(x) = \frac{1 - t^2}{1 + t^2}$.
+We have
+\begin{equation*}
+    \begin{split}
+        \int_0^\pi \frac{dx}{a - \cos(x)}
+            &= \int_0^\infty \frac{1}{a - \frac{1 - t^2}{1 + t^2}} \frac{2}{1 + t^2} dt \\
+            &= \int_0^\infty \frac{2}{(a - 1) + (a + 1)t^2} dt \\
+            &= \frac{2}{a - 1} \int_0^{\infty} \frac{1}{1 + \left(\sqrt{\frac{a - 1}{a + 1}}t\right)^2} dt \\
+            &= \frac{2}{\sqrt{(a - 1)(a + 1)}} \int_0^\infty \frac{1}{1 + s^2} ds \\
+            &= \left. \frac{2}{\sqrt{a^2 - 1}} \arctan(s) \right|_0^{\infty}
+            = \frac{\pi}{\sqrt{a^2 - 1}}.
+    \end{split}
+\end{equation*}
+Finally, note that
+\begin{equation*}
+    \frac{d}{da} \log\left(a + \sqrt{a^2 - 1}\right)
+        = \frac{1}{a + \sqrt{a^2 - 1}} \left(1 + \frac{a}{\sqrt{a^2 - 1}}\right)
+        = \frac{1}{a + \sqrt{a^2 - 1}} \left(\frac{a + a\sqrt{a^2 - 1}}{\sqrt{a^2 - 1}}\right)
+        = \frac{1}{\sqrt{a^2 - 1}}.
+\end{equation*}
+So
+\begin{equation*}
+    I(a) = \int \frac{\pi}{\sqrt{a^2 - 1}} da = \pi \log\left(a + \sqrt{a^2 - 1}\right) + C,
+\end{equation*}
+such that
+\begin{equation*}
+    \int_0^\pi \log\left(\frac{b - \cos(x)}{a - \cos(x)} \right) dx
+        = I(b) - I(a)
+        = \pi \log\left( \frac{b + \sqrt{b^2 - 1}}{a + \sqrt{a^2 - 1}} \right).
+\end{equation*}
