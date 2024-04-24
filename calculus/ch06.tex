@@ -254,6 +254,19 @@ Finally, note that
         = \frac{1}{a + \sqrt{a^2 - 1}} \left(\frac{a + a\sqrt{a^2 - 1}}{\sqrt{a^2 - 1}}\right)
         = \frac{1}{\sqrt{a^2 - 1}}.
 \end{equation*}
+Alternatively, instead of deus ex machina this integral, we calculate the integral directly using the substitution $a = \cosh(t)$, such that $da = \sinh(t) dt$.
+\begin{equation*}
+    \int \frac{da}{\sqrt{a^2 - 1}}
+        = \int \frac{\sinh(t)}{\sqrt{\cosh^2(t) - 1}} dt
+        = t.
+\end{equation*}
+Note that
+\begin{equation*}
+    a = \frac{e^t + e^{-t}}{2}
+        \quad \leftrightarrow \quad e^t = a \pm \sqrt{a^2 - 1}
+        \quad \leftrightarrow \quad t = \log(a \pm \sqrt{a^2 - 1}).
+\end{equation*}
+Taking the correct sign in the logarithm gives the result.
 So
 \begin{equation*}
     I(a) = \int \frac{\pi}{\sqrt{a^2 - 1}} da = \pi \log\left(a + \sqrt{a^2 - 1}\right) + C,
