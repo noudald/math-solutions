@@ -565,3 +565,24 @@ Take $V = \mathbb{R}^2$, $e_1, e_2$ the standard basis, and define $T \in \mathc
 Then $T^*e_1 = e_1 - e_2$, $T^*e_2 = e_1 - e_2$, so $\norm{Te_1} = \sqrt{2} = \norm{T^*e_1}$ and $\norm{Te_2} = \sqrt{2} = \norm{T^*e_2}$.
 But $TT^*e_1 = 0$ and $T^*Te_1 = 2e_1 - 2e_2$.
 So, $T$ is not normal.
+
+
+\subsubsection*{Exercise 7A.30}
+
+Suppose that $T \in \mathcal{L}(V)$ is normal and $T(1, 1, 1) = (2, 2, 2)$.
+Suppose $(z_1, z_2, z_3) \in \nnull(T)$.
+Prove that $z_1 + z_2 + z_3 = 0$.
+
+\subsubsection*{Solution}
+
+Because $T$ is normal, $\nnull(T) = \nnull(T^*)$, so $(z_1, z_2, z_3) \in \nnull(T^*)$.
+We have
+\begin{equation*}
+    2(z_1 + z_2 + z_3)
+        = \langle (z_1, z_2, z_3), (2, 2, 2) \rangle
+        = \langle (z_1, z_2, z_3), T(1, 1, 1) \rangle
+        = \langle T^*(z_1, z_2, z_3), (1, 1, 1) \rangle
+        = \langle 0, (1, 1, 1) \rangle
+        = 0,
+\end{equation*}
+hence $z_1 + z_2 + z_3 = 0$.
