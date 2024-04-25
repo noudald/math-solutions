@@ -277,3 +277,25 @@ such that
         = I(b) - I(a)
         = \pi \log\left( \frac{b + \sqrt{b^2 - 1}}{a + \sqrt{a^2 - 1}} \right).
 \end{equation*}
+
+
+\subsection*{Exercise 6.21}
+
+Test the convergence of the following integral
+\begin{equation*}
+    \int_1^{\infty} \frac{dx}{x\sqrt{1 + x^2}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Take
+\begin{equation*}
+    \phi(x) = \frac{x^2}{\sqrt{1 + x^2}},
+\end{equation*}
+such that
+\begin{equation*}
+    \int_1^{\infty} \frac{dx}{x\sqrt{1 + x^2}} = \int_1^{\infty} \frac{\phi(x)}{x^2} dx.
+\end{equation*}
+As $x$ tends to infinity $\phi(x) \to 1$.
+So $\phi(x)$ is bounded by a finite number for sufficient large values of $x$.
+We can now apply Theorem 62.II to show that the integral converges.

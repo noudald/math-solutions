@@ -586,3 +586,143 @@ We have
         = 0,
 \end{equation*}
 hence $z_1 + z_2 + z_3 = 0$.
+
+
+\subsubsection*{Exercise 7A.31}
+
+Fix a positive integer $n$.
+In the inner product space of continuous real-valued functions on $A = [-\pi, \pi]$ with inner product $\langle f, g \rangle = \int_A f(x)g(x) dx$, let
+\begin{equation*}
+    V = \span(1, \cos(x), \cos(2x), ..., \cos(nx), \sin(x), \sin(2x), ..., \sin(nx)).
+\end{equation*}
+\begin{itemize}
+    \item[(a)] Define $D \in \mathcal{L}(V)$ by $Df = f'$.
+        Show that $D^* = -D$.
+        Conclude that $D$ is normal but not self-adjoint.
+    \item[(b)] Define $T \in \mathcal{L}(V)$ by $Tf = f''$.
+        Show that $T$ is self-adjoint.
+\end{itemize}
+
+
+\subsubsection*{Exercise 7A.32}
+
+Suppose $T: V \to W$ is a linear map.
+Show that under the standard identification of $V$ with $V'$ (see 6.58) and the corresponding identification of $W$ with $W'$, the adjoint map $T^*: W \to V$ corresponds to the dual map $T': W' \to V'$.
+More precisely, show that $T'(\phi_w) = \phi_{T^*w}$ for all $w \in W$, where $\phi_w$ and $\phi_{T^*w}$ are defined as in 6.58.
+
+
+\subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
+
+\subsubsection*{Exercise 7D.12}
+
+Prove or give a counterexample: If $S \in \mathcal{L}(V)$ is invertible and $\norm{S^{-1}v} = \norm{Sv}$ for every $v \in V$, then $S$ is unitary.
+
+\subsubsection*{Solution}
+
+This is false.
+If $S$ is unitary, we must have $S^* = S^{-1}$.
+Take
+\begin{equation*}
+    S = \begin{pmatrix}
+        -1 & -i \\
+        i & 1
+    \end{pmatrix},
+\end{equation*}
+then
+\begin{equation*}
+    S^{-1}
+        = \begin{pmatrix}
+            1 & i \\
+            -i & -1
+        \end{pmatrix}
+        \neq \begin{pmatrix}
+            -1 & -i \\
+            i & 1
+        \end{pmatrix}
+        = S^*,
+\end{equation*}
+while
+\begin{equation*}
+    \norm{Sv}
+        = \norm{\begin{pmatrix}
+            -v_1 - iv_2 \\
+            iv_1 + v_2
+        \end{pmatrix}}
+        = \sqrt{(v_1 + iv_2)^2 + (iv_1 + v_2)^2}
+        = \norm{\begin{pmatrix}
+            v_1 + iv_2 \\
+            -iv_1 - v_2
+        \end{pmatrix}}
+        = \norm{S^{-1}v}.
+\end{equation*}
+
+
+\subsubsection*{Exercise 7D.13}
+
+Explain why the columns of a square matrix of complex numbers form an orthonormal list in $\mathbb{C}^n$ if and only if the rows of the matrix form an orthonormal list in $\mathbb{C}^n$.
+
+\subsubsection*{Solution}
+
+Let $A$ be a square matrix with orthonormal columns.
+We have $AA^t = I$, so $A^{-1} = A^t$ and $AA^t = AA^{-1} = I$.
+So, $A^t$ has orthonormal columns.
+But that means that $A$ has orthonormal rows.
+
+
+\subsubsection*{Exercise 7D.15}
+
+Suppose $T$ is a unitary operator on $V$ such that $T - I$ is invertible.
+Prove that $S = (T + I)(T - I)^{-1}$ is a skew operator.
+Prove that if $\mathbb{F} = \mathbb{C}$, then $iS$ is a self-adjoint operator.
+
+
+\subsubsection*{Solution}
+
+Note that $T + I$ and $T - I$ commute, so $(T - I)^{-1}$ and $T + I$ commute as well.
+We have
+\begin{equation*}
+    \begin{split}
+        S^* &= (T^* + I^*)^{-1}(T^* - I^*) \\
+            &= (T^{-1} + I)^{-1}(T^{-1} - I) \\
+            &= (T^{-1}(I + T))^{-1}(T^{-1} - I) \\
+            &= (T + I)^{-1} T(T^{-1} - I) \\
+            &= (T + I)^{-1} (I - T) \\
+            &= - (T - I)(T + I)^{-1} = -S.
+    \end{split}
+\end{equation*}
+Note that if $\mathbb{F} = \mathbb{C}$, then $(iS)^* = -\overline{i}S = iS$.
+So, $iS$ is self-adjoint.
+
+
+\subsubsection*{Exercise 7D.16}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $T \in \mathcal{L}(V)$ self-adjoint.
+Prove that $S = (T + iI)(T - iI)^{-1}$ is a unitary operator and $1$ is not an eigenvalue of this operator.
+
+\subsubsection*{Solution}
+
+Note that $T + iI$ and $T - iI$ commute, so $(T + iI)(T - iI)^{-1} = (T - iI)^{-1}(T + iI)$ and $(T + iI)^{-1}(T - iI) = (T - iI)(T + iI)^{-1}$.
+We calculate
+\begin{equation*}
+    S^*
+        = (T^* - (iI)^*)^{-1} (T^* + (iI)^*)
+        = (T + iI)^{-1} (T - iI)
+        = (T - iI) (T + iI)^{-1}.
+\end{equation*}
+Therefore we see that $S^*S = I = SS^*$, hence by 7.53, $S$ is a unitary operator.
+
+Suppose $v \in V$ such that $Sv = v$, then $(T + iI)v = (T - iI)v$, hence $iv = -iv$, which is impossible.
+So there is no eigenvector with eigenvalue $1$.
+
+
+\subsubsection*{Exercise 7D.18}
+
+A square matrix $A$ is called symmetric if it equals its transpose.
+Prove that if $A$ is a symmetric matrix with real entries, then there exists a unitary matrix $Q$ with real entries such that $Q^*AQ$ is a diagonal matrix.
+
+\subsubsection*{Solution}
+
+We identify square matrix $A$ with its corresponding operator $A \in \mathcal{L}(V)$, and abuse notation by writing the same letter.
+If $A$ has real entries, we can consider $V$ to be a real vector space.
+As $A$ equals its transpose, $A^* = A$, so $A$ is self-adjoint.
+By the Spectral Theorem for real vector spaces $A = Q^*AQ$, where $Q$ is a unitary matrix with real entries.
