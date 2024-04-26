@@ -603,6 +603,18 @@ In the inner product space of continuous real-valued functions on $A = [-\pi, \p
         Show that $T$ is self-adjoint.
 \end{itemize}
 
+\subsubsection*{Solution}
+
+\begin{itemize}
+    \item[(a)] Showing that $D^* = -D$ is equivalent to showing that $\langle Df, g\rangle = \int_A f'(x)g(x)dx = - \int_A f(x)g'(x)dx = \langle f, -Dg \rangle$.
+        We can calculate this by evaluating $\langle Df, g \rangle$ on all basis elements $1, \cos(kx), \sin(\ellx)$.
+        TODO: do the calculations.
+        Note that if $D^* = -D$, then $D^*D = -D^2 = DD^*$.
+        So $D$ is normal, but not self-adjoint.
+    \item[(b)] We have $T^* = (D^2)* = (D^*)^2 = (-D)^2 = D^2 = T$.
+        So, $T$ is self-adjoint.
+\end{itemize}
+
 
 \subsubsection*{Exercise 7A.32}
 
