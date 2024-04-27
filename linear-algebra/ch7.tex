@@ -593,7 +593,7 @@ hence $z_1 + z_2 + z_3 = 0$.
 Fix a positive integer $n$.
 In the inner product space of continuous real-valued functions on $A = [-\pi, \pi]$ with inner product $\langle f, g \rangle = \int_A f(x)g(x) dx$, let
 \begin{equation*}
-    V = \span(1, \cos(x), \cos(2x), ..., \cos(nx), \sin(x), \sin(2x), ..., \sin(nx)).
+    V = \mathrm{span}(1, \cos(x), \cos(2x), ..., \cos(nx), \sin(x), \sin(2x), ..., \sin(nx)).
 \end{equation*}
 \begin{itemize}
     \item[(a)] Define $D \in \mathcal{L}(V)$ by $Df = f'$.
@@ -607,7 +607,7 @@ In the inner product space of continuous real-valued functions on $A = [-\pi, \p
 
 \begin{itemize}
     \item[(a)] Showing that $D^* = -D$ is equivalent to showing that $\langle Df, g\rangle = \int_A f'(x)g(x)dx = - \int_A f(x)g'(x)dx = \langle f, -Dg \rangle$.
-        We can calculate this by evaluating $\langle Df, g \rangle$ on all basis elements $1, \cos(kx), \sin(\ellx)$.
+        We can calculate this by evaluating $\langle Df, g \rangle$ on all basis elements $1, \cos(kx), \sin(\ell x)$.
         TODO: do the calculations.
         Note that if $D^* = -D$, then $D^*D = -D^2 = DD^*$.
         So $D$ is normal, but not self-adjoint.
