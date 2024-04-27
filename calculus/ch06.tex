@@ -299,3 +299,25 @@ such that
 As $x$ tends to infinity $\phi(x) \to 1$.
 So $\phi(x)$ is bounded by a finite number for sufficient large values of $x$.
 We can now apply Theorem 62.II to show that the integral converges.
+
+
+\subsection*{Exercise 6.22}
+
+Test the convergence of the following integral
+\begin{equation*}
+    \int_a^{\infty} \frac{x^4}{(x^2 + a^2)^{\frac{5}{2}}} dx
+\end{equation*}
+
+\subsection*{Solution}
+
+We have
+\begin{equation*}
+    \int_a^{\infty} \frac{x^4}{(x^2 + a^2)^{\frac{5}{2}}} dx
+        = \int_a^{\infty} \frac{1}{x} \phi(x) dx,
+\end{equation*}
+where
+\begin{equation*}
+    \phi(x) = \frac{x^5}{(x^2 + a^2)^{\frac{5}{2}}}.
+\end{equation*}
+Note that $\phi(x) \to 1$ as $x \to \infty$.
+By Theorem 62.II we see that the integral doesn't converge.
