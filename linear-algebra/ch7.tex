@@ -622,6 +622,17 @@ Suppose $T: V \to W$ is a linear map.
 Show that under the standard identification of $V$ with $V'$ (see 6.58) and the corresponding identification of $W$ with $W'$, the adjoint map $T^*: W \to V$ corresponds to the dual map $T': W' \to V'$.
 More precisely, show that $T'(\phi_w) = \phi_{T^*w}$ for all $w \in W$, where $\phi_w$ and $\phi_{T^*w}$ are defined as in 6.58.
 
+\subsubsection*{Solution}
+
+We have
+\begin{equation*}
+    T'(\phi_w)(v)
+        = \phi_w(T(v))
+        = \langle T(v), w \rangle
+        = \langle v, T^*(w) \rangle
+        = \phi_{T^*(w)}(v).
+\end{equation*}
+
 
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
