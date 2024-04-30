@@ -666,6 +666,28 @@ Because $T$ has only one eigenvalue $\lambda$, we must have $\mathcal{M}(T) = \l
 Therefore $T = \lambda I$.
 
 
+\subsubsection*{Exercise 7B.3}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $T \in \mathcal{L}(V)$ is normal.
+Prove that the set of eigenvalues of $T$ is contained in $\{0, 1\}$ if and only if there is a subspace $U$ of $V$ such that $T = P_U$.
+
+\subsubsection*{Solution}
+
+By the Spectral Theorem we can find an orthonormal basis of $V$ such that $T$ is diagonal with respect to that basis.
+The diagonal of that matrix contains the eigenvalues of $T$, and the basis corresponds to the eigenvectors of $T$.
+
+$\rightarrow$, suppose all eigenvalues are $0$ or $1$.
+Without loss of generality we can assume $\lambda_1 = \lambda_2 = ... = \lambda_k = 0$ and $\lambda_{k+1} = \lambda_{k+2} = ... = \lambda_n = 1$.
+Take $U = \mathrm{span}(e_{k+1}, e_{k+2}, ..., e_n)$, such that $U^{\perp} = \mathrm{span}(e_1, e_2, ..., e_k)$ and $V = U \oplus U^{\perp}$.
+Let $v \in V$ and write $v = u + w \in U \oplus U^{\perp}$, then $Tv = Tu + Tv = u = P_Uv$.
+Hence, $T = P_U$.
+
+$\leftarrow$, if $T = P_U$ for some subspace $U$ of $V$.
+Let $\{e_1, e_2, ..., e_n\}$ be an orthonormal basis such that $U = \mathrm{span}(e_1, e_2, ..., e_k)$.
+Then $Te_i = P_U e_i = e_i$ if $e_i \in U$ and $Te_i = 0$ if $e_i \notin U$.
+So $\{e_1, e_2, ..., e_n\}$ are eigenvectors for $T$ with eigenvalues $0$ or $1$.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
