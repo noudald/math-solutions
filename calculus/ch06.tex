@@ -355,3 +355,28 @@ Note that
 \end{equation*}
 if $x \to \infty$, by l'H\^opital's rule, hence $\phi(x) \to 0$ if $x \to \infty$.
 Now apply Theorem 62.II to conclude that the original integral converges.
+
+
+\subsection*{Exercise 6.25}
+
+Test the convergence of the following integral
+\begin{equation*}
+    \int_0^{\infty} e^{-x^2 - \frac{a^2}{x^2}} dx.
+\end{equation*}
+
+\subsection*{Exercise 6.25}
+
+Note that $0 \leq e^{\frac{a^2}{x^2}} \leq 1$ for all $0 \leq x < \infty$.
+So
+\begin{equation*}
+    \left| \int_0^{\infty} e^{-x^2 - \frac{a^2}{x^2}} dx \right|
+        \leq \int_0^{\infty} \left|e^{-x^2}\right| \left|e^{-\frac{a^2}{x^2}}\right| dx
+        \leq \int_0^{\infty} e^{-x^2} dx.
+\end{equation*}
+Following Example 62.2 we take $\phi(x) = x^2e^{-x^2}$.
+Then $\phi(x) \to 0$ if $x \to \infty$, so by Theorem 62.II
+\begin{equation*}
+    \int_0^{\infty} e^{-x^2} dx = \int_0^{\infty} \frac{\phi(x)}{x^2} dx
+\end{equation*}
+converges.
+And, therefore, the original integral converges as well.
