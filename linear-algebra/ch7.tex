@@ -688,6 +688,20 @@ Then $Te_i = P_U e_i = e_i$ if $e_i \in U$ and $Te_i = 0$ if $e_i \notin U$.
 So $\{e_1, e_2, ..., e_n\}$ are eigenvectors for $T$ with eigenvalues $0$ or $1$.
 
 
+\subsubsection*{Exercise 7B.4}
+
+Prove that a normal operator on a complex inner product space is skew if and only if all its eigenvalues are purely imaginary.
+
+\subsubsection*{Solution}
+
+Let $T \in \mathcal{L}(V)$ be a normal operator.
+By the Spectra Theorem, 7.31, $T$ has a diagonal matrix with respect to some orthonormal basis of $V$.
+If $T$ is skew, then $\mathcal{M}(T^*) = \mathcal{M}(T)^* = -\mathcal{M}(T)$.
+Since $\mathcal{M}(T)$ is diagonal with eigenvalues on the diagonal, we have for each eigenvalue $\lambda_i$ that $\overline{\lambda_i} = -\lambda_i$.
+This is only true if and only if $\lambda_i \in i\mathbb{R}$.
+So $T$ is skew if and only if $\overline{\lambda_i} = -\lambda_i$ for all eigenvalues $\lambda_i$ if and only if all eigenvalues are purely imaginary.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
