@@ -380,3 +380,26 @@ Then $\phi(x) \to 0$ if $x \to \infty$, so by Theorem 62.II
 \end{equation*}
 converges.
 And, therefore, the original integral converges as well.
+
+
+\subsection*{Exercise 6.26}
+
+Test the convergence of the following integral
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{\sqrt{x^3 - 1}}.
+\end{equation*}
+
+\subsection*{Solution}
+Rewrite
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{\sqrt{x^3 - 1}}
+        = \int_0^{\infty} \frac{1}{x^{\frac{3}{2}}} \frac{x^{\frac{3}{2}}}{(x^3 - 1)^{\frac{1}{2}}} dx.
+        = \int_0^{\infty} \frac{\phi(x)}{x^{\frac{3}{2}}} dx.
+\end{equation*}
+We calculate the limit as $x \to \infty$ for
+\begin{equation*}
+    \phi(x) = \frac{x^{\frac{3}{2}}}{(x^3 - 1)^{\frac{1}{2}}}
+        = \left( \frac{x^3}{x^3 - 1} \right)^{\frac{1}{2}}
+        \to 1.
+\end{equation*}
+Now apply Theorem 62.II to show that the original integral converges.
