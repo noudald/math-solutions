@@ -702,6 +702,48 @@ This is only true if and only if $\lambda_i \in i\mathbb{R}$.
 So $T$ is skew if and only if $\overline{\lambda_i} = -\lambda_i$ for all eigenvalues $\lambda_i$ if and only if all eigenvalues are purely imaginary.
 
 
+\subsubsection*{Exercise 7B.5}
+
+Prove or give a counterexample: If $T \in \mathcal{L}(\mathbb{C}^3)$ is a diagonalizable operator, then $T$ is normal (with respect to the usual inner product).
+
+\subsubsection*{Solution}
+
+Take
+\begin{equation*}
+T = \begin{pmatrix}
+    1 & 1 & 0 \\
+    0 & 2 & 0 \\
+    0 & 0 & 1
+\end{pmatrix}, \quad
+S = \begin{pmatrix}
+    1 & \frac{1}{2}\sqrt{2} & 0 \\
+    0 & \frac{1}{2}\sqrt{2} & 0 \\
+    0 & 0 & 1
+\end{pmatrix}, \quad
+S^{-1}TS = \begin{pmatrix}
+    1 & 0 & 0 \\
+    0 & 2 & 0 \\
+    0 & 0 & 1
+\end{pmatrix}.
+\end{equation*}
+So $T$ is diagonalizable.
+However
+\begin{equation*}
+    TT^* = \begin{pmatrix}
+        2 & 2 & 0 \\
+        2 & 4 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    \neq
+    \begin{pmatrix}
+        1 & 1 & 0 \\
+        1 & 4 & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}
+    = T^*T.
+\end{equation*}
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
