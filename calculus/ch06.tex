@@ -403,3 +403,27 @@ We calculate the limit as $x \to \infty$ for
         \to 1.
 \end{equation*}
 Now apply Theorem 62.II to show that the original integral converges.
+
+
+\subsection*{Exercise 6.27}
+
+Prove the convergence of
+\begin{equation*}
+    \int_0^{\infty} \sin(x^2) dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+Write
+\begin{equation*}
+    \int_0^{\infty} \sin(x^2) dx
+        = \sum_{k = 0}^{\infty} \int_{\sqrt{k \pi}}^{\sqrt{(k + 1) \pi}} \sin(x^2) dx
+        = \sum_{k = 0}^{\infty} (-1)^k u_k,
+\end{equation*}
+where
+\begin{equation*}
+    u_k = \left| \int_{\sqrt{k \pi}}^{\sqrt{(k + 1)\pi}} \sin(x^2) dx \right| \leq (\sqrt{k+1} - \sqrt{k}) \sqrt{\pi}.
+\end{equation*}
+Note that $(\sqrt{k+1} - \sqrt{k}) \to 0$ if $k \to \infty$, so $u_k \to 0$ as well.
+Also $u_k > u_{k+1}$.
+Therefore, we can apply 29.(2) to show that $\sum_{k = 0}^{\infty} (-1)^k u_k$ converges, and hence the integral converges as well.
