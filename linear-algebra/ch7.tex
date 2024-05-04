@@ -744,6 +744,19 @@ However
 \end{equation*}
 
 
+\subsubsection*{Exercise 7B.6}
+
+Suppose $V$ is a complex inner product space and $T \in \mathcal{L}(V)$ is a normal operator such that $T^9 = T^8$.
+Prove that $T$ is self-adjoint and $T^2 = T$.
+
+\subsubsection*{Solution}
+
+By the Spectral Theorem, 7.31, there is an orthonormal basis $\{v_i\}$ such that $Tv_i = \lambda_i v_i$.
+We have $\lambda_i^9 v_i = T^9 v_i = T^8 v_i = \lambda_i^8 v_i$, so $\lambda_i^9 = \lambda_i^8$, so $\lambda_i^2 = \lambda_i$, which implies $\lambda_i \in \{0, 1\}$.
+Because all eigenvalues are real, $T$ is self-adjoint.
+Because the diagonal contains either $0$ or $1$ in the diagonal $\mathcal{M}(T)$, $T^2 = T$.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
