@@ -444,3 +444,28 @@ Rewrite
 \end{equation*}
 Note that $|\phi(x)| = xe^{-ax} \to 0$ if $x \to \infty$, so $\phi(x) \to \infty$ as well.
 Now apply Theorem 62.II to show that the integral converges.
+
+
+\subsection*{Exercise 6.29}
+
+Prove that the conditions for differentiability with respect to $\alpha$ under the integral sign is satisfied for
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x} dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+We need $\alpha > 0$, otherwise the integral doesn't converge.
+Let $f(x, \alpha) = x^{2} e^{-\alpha x}$, such that $f_{\alpha}(x, \alpha) = -x^{3} e^{-\alpha x}$.
+Now $f$ and $f_{\alpha}$ are both continuous for $0 < x < \infty$.
+Take $\ell > 0$ and write
+\begin{equation*}
+    F(\alpha) = \int_0^{\infty} f(x, \alpha) dx = \int_0^{\ell} f(x, \alpha) dx + \int_{\ell}^{\infty} f(x, \alpha) dx.
+\end{equation*}
+For $\ell$ large enough, we have
+\begin{equation*}
+    f(x, \alpha) = \frac{x^4 e^{-\alpha x}}{x^2} < \frac{1}{x^2},
+    \quad \left|f_{\alpha}(x, \alpha)\right| = \left|-\frac{x^5 e^{-\alpha x}}{x^2}\right| < \frac{1}{x^2},
+\end{equation*}
+when $x > \ell$.
+Therefore, $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
