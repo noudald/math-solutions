@@ -770,6 +770,28 @@ Note that $T$ is not normal, because $T^*T \neq TT^*$.
 This is why the result of 7B.6 fails in this case.
 
 
+\subsubsection*{Exercise 7B.8}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $T \in \mathcal{L}(V)$.
+Prove that $T$ is normal if and only if every eigenvector of $T$ is also an eigenvector of $T^*$.
+
+\subsubsection*{Solution}
+
+$\rightarrow$, Because $T$ is normal we can use the Spectral Theorem 7.31 to find an orthonormal basis $e_1, e_2, ..., e_n$ such that $\mathcal{M}(T)$ is diagonal with elements $\lambda_1, \lambda_2, ..., \lambda_n$.
+This orthonormal basis are the eigenvectors of $T$ with eigenvalues $\lambda_1, \lambda_2, ..., \lambda_n$.
+Therefore, $\mathcal{T^*} = \mathcal{T}^*$, so $T^*$ has eigenvalues $\overline{\lambda_1}, \overline{\lambda_2}, ..., \overline{\lambda_n}$ with the same eigenvectors $e_1, e_2, ..., e_n$.
+
+\noindent $\leftarrow$, Suppose $T$ and $T^*$ have the same eigenvectors.
+By Schur's Theorem, 6.38, $T$ has an orthonormal basis $e_1, e_2, ..., e_n$ such that $\mathcal{M}(T)$ is an upper triangular matrix.
+Let $\mathcal{M}(T) = A = (a_{ij})_{i,j}$.
+Note that if $Te_i = \sum_{j=0}^n a_{ij} e_j$, then $T^*e_j = \sum_{j = 0}^n \overline{a_{ji}} e_j$.
+We have that $Te_1 = a_{11} e_1$ is an eigenvector of $T$, so $e_1$ is an eigenvector of $T^*$, hence $T^*e_1 = \sum_{j = 0}^n \overline{a_{ji}} e_j = \overline{a_{11}} e_1$.
+So we must have $a_{j1} = 0$ for all $j > 1$.
+By induction on $i$ in $e_i$ we fined that all $a_{ji} = 0$ if $j > i$.
+Hence $A$ is diagonal with respect to orthonormal basis $e_1, e_2, ..., e_n$.
+By the Spectral Theorem, 7.31, $T$ is normal.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
