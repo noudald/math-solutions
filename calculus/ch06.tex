@@ -469,3 +469,26 @@ For $\ell$ large enough, we have
 \end{equation*}
 when $x > \ell$.
 Therefore, $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
+
+
+\subsection*{Exercise 6.30}
+
+Prove that the conditions for differentiability with respect to $\alpha$ under the integral sign is satisfied for
+\begin{equation*}
+    F(\alpha) = \int_0^{\infty} e^{-\alpha x^2} dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+We need $\alpha > 0$, otherwise the integral doesn't converge.
+Let $f(x, \alpha) = e^{-\alpha x^2}$, such that $f_{\alpha}(x, \alpha) = -x^2 e^{-\alpha x}$.
+Note that $f$ and $f_{\alpha}$ are continuous for $0 < x < \infty$.
+For large enough $x$ we have
+\begin{equation*}
+    |f(x, \alpha)| = |e^{-\alpha x^2}| = \left| \frac{x^2 e^{-\alpha x^2}}{x^2} \right| < \frac{1}{x^2},
+\end{equation*}
+and
+\begin{equation*}
+    |f_{\alpha}(x, \alpha)| = |-x^2 e^{-\alpha x}| = \left| \frac{-x^4 e^{-\alpha x}}{x^2} \right| < \frac{1}{x^2}.
+\end{equation*}
+So we may conclude that $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
