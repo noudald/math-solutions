@@ -492,3 +492,26 @@ and
     |f_{\alpha}(x, \alpha)| = |-x^2 e^{-\alpha x}| = \left| \frac{-x^4 e^{-\alpha x}}{x^2} \right| < \frac{1}{x^2}.
 \end{equation*}
 So we may conclude that $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
+
+
+\subsection*{Exercise 6.31}
+
+Prove that the conditions for differentiability with respect to $\alpha$ under the integral sign is satisfied for
+\begin{equation*}
+    F(\alpha) = \int_{0}^{\infty} e^{-bx^2} \cos(\alpha x) dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+We need $\alpha > 0$ and $b > 0$, otherwise the integral doesn't converge.
+Let $f(x, \alpha) = e^{-bx^2} \cos(\alpha x)$, such that $f_{\alpha}(x, \alpha) = -x e^{-bx^2} \sin(\alpha x)$.
+Note that $f$ and $f_{\alpha}$ are continuous for $0 < x < \infty$.
+For large enough $x$ we have
+\begin{equation*}
+    |f(x, \alpha)| = |e^{-b x^2} \cos(\alpha x)| = \left| \frac{x^2 e^{-b x^2} \cos(\alpha x)}{x^2} \right| < \frac{1}{x^2},
+\end{equation*}
+and
+\begin{equation*}
+    |f_{\alpha}(x, \alpha)| = |-x e^{-b x} \sin(\alpha x)| = \left| \frac{-x^3 e^{-b x} \sin(\alpha x)}{x^2} \right| < \frac{1}{x^2}.
+\end{equation*}
+So we may conclude that $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
