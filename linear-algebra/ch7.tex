@@ -792,6 +792,39 @@ Hence $A$ is diagonal with respect to orthonormal basis $e_1, e_2, ..., e_n$.
 By the Spectral Theorem, 7.31, $T$ is normal.
 
 
+\subsubsection*{Exercise 7B.9}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $T \in \mathcal{L}(V)$.
+Prove that $T$ is normal if and only if there exists a polynomial $p \in \mathcal{P}(\mathbb{C})$ such that $T^* = p(T)$.
+
+\subsubsection*{Solution}
+
+$\rightarrow$, Suppose $T$ is normal.
+We can use the Spectral Theorem, 7.31, to find an orthonormal basis of eigenvectors $v_1, v_2, ..., v_n$ such that $\mathcal{M}(T)$ is diagonal with eigenvalues $\lambda_1, \lambda_2, ..., \lambda_n$ on the diagonal.
+Additionally, we have that $\mathcal{M}(T^*) = \mathcal{M}(T)^*$ is diagonal with eigenvalues $\overline{\lambda_1}, \overline{\lambda_2}, ..., \overline{\lambda_n}$ on the diagonal.
+Define
+\begin{equation*}
+    \phi_j(x) = \prod_{i = 1, i \neq j}^{n} \left( \frac{x - \lambda_i}{\lambda_j - \lambda_i} \right).
+\end{equation*}
+Note that $\phi_j(T)v_i = \delta_{ij}$.
+The vector space $V$ decomposes into $V = E(T, \lambda_1) \oplus E(T, \lambda_2) \oplus ... \oplus E(T, \lambda_n)$.
+Let $v \in V$, then $v = a_1 v_1 + a_2 v_2 + ... + a_n v_n$.
+Then $\phi_j(T)v = a_j v_j$.
+Define
+\begin{equation*}
+    p(x) = \overline{\lambda_1} \phi_1(x) + \overline{\lambda_2} \phi_2(x) + ... + \overline{\lambda_n}(x).
+\end{equation*}
+We have
+\begin{equation*}
+    p(T)v = \overline{\lambda_1} \phi_1(T)v + \overline{\lambda_2} \phi_2(T)v + ... + \overline{\lambda_n}(T)v
+        = a_1 \overline{\lambda_1} v_1 + a_2 \overline{\lambda_2} v_2 + ... + a_n \overline{\lambda_2} v_n
+        = T^* v.
+\end{equation*}
+So $T^* = p(T)$.
+
+$\leftarrow$, If $T^* = p(T)$, then $T^* T = p(T)T = Tp(T) = TT^*$.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
