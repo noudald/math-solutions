@@ -940,3 +940,73 @@ We identify square matrix $A$ with its corresponding operator $A \in \mathcal{L}
 If $A$ has real entries, we can consider $V$ to be a real vector space.
 As $A$ equals its transpose, $A^* = A$, so $A$ is self-adjoint.
 By the Spectral Theorem for real vector spaces $A = Q^*AQ$, where $Q$ is a unitary matrix with real entries.
+
+
+\subsubsection*{Exercise 7D.19}
+
+Suppose $n$ is a positive integer.
+Let $V = \mathbb{C}^n$ and any element $z \in \mathbb{C}^n$ is denoted by $z = (z_0, z_1, ..., z_{n-1})$.
+Define linear functionals $\omega_0, \omega_1, ..., \omega_{n-1}$ on $V$ by
+\begin{equation*}
+    \omega_j(z) = \frac{1}{\sqrt{n}} \sum_{k=0}^{n-1} z_k e^{-i 2 \pi j \frac{k}{n}}.
+\end{equation*}
+The discrete Fourier transform is the operator $\mathcal{F}: V \to V$ defined by $\mathcal{F}(z) = (\omega_0(z), \omega_1(z), ..., \omega_{n-1}(z))$.
+
+\begin{itemize}
+    \item[(a)] Show that $\mathcal{F}$ is a unitary operator on $V$.
+    \item[(b)] Show that if $z \in V$ then $\mathcal{F}^{-1}(z) = \mathcal{F}(z_0, z_{n-1}, ..., z_1)$.
+    \item[(c)] Show that $\mathcal{F}^4 = I$.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+First note that if we take integers $m_1$ and $m_2$, then
+\begin{equation*}
+    \sum_{j = 0}^{n-1} e^{-i 2 \pi j \frac{m_1 - m_2}{n}}
+        = \sum_{j = 0}^{n-1} \left( e^{-i 2 \pi \frac{m_1 - m_2}{n}} \right)^j
+        = \frac{1 - e^{-i 2 \pi (m_1 - m_2)}}{1 - e^{-i 2 \pi \frac{m_1 - m_2}{n}}}
+        = \delta_{m_1, m_2}.
+\end{equation*}
+With this equation we have
+\begin{equation*}
+    \begin{split}
+        \norm{\mathcal{F}(x)}^2
+            &= \sum_{j = 0}^{n-1} \omega_j(z) \overline{\omega_j(z)} \\
+            &= \sum_{j = 0}^{n-1} \sum_{m_1 = 0}^{n-1} \sum_{m_2 = 0}^{n-1} \frac{1}{n} z_{m_1} \overline{z_{m_2}} e^{-i 2 \pi j \frac{m_1}{n}} \overline{e^{-i 2 \pi j \frac{m_2}{n}}} \\
+            &= \sum_{j = 0}^{n-1} \sum_{m_1 = 0}^{n-1} \sum_{m_2 = 0}^{n-1} \frac{1}{n} z_{m_1} \overline{z_{m_2}} e^{-i 2 \pi j \frac{m_1 - m_2}{n}} \\
+            &= \sum_{m_1 = 0}^{n-1} \sum_{m_2 = 0}^{n-1} \frac{1}{n} z_{m_1} \overline{z_{m_2}} \sum_{j = 0}^{n-1} e^{-i 2 \pi j \frac{m_1 - m_2}{n}} \\
+            &= \sum_{m_1 = 0}^{n-1} \sum_{m_2 = 0}^{n-1} \frac{1}{n} z_{m_1} \overline{z_{m_2}} \delta_{m_1, m_2} \\
+            &= \sum_{m = 0}^{n-1} z_{m} \overline{z_{m}}
+            = \norm{z}^2.
+    \end{split}
+\end{equation*}
+So $\mathcal{F}$ is an isometry.
+If $z = 0$, then $\norm{\mathcal{F}(z)} = \norm{z} = 0$, so $\mathcal{F}(z) = 0$.
+Therefore $\mathcal{F}$ is injective, and because $V$ is finite dimensional, $\mathcal{F}$ is invertible.
+This show (a), i.e., $\mathcal{F}$ is a unitary operator on $V$.
+
+I think I don't see the trick the author is suggesting in (b).
+Instead, I calculate the result brute force.
+Applying $\mathcal{F}$ on both sides, and re-parameterize the indices yields that we must show that
+\begin{equation*}
+    \mathcal{F}^2(z) = (z_0, z_{n-1}, z_{n-2}, ..., z_1).
+\end{equation*}
+Note that this is the same as showing that $\mathcal{M}{\mathcal{F}^2}_{\ell k} = 1$ if $\ell + k = 0$ mod $n$, and $0$ if $\ell + k \neq 0$ mod $n$.
+Let $v_{\ell}$ be the $\ell$-th column of the matrix $\mathcal{M}(\mathcal{F})$, then $\mathcal{M}{\mathcal{F}^2}_{\ell k} = v_{\ell}^t v_k$.
+If $\ell + k = 0$ modulo $n$, we have
+\begin{equation*}
+    v_{\ell}^t v_k = \sum_{j = 0}^{n - 1} \frac{1}{n} e^{-i 2 \pi j \frac{\ell}{n}} e^{-i 2 \pi j \frac{k}{n}}
+        = \sum_{j = 0}^{n - 1} \frac{1}{n} e^{-i 2 \pi j \frac{\ell + k}{n}}
+        = 1.
+\end{equation*}
+If $\ell + k \neq 0$ modulo $n$, we have
+\begin{equation*}
+    v_{\ell}^t v_k
+        = \sum_{j = 0}^{n - 1} \frac{1}{n} e^{-i 2 \pi j \frac{\ell + k}{n}}
+        = \sum_{j = 0}^{n - 1} \frac{1}{n} \left( e^{-i 2 \pi \frac{\ell + k}{n}} \right)^j
+        = \frac{1}{n} \frac{1 - e^{-i 2 \pi (\ell + k)}}{1 - e^{-i 2 \pi \frac{k + \ell}{n}}}
+        = 0.
+\end{equation*}
+This gives the result.
+
+For (c) use the result of (b), i.e., $\mathcal{F}^2(z) = (z_0, z_{n-1}, z_{n-2}, ..., z_1)$, so that $\mathcal{F}^4(z) = z$.
