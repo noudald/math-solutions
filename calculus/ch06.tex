@@ -515,3 +515,25 @@ and
     |f_{\alpha}(x, \alpha)| = |-x e^{-b x} \sin(\alpha x)| = \left| \frac{-x^3 e^{-b x} \sin(\alpha x)}{x^2} \right| < \frac{1}{x^2}.
 \end{equation*}
 So we may conclude that $F(\alpha)$ is continuous and differentiable, and the derivative $F'(\alpha)$ can be evaluated by differentiating under the integral sign.
+
+
+\subsection*{Exercise 6.32}
+
+Prove that the conditions for differentiability with respect to $\alpha$ under the integral sign is satisfied for
+\begin{equation*}
+    F(\alpha) = \int_{0}^{\infty} \frac{dx}{x^2 + \alpha}.
+\end{equation*}
+
+\subsection*{Solution}
+
+We solve the integral directly.
+For $\alpha \neq 0$,
+\begin{equation*}
+    F(\alpha) = \int_0^{\infty} \frac{dx}{x^2 + \alpha}
+        = \frac{1}{\alpha} \int_0^{\infty} \frac{dx}{\frac{x^2}{\alpha} + 1}
+        = \frac{1}{\sqrt{\alpha}} \int_0^{\infty} \frac{du}{u^2 + 1}
+        = \left. \frac{1}{\sqrt{\alpha}} \arctan(u) \right|_0^{\infty}
+        = \frac{\pi}{2 \sqrt{\alpha}},
+\end{equation*}
+where we use substitution $u = \frac{x}{\sqrt{\alpha}}$, hence $du = \frac{dx}{\sqrt{\alpha}}$.
+So $F$ is continuous and differentiable in $\alpha \neq 0$.
