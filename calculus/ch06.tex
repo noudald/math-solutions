@@ -537,3 +537,37 @@ For $\alpha \neq 0$,
 \end{equation*}
 where we use substitution $u = \frac{x}{\sqrt{\alpha}}$, hence $du = \frac{dx}{\sqrt{\alpha}}$.
 So $F$ is continuous and differentiable in $\alpha \neq 0$.
+
+
+\subsection*{Exercise 6.33}
+
+From
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x} dx = \frac{1}{\alpha},
+\end{equation*}
+obtain by differentiation
+\begin{equation*}
+    \int_0^{\infty} x^n e^{-\alpha x} dx = \frac{n!}{\alpha^{n+1}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Define
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} e^{-\alpha x} dx
+        = \left. \frac{-1}{\alpha} e^{-\alpha x} \right|_0^{\infty}
+        = \frac{1}{\alpha}.
+\end{equation*}
+On the one hand, by differentiating under the integral sign, we have
+\begin{equation*}
+    I^{(n)}(\alpha)
+        = \int_0^{\infty} \frac{d^n}{d\alpha^n} e^{-\alpha x} dx
+        = \int_0^{\infty} (-1)^n x^n e^{-\alpha x} dx.
+\end{equation*}
+On the other hand,
+\begin{equation*}
+    I^{(n)}(\alpha)
+        = \frac{d^n}{d\alpha^n} \frac{1}{\alpha}
+        = \frac{(-1)^n n!}{\alpha^{n+1}}.
+\end{equation*}
+Combining both equations and canceling the $(-1)^n$ term, we get the result.
