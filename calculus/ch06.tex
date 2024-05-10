@@ -571,3 +571,39 @@ On the other hand,
         = \frac{(-1)^n n!}{\alpha^{n+1}}.
 \end{equation*}
 Combining both equations and canceling the $(-1)^n$ term, we get the result.
+
+
+\subsection*{Exercise 6.34}
+
+From
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x^2} dx = \frac{1}{2} \sqrt{\frac{\pi}{\alpha}},
+\end{equation*}
+obtain by differentiation
+\begin{equation*}
+    \int_0^{\infty} x^{2n} e^{-\alpha x^2} = \frac{\sqrt{\pi}}{2} \frac{1 \cdot 3 \cdot ... \cdot (2n - 1)}{2^n} \alpha^{-n - \frac{1}{2}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Define
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} e^{-\alpha x^2} dx.
+\end{equation*}
+Using Example 65.1, we calculate
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} e^{-\alpha x^2} dx.
+        = \frac{1}{\sqrt{\alpha}} \int_0^{\infty} e^{-y^2} dy
+        = \frac{1}{2} \sqrt{\frac{\pi}{\alpha}}.
+\end{equation*}
+Differentiating under the integral sign gives us
+\begin{equation*}
+    I^{(n)}(\alpha) = \int_0^{\infty} \frac{d^n}{d\alpha^n} e^{-\alpha x^2} dx
+        = \int_0^{\infty} (-1)^n x^{2n} e^{-\alpha x^2} dx.
+\end{equation*}
+On the other hand,
+\begin{equation*}
+    I^{(n)}(\alpha) = \frac{d^n}{d\alpha^n} \frac{1}{2} \sqrt{\frac{\pi}{\alpha}}
+        = (-1)^n \frac{\sqrt{\pi}}{2} \left(\frac{1 \cdot 3 \cdot ... \cdot (2n - 1)}{2^n} \right) \alpha^{-n + \frac{1}{2}}.
+\end{equation*}
+Canceling the $(-1)^n$ term in both equations gives us the result.
