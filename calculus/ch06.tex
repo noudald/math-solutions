@@ -607,3 +607,43 @@ On the other hand,
         = (-1)^n \frac{\sqrt{\pi}}{2} \left(\frac{1 \cdot 3 \cdot ... \cdot (2n - 1)}{2^n} \right) \alpha^{-n + \frac{1}{2}}.
 \end{equation*}
 Canceling the $(-1)^n$ term in both equations gives us the result.
+
+
+\subsection*{Exercise 6.35}
+
+From
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{x^2 + \alpha} = \frac{\pi}{2 \sqrt{\alpha}},
+\end{equation*}
+obtain by differentiation
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{(x^2 + \alpha)^n} = \frac{\pi}{2} \frac{1 \cdot 3 \cdot 5 \cdot ... \cdot (2n - 1)}{2 \cdot 4 \cdot 6 \cdot ... \cdot (2n)} \alpha^{-(n + \frac{1}{2})}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Define
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} \frac{dx}{x^2 + \alpha}.
+\end{equation*}
+With substitution $u = \frac{x}{\sqrt{\alpha}}$ we have
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} \frac{dx}{x^2 + \alpha}.
+        = \frac{1}{\sqrt{\alpha}} \int_0^{\infty} \frac{dx}{u^2 + 1} du
+        = \left. \frac{1}{\sqrt{\alpha}} \arctan(u) \right|_0^{\infty}
+        = \frac{\pi}{2 \sqrt{\alpha}}.
+\end{equation*}
+Differentiating under the integral sign gives us
+\begin{equation*}
+    I^{(n)}(\alpha) = \int_0^{\infty} \frac{d^n}{dx^n} \frac{dx}{x^2 + 1}
+        = (-1)^n n! \int_0^{\infty} \frac{dx}{(x^2 + 1)^n}.
+\end{equation*}
+On the other hand,
+\begin{equation*}
+    I^{(n)}(\alpha) = \frac{d^n}{d\alpha^n} \frac{\pi}{2 \sqrt{\alpha}}
+        = \frac{\pi}{2} (-1)^n \cdot \frac{1}{2} \cdot \frac{3}{2} \cdot \frac{5}{2} \cdot ... \cdot \frac{(2n-1)}{2} \alpha^{-(n + \frac{1}{2})}.
+\end{equation*}
+Combining both sides and dividing by $(-1)^n n!$ gives us
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{(x^2 + \alpha)^n} = \frac{\pi}{2} \frac{1 \cdot 3 \cdot 5 \cdot ... \cdot (2n - 1)}{2 \cdot 4 \cdot 6 \cdot ... \cdot (2n)} \alpha^{-(n + \frac{1}{2})}.
+\end{equation*}
