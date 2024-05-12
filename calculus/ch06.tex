@@ -647,3 +647,55 @@ Combining both sides and dividing by $(-1)^n n!$ gives us
 \begin{equation*}
     \int_0^{\infty} \frac{dx}{(x^2 + \alpha)^n} = \frac{\pi}{2} \frac{1 \cdot 3 \cdot 5 \cdot ... \cdot (2n - 1)}{2 \cdot 4 \cdot 6 \cdot ... \cdot (2n)} \alpha^{-(n + \frac{1}{2})}.
 \end{equation*}
+
+
+\subsection*{Exercise 6.36}
+
+From
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x} \cos(mx) dx = \frac{\alpha}{\alpha^2 + m^2},
+\end{equation*}
+obtain by integration
+\begin{equation*}
+    \int_0^{\infty} \frac{e^{-\alpha x} - e^{-\beta x}}{x \sec(mx)} dx = \frac{1}{2} \log\left( \frac{\beta^2 + m^2}{\alpha^2 + m^2} \right).
+\end{equation*}
+
+\subsection*{Solution}
+
+For the first integral calculate note that $\cos(mx) = \mathrm{Re}(e^{-imx})$, so
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x} \cos(mx) dx
+        = \mathrm{Re} \left( \int_0^{\infty} e^{-\alpha x} e^{-imx} dx \right)
+\end{equation*}
+Therefore,
+\begin{equation*}
+    \int_0^{\infty} e^{-(\alpha + im)x} dx
+        = \left. \frac{-1}{\alpha + im} e^{-(\alpha + im)x} \right|_0^{\infty}
+        = \frac{1}{\alpha + im}
+        = \frac{(\alpha - im)}{(\alpha + im)(\alpha - im)}
+        = \frac{\alpha}{\alpha^2 + m^2} - i \frac{m}{\alpha_2 + m^2}.
+\end{equation*}
+Taking the real part of this equation gives the first result.
+For the second integral, write
+\begin{equation*}
+    \int_0^{\infty} \frac{e^{-\alpha x} - e^{-\beta x}}{x \sec(mx)} dx = I(\alpha) - I(\beta),
+\end{equation*}
+where
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} \frac{e^{-\alpha x}}{x \sec(mx)} dx.
+\end{equation*}
+Differentiating under the integral sign gives
+\begin{equation*}
+    I'(\alpha) = -\int_0^{\infty} e^{-\alpha x} \cos(mx) dx = -\frac{\alpha}{\alpha^2 + m^2}.
+\end{equation*}
+Integrating $I'(\alpha)$, we get
+\begin{equation*}
+    I(\alpha) = -\frac{1}{2} \log(\alpha^2 + m^2) + C,
+\end{equation*}
+for some constant $C$.
+The constant $C$ is irrelevant, because the constant cancels in the target integral $I(\alpha) - I(\beta)$.
+We have
+\begin{equation*}
+    I(\alpha) - I(\beta) = -\frac{1}{2} \log(\alpha^2 + m^2) + \frac{1}{2} \log(\beta^2 + m^2)
+        = \frac{1}{2} \log \left( \frac{\beta^2 + m^2}{\alpha^2 + m^2} \right).
+\end{equation*}
