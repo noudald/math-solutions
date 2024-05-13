@@ -699,3 +699,40 @@ We have
     I(\alpha) - I(\beta) = -\frac{1}{2} \log(\alpha^2 + m^2) + \frac{1}{2} \log(\beta^2 + m^2)
         = \frac{1}{2} \log \left( \frac{\beta^2 + m^2}{\alpha^2 + m^2} \right).
 \end{equation*}
+
+
+\subsection*{Exercise 6.37}
+
+From
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha x} \sin(mx) dx = \frac{m}{\alpha^2 + m^2},
+\end{equation*}
+obtain by integration
+\begin{equation*}
+    \int_0^{\infty} \frac{e^{-\alpha x} - e^{-\beta x}}{x \csc(mx)} dx = \tan^{-1}\left(\frac{\beta}{m}\right) - \tan^{-1}\left(\frac{\alpha}{m}\right).
+\end{equation*}
+
+\subsection*{Solution}
+
+The first integral can be obtained using the same method as in Exercise 6.36, but taking the imaginary part instead of the real part.
+For the second integral, write
+\begin{equation*}
+    \int_0^{\infty} \frac{e^{-\alpha x} - e^{-\beta x}}{x \csc(mx)} dx = I(\alpha) - I(\beta),
+\end{equation*}
+where
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} \frac{e^{-\alpha x}}{x \csc(mx)} dx.
+\end{equation*}
+Differentiating under the integral sign with respect to $\alpha$ gives
+\begin{equation*}
+    I'(\alpha) = - \int_0^{\infty} e^{-\alpha x} \sin(mx) dx = \frac{m}{\alpha^2 + m^2}.
+\end{equation*}
+Integrating $I'(\alpha)$ gives
+\begin{equation*}
+    I(\alpha) = -\tan^{-1}\left( \frac{\alpha}{m} \right) + C.
+\end{equation*}
+The constant $C$ is irrelevant, because the constant will cancel in the target integral $I(\alpha) - I(\beta)$.
+We have
+\begin{equation*}
+    I(\alpha) - I(\beta) = \tan^{-1}\left(\frac{\beta}{m}\right) - \tan^{-1}\left(\frac{\alpha}{m}\right).
+\end{equation*}
