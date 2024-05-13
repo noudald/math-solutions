@@ -874,6 +874,25 @@ Note that $\mathcal{M}(T)$ and $\mathcal{M}(T^*) = \mathcal{M}(T)^*$ are both an
 But this is only possible when $\mathcal{M}(T)$ is a diagonal matrix.
 
 
+\subsubsection*{Exercise 7B.14}
+
+Suppose $\mathbb{F} = \mathbb{R}$ and $T \in \mathcal{L}(V)$.
+Prove that $T$ is self-adjoint if and only if all pairs of eigenvectors corresponding to distinct eigenvalues of $T$ are orthogonal and $V = E(\lambda_1, T) \oplus E(\lambda_2, T) \oplus ... \oplus E(\lambda_m, T)$, where $\lambda_1, \lambda_2, ..., \lambda_m$ denote the distinct eigenvalues of $T$.
+
+\subsubsection*{Solution}
+
+$\rightarrow$, Suppose $T$ is self-adjoint.
+By the Spectral Theorem, 7.29, there exists an orthonormal basis of eigenvectors of $T$ such that $T$ has a diagonal matrix.
+Therefore, $V = E(\lambda_1, T) \oplus E(\lambda_2, T) \oplus ... \oplus E(\lambda_m, T)$.
+Let $\lambda_i$ and $\lambda_j$ distinct eigenvalues of $T$.
+Take $v \in E(\lambda_i, T)$ and $w \in E(\lambda_j, T)$, then $\lambda_i \langle v, w \rangle = \langle \lambda_i v, w \rangle = \langle Tv, w \rangle = \langle v, Tw \rangle = \langle v, \lambda_j w \rangle = \lambda_j \langle v, w \rangle$.
+So we must have $\langle v, w \rangle = 0$.
+This shows all the requirements.
+
+$\leftarrow$, Because $V = E(\lambda_1, T) \oplus E(\lambda_2, T) \oplus ... \oplus E(\lambda_m, T)$, by Theorem 5.55, $V$ has a basis of eigenvectors for which $T$ has a diagonal matrix.
+Since the eigenvectors of distinct eigenvalues are orthogonal, by the Spectral Theorem 7.29, $T$ is self-adjoint.
+
+
 \subsection*{Section 7D - Isometries, Unitary Operators, and Matrix Factorization}
 
 \subsubsection*{Exercise 7D.12}
