@@ -736,3 +736,35 @@ We have
 \begin{equation*}
     I(\alpha) - I(\beta) = \tan^{-1}\left(\frac{\beta}{m}\right) - \tan^{-1}\left(\frac{\alpha}{m}\right).
 \end{equation*}
+
+
+\subsection*{Exercise 6.40}
+
+Investigate the convergence of the following integral
+\begin{equation*}
+    \int_0^1 \log(x)^n dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+Use the substitution $u = -\log(x)$ such that $x = e^{-u}$ and $dx = -e^{-u}du$.
+We have
+\begin{equation*}
+    I = \int_0^1 \log(x)^n dx
+        = \int_0^{\infty} (-1)^n u^n e^{-u} du.
+\end{equation*}
+Define
+\begin{equation*}
+    J(\alpha) = \int_0^{\infty} e^{-u\alpha} du = \frac{1}{\alpha}.
+\end{equation*}
+Differentiating $n$ times with respect to $\alpha$ gives on the one hand
+\begin{equation*}
+    J^{(n)}(\alpha) = \frac{d^n}{d\alpha^n} \frac{1}{\alpha} = \frac{(-1)^n n!}{\alpha^n}.
+\end{equation*}
+On the other hand, differentiating under the integral sign
+\begin{equation*}
+    J^{(n)}(\alpha) = \int_0^{\infty} \frac{d^n}{d\alpha^n} e^{-u\alpha} du
+        = \int_0^{\infty} (-1)^n u^n e^{-u\alpha} du.
+\end{equation*}
+From this last integral, we see that $I = J^{(n)}(\alpha = 1) = (-1)^n n! / \alpha^n$.
+In particular, this integral converges for all $n \geq 0$.
