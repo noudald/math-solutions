@@ -768,3 +768,25 @@ On the other hand, differentiating under the integral sign
 \end{equation*}
 From this last integral, we see that $I = J^{(n)}(\alpha = 1) = (-1)^n n! / \alpha^n$.
 In particular, this integral converges for all $n \geq 0$.
+
+
+\subsection*{Exercise 6.42}
+
+Investigate the convergence of the following integral
+\begin{equation*}
+    \int_0^1 \frac{x dx}{(1 - x^4)^{\frac{1}{3}}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Use the substitution $y = x^4$, so $dy = 4 x^3 dx = 4 y^{-\frac{3}{4}} dx$, to calculate
+\begin{equation*}
+    \int_0^1 \frac{x dx}{(1 - x^4)^{\frac{1}{3}}}
+        = \int_0^1 \frac{1}{4} y^{-\frac{1}{2}} (1 - y)^{-\frac{1}{3}} dy
+        = \frac{1}{4} B(\frac{1}{2}, \frac{2}{3})
+        = \frac{1}{4} \frac{\Gamma(\frac{1}{2}) \Gamma(\frac{2}{3})}{\Gamma(\frac{7}{6})}
+        = \frac{3}{2} \sqrt{\pi} \frac{\Gamma(\frac{2}{3})}{\Gamma(\frac{1}{6})}.
+\end{equation*}
+The integral exists, so it must converge.
+
+TODO: find a more elementary argument why the integral converges.
