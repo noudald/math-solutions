@@ -770,6 +770,47 @@ From this last integral, we see that $I = J^{(n)}(\alpha = 1) = (-1)^n n! / \alp
 In particular, this integral converges for all $n \geq 0$.
 
 
+\subsection*{Exercise 6.41}
+
+Investigate the convergence of the following integral
+\begin{equation*}
+    \int_0^1 \frac{\log(x)}{1 - x^2} dx.
+\end{equation*}
+
+\subsection*{Solution}
+
+Use substitution $u = -\log(x)$, such that $du = -e^{u}dx$, and
+\begin{equation*}
+    I = \int_0^1 \frac{\log(x)}{1 - x^2} dx
+        = \int_0^{\infty} \frac{u e^{-u}}{1 - e^{-2u}} du
+        = - \int_0^{\infty} \frac{u e^{u}}{1 - e^{2u}} du.
+\end{equation*}
+Note that, using l'H\^opital's Theorem,
+\begin{equation*}
+    \lim_{u \to 0} \frac{u e^{u}}{1 - e^{2u}}
+        = \lim_{u \to 0} \frac{e^{u} + u e^{u}}{-2 e^{u}}
+        = \lim_{u \to 0} \frac{1 + u}{-2e^u}
+        = -\frac{1}{2}.
+\end{equation*}
+So for $\ell > 0$ we can write
+\begin{equation*}
+    I = -\int_0^{\ell} \frac{u e^{u}}{1 - e^{2u}} du - \int_{\ell}^{\infty} \frac{\phi(u)}{u^2} du,
+        \quad \phi(u) = \frac{u^3 e^{u}}{1 - e^{2u}}.
+\end{equation*}
+Using l'H\^opital's theorem several times, we see $\lim_{u \to \infty} \phi(u) = 0$.
+Therefore we can choose $\ell$ large enough such that $|\phi(u)| < 1$ for all $u > \ell$.
+Now we have
+\begin{equation*}
+    |I| \leq \left| \int_0^{\ell} \frac{u e^u}{1 - e^{2u}} du \right|
+            + \left| \int_{\ell}^{\infty} \frac{\phi(u)}{u^2} du \right|
+        \leq C_{\ell} + \int_{\ell}^{\infty} \frac{1}{u^2} du
+        = C_{\ell} + \left[ -\frac{1}{u} \right]_{\ell}^{\infty}
+        = C_{\ell} + \frac{1}{\ell},
+\end{equation*}
+where $C_{\ell}$ is finite.
+Therefore $|I| < \infty$, and integral $I$ exists, hence converges.
+
+
 \subsection*{Exercise 6.42}
 
 Investigate the convergence of the following integral
