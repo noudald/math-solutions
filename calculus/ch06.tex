@@ -831,3 +831,39 @@ Use the substitution $y = x^4$, so $dy = 4 x^3 dx = 4 y^{-\frac{3}{4}} dx$, to c
 The integral exists, so it must converge.
 
 TODO: find a more elementary argument why the integral converges.
+
+
+\subsection*{Exercise 6.43}
+
+Investigate the convergence of the following integral
+\begin{equation*}
+    \int_0^{\infty} \frac{dx}{x^{\frac{2}{3}}(1 + x)}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Let $0 < \ell_1 < \ell_2$ such that we can split the integral into three parts
+\begin{equation*}
+    I = \int_0^{\ell_1} \frac{\phi_1(x)}{x^{\frac{2}{3}}} dx + \int_{\ell_1}^{\ell_2} \frac{dx}{x^{\frac{2}{3}}(1 + x)} + \int_{\ell_2}^{\infty} \frac{\phi_2(x)}{u^{\frac{5}{3}}} du.
+\end{equation*}
+where
+\begin{equation*}
+    \phi_1(x) = \frac{1}{1 + x}, \quad \phi_2(x) = \frac{x}{1 + x}.
+\end{equation*}
+The second integral exists because everything is bounded.
+For the first integral note that $\phi_1(x) \to 1$ if $x \to 0$.
+So we can choose $\ell_1$ such that
+\begin{equation*}
+    \int_0^{\ell_1} \frac{\phi_1(x)}{x^{\frac{2}{3}}} dx \leq \int_0^{\ell_1} \frac{1}{x^{\frac{2}{3}}} dx
+        = \left. 3 x^{\frac{1}{3}} \right|_0^{\ell_1}
+        = 3 \ell_1^{\frac{1}{3}}.
+\end{equation*}
+For the third integral, note that $\phi_2(x) \to 1$ if $x \to \infty$.
+Therefore, we can choose $\ell_2 > \ell_1$ such that
+\begin{equation*}
+    \int_{\ell_2}^{\infty} \frac{\phi_2(x)}{x^{\frac{5}{3}}} dx
+        \leq \int_{\ell_2}^{\infty} \frac{1}{x^{\frac{5}{3}}} dx
+        = \left. -\frac{3}{2} x^{-\frac{2}{3}} \right|_{\ell_2}^{\infty}
+        = \frac{3}{2} \ell_2^{-\frac{2}{3}}.
+\end{equation*}
+In particular, each integral in $I$ is bounded, hence $I$ must exist and converges.
