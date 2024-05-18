@@ -867,3 +867,45 @@ Therefore, we can choose $\ell_2 > \ell_1$ such that
         = \frac{3}{2} \ell_2^{-\frac{2}{3}}.
 \end{equation*}
 In particular, each integral in $I$ is bounded, hence $I$ must exist and converges.
+
+
+\subsection*{Exercise 6.44}
+
+Investigate the convergence of the following integral
+\begin{equation*}
+    \int_1^{\infty} \frac{dx}{x \sqrt{x^2 - 1}}
+\end{equation*}
+
+\subsection*{Solution}
+
+First apply a transformation $x \to x + 1$ such that the integral limits range from $0$ to $\infty$.
+Next, use the substitution $u = x^{-1}$ such that $dx = -u^{-2} du$ and the integral limits range from $\infty$ to $0$.
+Our target integral becomes
+\begin{equation*}
+    I = \int_0^{\infty} \frac{dx}{(x + 1)\sqrt{x(x + 2)}}
+        = - \int_{\infty}^{0} \frac{u^{-2}}{(1 + u^{-1})u^{-\frac{1}{2}} (u^{-1} + 2)^{\frac{1}{2}}} du
+        = \int_0^{\infty} \frac{du}{(1 + u)(1 + 2u)^{\frac{1}{2}}}.
+\end{equation*}
+Let $\ell > 0$ such that we can split the target integral into
+\begin{equation*}
+    I = \int_0^{\ell} \frac{du}{(1 + u)(1 + 2u)^{\frac{1}{2}}} + \int_{\ell}^{\infty} \frac{\phi(u) du}{u^{\frac{3}{2}}},
+        \quad \phi(u) = \frac{u^{\frac{3}{2}}}{(1 + u)(1 + 2u)^{\frac{1}{2}}}.
+\end{equation*}
+The first integral is finite.
+Our goal is to show that for some $\ell$ the second integral is finite as well.
+Note that
+\begin{equation*}
+    \lim_{u \to \infty} \phi(u)^2 = \lim_{u \to \infty} \frac{u^3}{(1 + u)^2(1 + 2u)}
+        = \lim_{u \to \infty} \frac{u^3}{2u^3 + \mathcal{O}(u^2)}
+        = \frac{1}{2}.
+\end{equation*}
+Hence, $\phi(u) \to \frac{1}{2}\sqrt{2}$ if $u \to \infty$.
+So, for large $\ell$ we can bound $|\phi(u)| < 1$ for all $u > \ell$.
+The second integral can be absolutely bounded by
+\begin{equation*}
+    \left| \int_{\ell}^{\infty} \frac{\phi(u) du}{u^{\frac{3}{2}}} \right|
+        \leq \int_{\ell}^{\infty} \frac{du}{u^{\frac{3}{2}}}
+        = \left. -u^{-\frac{1}{2}} \right|_{\ell}^{\infty}
+        = \frac{1}{\sqrt{\ell}} < \infty.
+\end{equation*}
+So the second integral is absolutely bounded, hence $I$ converges.
