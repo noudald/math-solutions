@@ -1088,3 +1088,16 @@ If $\ell + k \neq 0$ modulo $n$, we have
 This gives the result.
 
 For (c) use the result of (b), i.e., $\mathcal{F}^2(z) = (z_0, z_{n-1}, z_{n-2}, ..., z_1)$, so that $\mathcal{F}^4(z) = z$.
+
+
+\subsubsection*{Exercise 7D.20}
+
+Suppose $A$ is a square matrix with linearly independent columns.
+Prove that there exists unique matrices $R$ and $Q$ such that $T$ is lower triangular with only positive numbers on its diagonal, $Q$ unitary, and $A = RQ$.
+
+\subsubsection*{Solution}
+
+If $A$ is a square matrix with linearly independent columns, $A^*$ is also a square matrix with linearly independent columns.
+Apply the $QR$-decomposition on $A^*$ such that $A^* = QR$, where $Q$ is a unitary matrix and $R$ an upper triangular matrix with positive numbers on its diagonal.
+Note that $A = A^{**} = R^* Q^* = R^*Q$.
+$Q$ is unitary by construction, and $R^*$ is a lower triangular matrix with positive numbers on its diagonal.
