@@ -1,0 +1,34 @@
+\section*{Chapter 5 - Eigenvalues and Eigenvectors}
+
+\subsection*{Section 5E - Commuting Operators}
+
+\subsubsection*{Exercise 5E.9}
+
+Suppose $V$ is a finite-dimensional nonzero complex vector space.
+Suppose that $\mathcal{E} \subseteq \mathcal{L}(V)$ is such that $S$ and $T$ commute for all $S, T \in \mathcal{E}$.
+\begin{itemize}
+\item[(a)] Prove that there is a vector in $V$ that is an eigenvector for every element of $\mathcal{E}$.
+\item[(b)] Prove that there is a basis of $V$ with respect to which every element of $\mathcal{E}$ has an upper-triangular matrix.
+\end{itemize}
+
+\subsubsection*{Solution}
+
+This is not a trivial extension of Theorems 5.78 and 5.80.
+A hint from the author would have been appreciated.
+
+For (a), let $W \subseteq V$ be a non-zero subspace of $V$ such that for all $S \in \mathcal{E}$, $W$ is $S$-invariant, with smallest dimension.
+Note that such a subspace always exists, because $V$ is $S$-invariant for all $S \in \mathcal{E}$, and $V$ is finite dimensional.
+Also note that $W$ doesn't have to be unique.
+Let $S \in \mathcal{E}$.
+According to Theorem 5.19, there is an eigenvector $w \in W$ such that $Sw = \lambda w$.
+Let
+\begin{equation*}
+    E_W(S, \lambda) = \{w \in W : Sw = \lambda w\}
+\end{equation*}
+be a subspace of $W$.
+By Theorem 5.78, there is at least one non-zero element in $E_W(S, \lambda)$, so $E_W(S, \lambda)$ is a non-zero subspace of $W$.
+Let $T \in \mathcal{E}$ and $w \in E_W(S, \lambda)$, then $STw = TSw = \lambda Tw$, so $Tw \in E_W(S, \lambda)$, so $E_W(S, \lambda)$ is $T$-invariant for all $T \in \mathcal{E}$.
+Because $W$ has been chosen to be a minimal subspace with these conditions we must have $W = E_W(S, \lambda)$.
+As $S$ was taken arbitrary, we have $W = E_W(S, \lambda)$ for all $S \in \mathcal{E}$.
+So, for every $w \in W$ and $S \in \mathcal{E}$, we have $Sw = \lambda w$.
+In particular, we have a simultaneous eigenvector for all operators in $\mathcal{E}$.
