@@ -936,3 +936,40 @@ Using the notation from the book, chapter XVI,
 \begin{equation*}
     \int_0^1 \sqrt{\frac{1 - k^2 x^2}{1 - x^2}} dx = E(1, k^2).
 \end{equation*}
+
+
+\subsection*{Exercise 6.46}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\infty} \frac{\sin(mx)}{x} dx = \begin{cases}
+        \frac{\pi}{2} & \text{if } m > 0, \\
+        0 & \text{if } m = 0, \\
+        -\frac{\pi}{2} & \text{if } m < 0.
+    \end{cases}
+\end{equation*}
+
+\subsection*{Solution}
+
+If $m = 0$, the integral is clearly zero.
+Let $m \neq 0$ and define
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} \frac{e^{-\alpha x} \sin(mx)}{x} dx.
+\end{equation*}
+This integral converges absolutely for all $\alpha \geq 0$, so we may differentiate under the integral sign
+\begin{equation*}
+    J(\alpha) = \frac{d}{d\alpha} I(\alpha)
+        = - \alpha \int_0^{\infty} e^{-\alpha x} \sin(mx) dx.
+\end{equation*}
+Using partial integration twice, we find
+\begin{equation*}
+    J(\alpha) = \left. \frac{\cos(mx)e^{-\alpha x}}{m} \right|_0^{\infty} - \frac{\alpha}{m} \int_0^{\infty} \cos(mx) e^{-\alpha x} dx
+        = -\frac{1}{m} - \frac{\alpha}{m} \left( \left. \frac{\sin(mx) e^{-\alpha x}}{m} \right|_0^{\infty} + \frac{\alpha}{m} \int_0^{\infty} \sin(mx) e^{-\alpha x} dx \right).
+\end{equation*}
+So,
+\begin{equation*}
+    J(\alpha) = - \frac{m}{\alpha^2 + m^2} \quad \rightarrow \quad I(\alpha) = -\arctan\left(\frac{\alpha}{m}\right) + C.
+\end{equation*}
+If $\alpha \to \infty$, the $I(\alpha) \to 0$.
+Therefore, if $m > 0$, then $C = \frac{\pi}{2}$, and if $m < 0$, then $C = -\frac{\pi}{2}$.
+Finally, if $\alpha = 0$, we have our target integral, hence $I(0) = -\arctan(0) + C = C$.
