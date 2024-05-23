@@ -32,3 +32,19 @@ Because $W$ has been chosen to be a minimal subspace with these conditions we mu
 As $S$ was taken arbitrary, we have $W = E_W(S, \lambda)$ for all $S \in \mathcal{E}$.
 So, for every $w \in W$ and $S \in \mathcal{E}$, we have $Sw = \lambda w$.
 In particular, we have a simultaneous eigenvector for all operators in $\mathcal{E}$.
+
+For (b), let $n = \dim(V)$.
+We will prove the statement with induction to the dimension $n$.
+For $n = 1$, every operator is trivially upper-triangular matrix.
+Suppose for every vector space $W$ with $\dim(W) < n$ we can find a basis such that every element of $\mathcal{E}$ has an upper-triangular matrix.
+From (a) we find a common eigenvector $v_1$ for all operators from $\mathcal{E}$.
+Let $V = \sspan(v_1) \oplus W$, and define the projection $P: V \to W: \lambda v_1 + w \mapsto w$.
+Let $S, T \in \mathcal{E}$ and define $\hat{S} = PS$ and $\hat{T} = PT$.
+With a straightforward calculation we find that $\hat{S}$ and $\hat{T}$ commute.
+Therefore, $\hat{\mathcal{E}} = \{ PS : S \in \mathcal{E} \}$ is a commuting family of operators on the subspace $W$.
+By our induction hypothesis, there is a basis $v_2, v_3, ..., v_n \in W$ such that each operator in $\hat{\mathcal{E}}$ has an upper-triangular matrix.
+Extend this basis to the basis $v_1, v_2, ..., v_n$ for $V$.
+For every $S \in \mathcal{E}$ and $k \geq 1$ we have $Sv_k = a_k v_1 + \hat{S}v_k \in \sspan(v_1, v_2, ..., v_k)$.
+So, $S$ has an upper-triangular matrix in the basis $v_1, v_2, ..., v_n$.
+Because $S$ was taken arbitrary, every operator from $\mathcal{E}$ has an upper-triangular matrix in basis $v_1, v_2, ..., v_n$.
+This yields the result.
