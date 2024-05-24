@@ -973,3 +973,49 @@ So,
 If $\alpha \to \infty$, the $I(\alpha) \to 0$.
 Therefore, if $m > 0$, then $C = \frac{\pi}{2}$, and if $m < 0$, then $C = -\frac{\pi}{2}$.
 Finally, if $\alpha = 0$, we have our target integral, hence $I(0) = -\arctan(0) + C = C$.
+
+
+\subsection*{Exercise 6.47}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\pi} x \log(\sin(x)) dx = -\frac{\pi^2}{2} \log(2).
+\end{equation*}
+
+\subsection*{Solution}
+
+Let $I$ be our target integral.
+Use the substitution $y = \pi - x$, such that $dy = -dx$, and note that $\sin(\pi - x) = \sin(x)$.
+We have
+\begin{equation*}
+    \begin{split}
+        I &= \int_0^{\pi} x \log(\sin(x)) dx \\
+            &= - \int_0^{\pi} (\pi - y) \log(\sin(y)) dy \\
+            &= \pi \int_0^{\pi} \log(\sin(y)) dy - \int_0^{\pi} y \log(\sin(y)) dy
+            = \pi \int_0^{\pi} \log(\sin(y)) dy - I.
+    \end{split}
+\end{equation*}
+So we have $I = \frac{\pi}{2} J$, where
+\begin{equation*}
+    J = \int_{0}^{\pi} \log(\sin(x)) dx.
+\end{equation*}
+Note that
+\begin{equation*}
+    \int_0^{\pi} \log(\sin(x)) dx = 2 \int_0^{\frac{\pi}{2}} \log(\sin(x)) dx
+        = 2 \int_0^{\frac{\pi}{2}} \log(\cos(y)) dy,
+\end{equation*}
+where we used the substitution $y = \frac{\pi}{2} - x$ in the last equation.
+Therefore,
+\begin{equation*}
+    \begin{split}
+        J &= \int_0^{\frac{\pi}{2}} \log(\sin(x)) dx + \int_0^{\frac{\pi}{2}} \log(\cos(x)) dx \\
+            &= \int_0^{\frac{\pi}{2}} \log(\sin(x) \cos(x)) dx \\
+            &= \int_0^{\frac{\pi}{2}} \log\left(\frac{\sin(2x)}{2}\right) dx \\
+            &= \int_0^{\frac{\pi}{2}} \log(\sin(2x)) dx - \int_0^{\frac{\pi}{2}} \log(2) dx \\
+            &= \frac{1}{2} \int_{0}^{\pi} \log(\sin(y)) dy - \frac{\pi}{2} \log(2)
+            = \frac{1}{2} J - \frac{\pi}{2} \log(2),
+    \end{split}
+\end{equation*}
+where we use the substitution $y = 2x$ in the one but last equation.
+So $J = -\pi \log(2)$, and the target integral $I = -\frac{\pi}{2} \log(2)$.
+
