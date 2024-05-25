@@ -1019,3 +1019,25 @@ Therefore,
 where we use the substitution $y = 2x$ in the one but last equation.
 So $J = -\pi \log(2)$, and the target integral $I = -\frac{\pi}{2} \log(2)$.
 
+
+\subsection*{Exercise 6.48}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\infty} e^{-\alpha^2 x^2} dx = \frac{\sqrt{\pi}}{2 \alpha}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Make the substitution $u = \alpha x$, then
+\begin{equation*}
+    I = \frac{1}{\alpha} \int_0^{\infty} e^{-u^2} du
+        = \frac{1}{\alpha} \int_0^{\infty} e^{-v^2} dv.
+\end{equation*}
+So, considering $I^2$ as a double integral and using polar coordinates
+\begin{equation*}
+    I^2 = \frac{1}{\alpha^2} \int_0^{\infty} \int_0^{\infty} e^{-(u^2 + v^2)} dv du
+        = \frac{1}{\alpha^2} \int_0^{\infty} \int_0^{\frac{\pi}{2}} e^{-r^2} r d\theta dr
+        = \frac{\pi}{4 \alpha^2}.
+\end{equation*}
+Taking the positive square root of $I^2$ gives the answer.
