@@ -1041,3 +1041,22 @@ So, considering $I^2$ as a double integral and using polar coordinates
         = \frac{\pi}{4 \alpha^2}.
 \end{equation*}
 Taking the positive square root of $I^2$ gives the answer.
+
+
+\subsection*{Exercise 6.49}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^1 \frac{dx}{\sqrt{\log\left(\frac{1}{x}\right)}} = \sqrt{\pi}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Take $u^2 = \log(1/x)$ such that $x = e^{-u^2}$ and $dx = -2ue^{-u^2}du$.
+We have
+\begin{equation*}
+    \int_0^1 \frac{dx}{\sqrt{\log\left(\frac{1}{x}\right)}}
+        = - \int_{\infty}^0 2 u^{-1} u e^{-u^2} du
+        = 2 \int_0^{\infty} e^{-u^2} du
+        = \sqrt{\pi}.
+\end{equation*}
