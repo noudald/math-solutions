@@ -1060,3 +1060,25 @@ We have
         = 2 \int_0^{\infty} e^{-u^2} du
         = \sqrt{\pi}.
 \end{equation*}
+
+
+\subsection*{Exercise 6.50}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\infty} \frac{\sin(x) \cos(mx)}{x} dx = \begin{cases}
+        0 & \text{if } m < -1 \text{ or } 1 < m, \\
+        \frac{\pi}{4} & \text{if } m = -1 \text{ or } m = 1, \\
+        \frac{\pi}{2} & \text{if } -1 < m < 1.
+    \end{cases}
+\end{equation*}
+
+\subsection*{Solution}
+
+Use the trigonometric identity $2 \sin(x) \cos(x) = \sin(x + y) + \sin(x - y)$, such that
+\begin{equation*}
+    \int_0^{\infty} \frac{\sin(x) \cos(mx)}{x} dx
+        = \frac{1}{2} \int_0^{\infty} \frac{\sin((1 + m)x)}{x} dx + \frac{1}{2} \int_0^{\infty} \frac{\sin((1 - m)x)}{x} dx.
+\end{equation*}
+Now use exercise 6.46 to evaluate both integrals.
+Working out all the specific cases (5 in total) will give the result.
