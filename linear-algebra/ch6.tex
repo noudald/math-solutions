@@ -1,5 +1,29 @@
 \section*{Chapter 6 - Inner Product Spaces}
 
+
+\subsection*{Section 6B - Orthonormal Bases}
+
+\subsubsection*{Exercise 6B.20 (Generalize Schur's Decomposition)}
+
+Suppose $\mathbb{F} = \mathbb{C}$ and $V$ is finite-dimensional, and $\mathcal{E} \subseteq \mathcal{L}(V)$ is such that $ST = TS$ for all $S, T \in \mathcal{E}$.
+Prove that there is an orthonormal basis of $V$ with respect to which every element of $\mathcal{E}$ has an upper-triangular matrix.
+
+\subsubsection*{Solution}
+
+We prove the statement with induction on the dimension of $V$.
+Let $n$ be the dimension of $V$.
+If $n = 1$ every matrix is an upper-triangular matrix, so the statement holds trivially.
+Suppose the statement holds for all vector spaces smaller than dimension $n$.
+By Exercise 5E.9, there exists a common eigenvector $v_n$ for all operators in $\mathcal{E}$.
+Split $V = \sspan(v_n) \oplus W$.
+Since $\dim(W) < \dim(V)$, we can use the induction hypothesis and find an orthonormal basis $e_1, e_2, ..., e_{n-1}$ of $W$ such that for all $S \in \mathcal{E}$ and all $k$ we have $Se_k \in \sspan(e_1, e_2, ..., e_k)$.
+Define
+\begin{equation*}
+    f_n = v_n - \langle v_n, e_1 \rangle e_1 - \langle v_n, e_2 \rangle e_2 - ... - \langle v_n, e_n \rangle e_{n-1}, \quad e_n = \frac{f_n}{\norm{f_n}}.
+\end{equation*}
+Then $e_1, e_2, ..., e_n$ is an orthonormal basis for $V = \sspan(v_n) \oplus W$, and for all $S \in \mathcal{E}$ and all $k$ we have $Se_k \in \sspan(e_1, e_2, ..., e_k)$.
+
+
 \subsection*{Section 6C - Orthogonal Complements and Minimization Problems}
 
 \subsubsection*{Exercise 6C.10}
