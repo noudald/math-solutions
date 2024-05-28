@@ -1082,3 +1082,37 @@ Use the trigonometric identity $2 \sin(x) \cos(x) = \sin(x + y) + \sin(x - y)$, 
 \end{equation*}
 Now use exercise 6.46 to evaluate both integrals.
 Working out all the specific cases (5 in total) will give the result.
+
+
+\subsection*{Exercise 6.51}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\infty} e^{-x^2 - \frac{\alpha^2}{x^2}} dx = e^{-2\alpha} \frac{\sqrt{\pi}}{2}.
+\end{equation*}
+
+
+\subsection*{Exercise 6.51}
+
+Let
+\begin{equation*}
+    I(\alpha) = \int_0^{\infty} e^{-x^2 - \frac{\alpha^2}{x^2}} dx.
+\end{equation*}
+We have
+\begin{equation*}
+    \frac{dI}{d\alpha}
+        = -2 \int_0^{\infty} \frac{\alpha}{x^2} e^{-x^2 - \frac{\alpha^2}{x^2}} dx
+        = -2 \int_{\infty}^{0} -e^{-\frac{\alpha^2}{u^2} - u^2} du
+        = -2 \int_0^{\infty} e^{-u^2 - \frac{\alpha^2}{u^2}} du
+        = -2 I,
+\end{equation*}
+where we use the substitution $u = \frac{\alpha}{x}$ in the second equality.
+Solving the differential equation $\frac{dI}{d\alpha} = -2I$ gives,
+\begin{equation*}
+    \frac{dI}{I} = -2 d\alpha
+        \quad \leftrightarrow \quad \log(I) = -2\alpha + C
+        \quad \leftrightarrow \quad I(\alpha) = e^{-2\alpha} C',
+\end{equation*}
+where $C$ and $C'$ are some constants.
+To find the constant $C'$ note that $C = I(\alpha = 0) = \frac{\sqrt{\pi}}{2}$ is a well-know integral (e.g., see Section 65, Example 1).
+Hence $I = e^{-2\alpha} \frac{\sqrt{\pi}}{2}$.
