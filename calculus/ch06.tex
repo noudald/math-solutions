@@ -1116,3 +1116,37 @@ Solving the differential equation $\frac{dI}{d\alpha} = -2I$ gives,
 where $C$ and $C'$ are some constants.
 To find the constant $C'$ note that $C = I(\alpha = 0) = \frac{\sqrt{\pi}}{2}$ is a well-know integral (e.g., see Section 65, Example 1).
 Hence $I = e^{-2\alpha} \frac{\sqrt{\pi}}{2}$.
+
+
+\subsection*{Exercise 6.52}
+
+Evaluate the following integral
+\begin{equation*}
+    \int_0^{\infty} \frac{e^{-a x} \sin(bx)}{x} dx = \tan^{-1} \left(\frac{b}{a}\right).
+\end{equation*}
+
+\subsection*{Solution}
+Note that we need $a > 0$, since otherwise the integral doesn't converge.
+Also, if $\beta = 0$, the integral is zero, so assume $\beta \neq 0$.
+Let
+\begin{equation*}
+    I(a) = \int_0^{\infty} \frac{e^{-a x} \sin(bx)}{x} dx,
+\end{equation*}
+such that
+\begin{equation*}
+    I'(a) = - \int_0^{\infty} e^{-ax} \sin(b x) dx.
+\end{equation*}
+Using partial integration twice
+\begin{equation*}
+    I'(a) = -\left( \frac{1}{b} + \frac{a^2}{b^2} \int_0^{\infty} e^{-ax} \sin(bx) dx\right)
+        = -\frac{1}{b} - \frac{a^2}{b^2} I'(a).
+\end{equation*}
+Therefore,
+\begin{equation*}
+    I'(a) = -\frac{1}{b} \frac{1}{1 + \frac{a^2}{b^2}}
+        \quad \rightarrow \quad I(a) = -\tan^{-1}\left(\frac{a}{b}\right) + C.
+\end{equation*}
+Note that $\tan^{-1}(a/b) \to \frac{\pi}{2}$ and $I(a) \to 0$ as $a \to \infty$ and $\beta > 0$, so $C = \frac{\pi}{2}$.
+If $\beta < 0$, then $\tan^{-1}(a/b) \to -\frac{\pi}{2}$ and $C = -\frac{\pi}{2}$.
+I think the original answer in the book is wrong.
+\TODO{Check my results}
