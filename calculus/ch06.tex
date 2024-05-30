@@ -1150,3 +1150,32 @@ Note that $\tan^{-1}(a/b) \to \frac{\pi}{2}$ and $I(a) \to 0$ as $a \to \infty$ 
 If $\beta < 0$, then $\tan^{-1}(a/b) \to -\frac{\pi}{2}$ and $C = -\frac{\pi}{2}$.
 I think the original answer in the book is wrong.
 \TODO{Check my results}
+
+
+\subsection*{Exercise 6.53}
+
+Evaluate the following integrals
+\begin{equation*}
+    \int_0^{\infty} \frac{\cos(x)}{\sqrt{x}} dx = \int_0^{\infty} \frac{\sin(x)}{\sqrt{x}} dx = \sqrt{\frac{\pi}{2}}.
+\end{equation*}
+
+\subsection*{Solution}
+
+Substitute $u = \sqrt{x}$, so that $dx = 2 du$.
+We have
+\begin{equation*}
+    I_1 = 2 \int_0^{\infty} \cos(u^2) du, \quad I_2 = 2 \int_0^{\infty} \sin(u^2) du.
+\end{equation*}
+Note that $e^{-iu^2} = \cos(u^2) - i \sin(u^2)$, so
+\begin{equation*}
+    \int_0^{\infty} \cos(u^2) du - i \int_0^{\infty} \sin(u^2) du
+        = \int_0^{\infty} e^{-iu^2} du
+        = \frac{\sqrt{\pi}}{2 \sqrt{i}}
+        = \frac{\sqrt{\pi}}{2} e^{- i \frac{\pi}{4}}
+        = \frac{\sqrt{\pi}}{2} \left(\cos\left(-\frac{\pi}{4}\right) - i \sin\left(-\frac{\pi}{4}\right)\right)
+        = \frac{\sqrt{2 \pi}}{4} - i \frac{\sqrt{2 \pi}}{4}.
+\end{equation*}
+Separating the real and imaginary part we have
+\begin{equation*}
+    I_1 = I_2 = 2 \frac{\sqrt{2 \pi}}{4} = \sqrt{\frac{\pi}{2}}.
+\end{equation*}
