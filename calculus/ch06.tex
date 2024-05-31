@@ -300,6 +300,22 @@ As $x$ tends to infinity $\phi(x) \to 1$.
 So $\phi(x)$ is bounded by a finite number for sufficient large values of $x$.
 We can now apply Theorem 62.II to show that the integral converges.
 
+For fun, we try to calculate the integral.
+Make the substitution $u = 1 + x^2$, such that $dx = \frac{1}{2}(u - 1)^{-\frac{1}{2}}du$.
+We have
+\begin{equation*}
+    I = \int_1^{\infty} \frac{dx}{x\sqrt{1 + x^2}}.
+        = \frac{1}{2} \int_2^{\infty} u^{-\frac{1}{2}} (u - 1)^{-1} du.
+\end{equation*}
+Next make the substitution $v = u^{\frac{1}{2}}$ such that $dv = \frac{1}{2} u^{-\frac{1}{2}} du$, such that
+\begin{equation*}
+    I = -\int_{\sqrt{2}}^{\infty} \frac{1}{1 - v^2} dv
+        = - \frac{1}{2} \left.\log\left(\frac{1 + x}{1 - x}\right)\right|_{\sqrt{2}}^{\infty}
+        = - \frac{1}{2} \log \left( \lim_{x \to \infty} \frac{(1 + x)(1 - \sqrt{2})}{(1 - x)(1 + \sqrt{2})} \right)
+        = - \frac{1}{2} \log \left( 3 - 2\sqrt{2} \right),
+\end{equation*}
+where we used l'H\^opital to calculate the limit $x \to \infty$.
+
 
 \subsection*{Exercise 6.22}
 
