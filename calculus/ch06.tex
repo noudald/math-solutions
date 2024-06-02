@@ -339,6 +339,38 @@ Note that by integration by parts where $u = \sin^2(x)$ and $v = -\frac{1}{x}$,
 \end{equation*}
 where the last equation follows from Example 65.4.
 
+Another way of calculating this integral is through contour integration.
+If we take the semi circle contour $\Gamma$ consisting of four pieces: $\Gamma_1$ is the semi circle of radius $R$ from $(R, 0)$ to $(-R, 0)$ counter clockwise; $\Gamma_2$ the line $(-R, 0)$ to $(-r, 0)$; $\Gamma_3$ the semi circle of radius $r$ from $(-r, 0)$ to $(0, r)$ clockwise; $\Gamma_4$ the line $(r, 0)$ to $(R, 0)$.
+By the Residue theorem
+\begin{equation*}
+    \oint_{\Gamma} f(z) dz = 0, \quad \text{where } \quad f(z) = \frac{1 - e^{i2z}}{2z^2}.
+\end{equation*}
+Note that $\mathrm{Re}(f(z)) = \frac{\sin^2(z)}{z^2}$.
+If $R \to \infty$, the integral over $\Gamma_1$ goes to zero, as can be checked readily.
+For $\Gamma_3$ we calculate
+\begin{equation*}
+    \oint_{\Gamma_3} f(z) dz
+        = \int_{\pi}^{0} \frac{1 - e^{i2re^{i\theta}}}{2 r^2 e^{ie\theta}} ire^{i\theta} d\theta
+        \xrightarrow{r \to 0} \int_{\pi}^0 d\theta
+        = -\pi,
+\end{equation*}
+where we used l'H\^opital on the argument in the integral in the limit.
+Also note that
+\begin{equation*}
+    \int_{-\infty}^{\infty} \frac{\sin^2(x)}{x^2} dx = 2 \int_0^{\infty} \frac{\sin^2(x)}{x^2} dx,
+\end{equation*}
+because $\frac{\sin^2(x)}{x^2}$ is an even function.
+Combining all the results we get, if $R \to \infty$ and $r \to 0$, and taking the real part
+\begin{equation*}
+    0 = 2 \int_{0}^{\infty} \frac{\sin^2(x)}{x^2} dx - \pi,
+\end{equation*}
+so the target integral $I = \frac{\pi}{2}$.
+Taking the imaginary part of this integral, we get, for free, that
+\begin{equation*}
+    \int_{-\infty}^{\infty} \frac{\sin(x)\cos(x)}{x^2} dx = 0.
+\end{equation*}
+This is also clear, of course, if you notice that $\frac{\sin(x)\cos(x)}{x^2}$ is an odd function.
+
 
 \subsection*{Exercise 6.23}
 
