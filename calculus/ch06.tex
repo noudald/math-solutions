@@ -371,6 +371,35 @@ Taking the imaginary part of this integral, we get, for free, that
 \end{equation*}
 This is also clear, of course, if you notice that $\frac{\sin(x)\cos(x)}{x^2}$ is an odd function.
 
+We can calculate the integral using Feynman's trick (twice).
+Let
+\begin{equation*}
+    I(\alpha, \beta) = \int_0^{\infty} \frac{e^{-\alpha x} \sin^2(\beta x)}{x^2} dx,
+\end{equation*}
+so that we're interested in the value of $I(0, 1)$.
+Differentiate with respect to $\alpha$ and $\beta$,
+\begin{equation*}
+    \begin{split}
+        \frac{\partial^2}{\partial\alpha \partial\beta} I(\alpha, \beta)
+            &= - \int_0^{\infty} e^{-\alpha x} \sin(\beta x)\cos(\beta x) dx \\
+            &= - 2 \int_0^{\infty} e^{-\alpha x} \sin(2\beta x) dx \\
+            &= -2\, \mathrm{Im}\left( \int_0^{\infty} e^{-(\alpha - ie\beta)x} dx \right) \\
+            &= -2\, \mathrm{Im}\left( \frac{1}{\alpha - i2\beta} \right)
+            = -\frac{1}{\beta} \frac{1}{1 + (\frac{\alpha}{\beta})^2}.
+    \end{split}
+\end{equation*}
+Integrating with respect to $\alpha = 0$, we have
+\begin{equation*}
+    \frac{\partial}{\partial \beta} I(0, \beta)
+        = -\int_{\infty}^0 \frac{1}{\beta} \frac{1}{1 + (\frac{\alpha}{\beta})^2} d\alpha
+        = \left. -\tan^{-1}\left(\frac{\alpha}{2\beta}\right) \right|_{\alpha=\infty}^{\alpha=0}
+        = \frac{\pi}{2}.
+\end{equation*}
+And, finally, integrate with respect to $\beta = 1$, to get the target integral
+\begin{equation*}
+    I(0, 1) = \int_0^1 \frac{\pi}{2} d\beta = \frac{\pi}{2}.
+\end{equation*}
+
 
 \subsection*{Exercise 6.23}
 
