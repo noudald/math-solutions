@@ -401,6 +401,37 @@ And, finally, integrate with respect to $\beta = 1$, to get the target integral
 \end{equation*}
 
 
+For another solution, we calculate the Fourier transform of the function $f(y) = \max(0, 1 - |y|)$.
+We have
+\begin{equation*}
+    \begin{split}
+        \int_0^1 e^{\alpha x} dx &= \frac{1}{\alpha}(e^{\alpha} - 1), \\
+        \int_0^1 x e^{\alpha x} dx &= \frac{1}{\alpha} e^{\alpha} - \frac{1}{\alpha^2} (e^{\alpha} - 1),
+    \end{split}
+\end{equation*}
+such that we can calculate
+\begin{equation*}
+    \begin{split}
+        \hat{f}(\xi) &= \int_{-\infty}^{\infty} f(y) e^{-iy\xi} d\xi \\
+            &= \int_{-1}^0 (1 + y) e^{-iy\xi} dy + \int_0^1 (1 - y) e^{-iy\xi} dy \\
+            &= \int_{0}^1 (1 - y) e^{iy\xi} dy + \int_0^1 (1 - y) e^{-iy\xi} dy \\
+            &= -\frac{e^{i\xi} + 2 + e^{-i\xi}}{\xi^2}
+            = \frac{\sin^2\left(\frac{\xi}{2}\right)}{\left(\frac{\xi}{2}\right)^2}.
+    \end{split}
+\end{equation*}
+Calculating the Fourier inverse on $\hat{f}(\xi)$ we have
+\begin{equation*}
+    2\pi f(y) = \mathcal{F}^{-1}(\hat{f})(y)
+        = \int_{-\infty}^{\infty} \hat{f}(\xi) e^{iy\xi} d\xi
+        = 2 \int_{-\infty}^{\infty} \frac{\sin^2(x)}{x^2} e^{i2xy} dx,
+\end{equation*}
+where we substituted $x = \frac{\xi}{2}$.
+Take $y = 0$, and note that $\sin^2(x)/x^2$ is an even function, to get
+\begin{equation*}
+    \int_0^{\infty} \frac{\sin^2(x)}{x^2} dx = \frac{\pi}{2} f(0) = \frac{\pi}{2}.
+\end{equation*}
+
+
 \subsection*{Exercise 6.23}
 
 Test the convergence of the following integral
