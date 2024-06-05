@@ -432,6 +432,24 @@ Take $y = 0$, and note that $\sin^2(x)/x^2$ is an even function, to get
 \end{equation*}
 
 
+Note that we have Schwinger's reparametrization
+\begin{equation*}
+    \frac{1}{x^n} = \frac{1}{(n - 1)!} \int_0^{\infty} y^{n-1} e^{-xy} dy.
+\end{equation*}
+With this reparametrization we see that
+\begin{equation*}
+    \begin{split}
+        \int_0^{\infty} \frac{\sin^2(x)}{x^2}
+            &= -\frac{1}{4} \int_0^{\infty} \int_0^{\infty} (e^{i2x} - 2 + e^{-i2x} y e^{-xy} dy dx \\
+            &= -\frac{1}{4} \int_0^{\infty} y \int_0^{\infty} (e^{-(y - i2)x} - 2e^{-xy} + e^{-(y + i2)x}) dx dy \\
+            &= -\frac{1}{4} \int_0^{\infty} y \left( \frac{1}{y - i2} - \frac{2}{y} + \frac{1}{y + i2} \right) dy \\
+            &= 2 \int_0^{\infty} \frac{1}{y^2 + 4} dy \\
+            &= \left. \frac{1}{2} \tan^{-1}\left(\frac{y}{2}\right) \right|_0^{\infty}
+            = \frac{\pi}{2}.
+    \end{split}
+\end{equation*}
+
+
 \subsection*{Exercise 6.23}
 
 Test the convergence of the following integral
