@@ -450,6 +450,30 @@ With this reparametrization we see that
 \end{equation*}
 
 
+Another way of solving this integral with Fourier analysis is to apply Parseval-Plancherel's theorem on $f = 1_{[-1, 1]}$.
+The Fourier transform of $f$ is
+\begin{equation*}
+    \hat{f}(\xi) = \int_{-\infty}^{\infty} 1_{[-1, 1]}(\xi) e^{-i 2 \pi x \xi} dx
+        = \int_{-1}^{1} e^{-i 2 \pi x \xi} dx
+        = \frac{\sin(2 \pi \xi)}{\pi \xi}.
+\end{equation*}
+By Pareseval-Plancherel's Theorem
+\begin{equation*}
+    \int_{-\infty}^{\infty} \frac{\sin^2(2 \pi \xi)}{\pi^2 \xi^2} d\xi
+        = \int_{-\infty}^{\infty} \hat{f}^2(\xi) d\xi
+        = \int_{-\infty}^{\infty} f^2(y) dy
+        = 2.
+\end{equation*}
+Substitute $x = 2 \pi \xi$ gives
+\begin{equation*}
+    \int_{-\infty}^{\infty} \frac{\sin^2(x)}{x^2} dx = \pi.
+\end{equation*}
+Since the function in the integral is symmetric we see
+\begin{equation*}
+    \int_0^{\infty} \frac{\sin^2(x)}{x^2} dx = \frac{\pi}{2}.
+\end{equation*}
+
+
 \subsection*{Exercise 6.23}
 
 Test the convergence of the following integral
