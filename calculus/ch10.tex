@@ -1,0 +1,34 @@
+\section*{Chapter 10. Differential equations of first order}
+
+\subsection*{Exercise 10.1}
+
+Solve
+\begin{equation*}
+    \tan(x) \tan(y) dx + \sec^2(y) dy = 0.
+\end{equation*}
+
+\subsection*{Solution}
+
+We can solve this differential equation by separating the variables.
+We have
+\begin{equation*}
+    -\tan(x) dx = \frac{\sec^2(y)}{\tan(y)} dy.
+\end{equation*}
+For the left side integrate
+\begin{equation*}
+    \int -\tan(x) dx = \int \frac{-\sin(x) dx}{\cos(x)} = \int \frac{dt}{t} = \log(\cos(x)) + C_1.
+\end{equation*}
+For the right side integrate
+\begin{equation*}
+    \int \frac{\sec^2(y)}{\tan(y)} dy
+        = \int \frac{1}{\sin(y)\cos(y)} dy
+        = \int \frac{2}{\sin(2y)} dy
+        = \int \frac{1 + t^2}{2t} \frac{2 dt}{1 + t^2}
+        = \log(t) + C_1
+        = \log(\tan(y)) + C_1,
+\end{equation*}
+where we used that $\sin(y)\cos(y) = \frac{1}{2}\sin(2y)$ and Weierstrass' substitution $t = \tan(y)$ such that $\sin(2y) = \frac{2t}{1 + t^2}$.
+We have
+\begin{equation*}
+    \log(\tan(y)) + C_1 = \log(\cos(x)) + C_2, \quad \rightarrow \quad \frac{\tan(y)}{\cos(x)} = C.
+\end{equation*}
