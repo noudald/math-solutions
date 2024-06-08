@@ -32,3 +32,13 @@ We have
 \begin{equation*}
     \log(\tan(y)) + C_1 = \log(\cos(x)) + C_2, \quad \rightarrow \quad \frac{\tan(y)}{\cos(x)} = C.
 \end{equation*}
+
+Note that the right side can be integrated more easy.
+We have
+\begin{equation*}
+    \frac{1}{\sin(y)\cos(y)}
+        = \frac{\sin^2(y) + \cos^2(y)}{\sin(y)\cos(y)}
+        = \frac{\sin(y)}{\cos(y)} + \frac{\cos(y)}{\sin(y)}.
+\end{equation*}
+The first part of the sum integrates to $-\log(\cos(y))$ and the second part to $\log(\sin(y))$.
+So, together, we get $\log(\tan(y))$.
