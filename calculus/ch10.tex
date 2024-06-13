@@ -84,3 +84,28 @@ Finally, taking the exponential, we find the solution
 \begin{equation*}
     1 + x^2 = C x^2 (1 - y^2).
 \end{equation*}
+
+
+\subsection*{Exercise 10.4}
+
+Solve
+\begin{equation*}
+    (x + y)dx + xdy = 0.
+\end{equation*}
+
+\subsection*{Solution}
+
+This differential equation is homogenous of order 1.
+Take $y = \lambda x$ such that $dy = \lambda dx + x d\lambda$.
+The differential equation becomes
+\begin{equation*}
+    x(1 + 2\lambda) dx + x^2 d\lambda = 0, \quad \rightarrow \quad \frac{1}{x} dx + \frac{1}{1 + 2\lambda} d\lambda = 0.
+\end{equation*}
+Integrating on both sides gives
+\begin{equation*}
+    \log(x) + \frac{1}{2} \log(1 + 2\lambda) = \log(x \sqrt{1 + 2\lambda}) = C.
+\end{equation*}
+Taking the exponential on both sides and replacing $\lambda = \frac{y}{x}$ gives the concise form
+\begin{equation*}
+    x^2 + 2xy = C.
+\end{equation*}
