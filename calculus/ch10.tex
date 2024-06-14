@@ -109,3 +109,29 @@ Taking the exponential on both sides and replacing $\lambda = \frac{y}{x}$ gives
 \begin{equation*}
     x^2 + 2xy = C.
 \end{equation*}
+
+
+\subsection*{Exercise 10.5}
+
+Solve
+\begin{equation*}
+    (y - \sqrt{x^2 + y^2})dx - xdy = 0.
+\end{equation*}
+
+\subsection*{Solution}
+
+Note that this differential equation is a homogeneous equation of order 1.
+Replace $y = \lambda x$, such that $dy = xd\lambda + \lambda dx$.
+We have
+\begin{equation*}
+    -x\sqrt{1 + \lambda^2} dx - x^2 d\lambda = 0, \quad \rightarrow \quad \frac{1}{x} dx + \frac{1}{\sqrt{1 + \lambda^2}} d\lambda = 0.
+\end{equation*}
+Integrate on both sides and recognize that the $\lambda$ solution is $\sinh^{-1}(\lambda) = \log(\lambda + \sqrt{1 + \lambda^2})$.
+We get
+\begin{equation*}
+    \log(x) + \log(\lambda + \sqrt{1 + \lambda^2}) = \log(x(\lambda + \sqrt{1 + \lambda^2})) = C.
+\end{equation*}
+Replace $\lambda = y/x$ and take the exponential gives
+\begin{equation*}
+    y + \sqrt{x^2 + y^2} = C.
+\end{equation*}
