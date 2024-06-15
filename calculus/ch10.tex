@@ -135,3 +135,28 @@ Replace $\lambda = y/x$ and take the exponential gives
 \begin{equation*}
     y + \sqrt{x^2 + y^2} = C.
 \end{equation*}
+
+
+\subsection*{Exercise 10.6}
+
+Solve
+\begin{equation*}
+    \left(x \sin\left(\frac{y}{x}\right) + y \cos\left(\frac{y}{x}\right)\right)dx - x \cos\left(\frac{y}{x}\right) dy = 0.
+\end{equation*}
+
+\subsection*{Solution}
+
+Note that the differential equation is a homogenous equation of order 1.
+Take $y = \lambda x$, such that $dy = xd\lambda + \lambda dx$.
+Our differential equation changes to
+\begin{equation*}
+    \frac{1}{x} dx - \frac{\cos(\lambda)}{\sin(\lambda)} dy = 0.
+\end{equation*}
+Integrating on both sides gives
+\begin{equation*}
+    \log(x) - \log(\sin(\lambda)) = \log\left(\frac{x}{\sin(\lambda)}\right) = C.
+\end{equation*}
+Replace $\lambda = y/x$, taking the exponential, and simplifying the equation leaves us with the solution
+\begin{equation*}
+    x = C \sin\left(\frac{y}{x}\right).
+\end{equation*}
