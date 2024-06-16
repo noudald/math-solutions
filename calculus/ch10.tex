@@ -160,3 +160,29 @@ Replace $\lambda = y/x$, taking the exponential, and simplifying the equation le
 \begin{equation*}
     x = C \sin\left(\frac{y}{x}\right).
 \end{equation*}
+
+
+\subsection*{Exercise 10.7}
+
+Solve
+\begin{equation*}
+    (x + 2y - 3) dx + (2x - y - 1) dy = 0.
+\end{equation*}
+
+\subsection*{Solution}
+
+Let $P = x + 2y - 3$ and $Q = 2x - y - 1$.
+Note that
+\begin{equation*}
+    \frac{\partial P}{\partial y} = 2 = \frac{\partial Q}{\partial x},
+\end{equation*}
+so the ordinary differential equation $df = P dx + Q dy = 0$ is exact.
+Therefore we have $f(x, y) = C$,
+\begin{equation*}
+    \frac{\partial f}{\partial x} = P = x + 2y - 3, \quad \rightarrow \quad f(x, y) = \frac{1}{2}x^2 + 2yx - 3x + g(y),
+\end{equation*}
+and
+\begin{equation*}
+    \frac{\partial f}{\partial y} = 2x + \frac{d g}{d y} = Q = 2x - y -1, \quad \rightarrow \quad g(y) = -\frac{1}{2}y^2 - y.
+\end{equation*}
+Combining all the results gives $x^2 - y^2 + 4xy - 6x - 2y = C$.
